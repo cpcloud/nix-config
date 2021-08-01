@@ -52,9 +52,9 @@ jobs:
 
       - name: Build ${{ matrix.system }} GCP Image
         run: |
-            nix-build \
-            -A config.nodes.${{ matrix.system }}.configuration.system.build.googleComputeImage \
-            | cachix push nixos-config
+          nix-build \
+          -A config.nodes.${{ matrix.system }}.configuration.system.build.googleComputeImage \
+          | cachix push nixos-config
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
   provision:
