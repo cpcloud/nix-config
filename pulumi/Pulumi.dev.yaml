@@ -6,6 +6,3 @@ config:
         size_gb: 250
         type: "pd-ssd"
       machine_type: "e2-standard-8"
-  gcp:project: ***REMOVED***
-  gcp:region: ***REMOVED***
-  gcp:zone: ***REMOVED***
