@@ -1,0 +1,62 @@
+{
+    "home-manager": {
+        "branch": "master",
+        "description": "Manage a user environment using Nix  [maintainer=@rycee] ",
+        "homepage": "https://nix-community.github.io/home-manager/",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "7f976da06840c268cc291a021bab7532b923713c",
+        "sha256": "06ip8hxjm8mvwrjzrsp9l8zzj74rr2sy6x009pfyz5w6030axdpr",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/home-manager/archive/7f976da06840c268cc291a021bab7532b923713c.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixos-hardware": {
+        "branch": "master",
+        "description": "A collection of NixOS modules covering hardware quirks.",
+        "homepage": "",
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
+        "rev": "09ed30ff3bb67f5efe9c77e0d79aca01793526ca",
+        "sha256": "0x4rwvxkyvpn9qpm2jbb0cbqhbcmps47p30xgda5kh65qxapf7qg",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixos-hardware/archive/09ed30ff3bb67f5efe9c77e0d79aca01793526ca.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs": {
+        "branch": "nixos-unstable-small",
+        "description": "Nix Packages collection",
+        "homepage": "",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "bc3416a2dddd3c7a2a3182373c392292ed8e22b6",
+        "sha256": "0rckbybxn33y8p0iwha3smfxal6a4mlcqpam4snj5llfszbd3krs",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/bc3416a2dddd3c7a2a3182373c392292ed8e22b6.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixus": {
+        "branch": "master",
+        "description": null,
+        "homepage": "",
+        "owner": "Infinisil",
+        "repo": "nixus",
+        "rev": "4c06f5a4d8168f81fda89b8b2c73fb41e68b1937",
+        "sha256": "1s9zixi3w1xrma042z7csqwc6agvl9xh11462r7dvsc0dvzhb7hm",
+        "type": "tarball",
+        "url": "https://github.com/Infinisil/nixus/archive/4c06f5a4d8168f81fda89b8b2c73fb41e68b1937.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "sops-nix": {
+        "branch": "master",
+        "description": "Atomic secret provisioning for NixOS based on sops",
+        "homepage": "",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "ec2800174de5a7be8ec5b144819af2c7de77abe2",
+        "sha256": "1s430ml7p6aa950xsm6rblk0cgkb0a0adgk73mjyhqmb68hnbb2k",
+        "type": "tarball",
+        "url": "https://github.com/Mic92/sops-nix/archive/ec2800174de5a7be8ec5b144819af2c7de77abe2.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}

@@ -1,0 +1,11 @@
+config:
+  dev:image_bucket: "nixos-images"
+  dev:instances:
+    - name: falcon
+      disk:
+        size_gb: 250
+        type: "pd-ssd"
+      machine_type: "e2-standard-8"
+  gcp:project: ***REMOVED***
+  gcp:region: ***REMOVED***
+  gcp:zone: ***REMOVED***

@@ -1,0 +1,7 @@
+.direnv
+.mypy_cache
+.pre-commit-config.yaml
+result
+result-*
+tags
+node_modules
