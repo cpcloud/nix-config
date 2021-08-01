@@ -1,0 +1,43 @@
+name: niv update
+on:
+  schedule:
+    - cron: "* */6 * * *"
+  workflow_dispatch:
+jobs:
+  niv-update:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dependency:
+          - home-manager
+          - nixos-hardware
+          - nixpkgs
+          - nixus
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+          token: ${{ secrets.PAT }}
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v13
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v10
+        with:
+          name: nixos-config
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          extraPullNames: nix-community
+
+      - name: Update ${{ matrix.dependency }}
+        run: nix run '(import (import ./nix).nixpkgs {}).niv' -c niv update ${{ matrix.dependency }}
+
+      - name: Create a pull request to update ${{ matrix.dependency }}
+        uses: peter-evans/create-pull-request@v3
+        with:
+          commit-message: "feat(niv): update ${{ matrix.dependency }}"
+          branch: "create-pull-request/update-${{ matrix.dependency }}"
+          delete-branch: true
+          title: "feat(niv): update ${{ matrix.dependency }}"
+          token: ${{ secrets.PAT }}

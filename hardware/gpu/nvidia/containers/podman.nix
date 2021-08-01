@@ -1,0 +1,3 @@
+{ ... }: {
+  virtualisation.podman.enableNvidia = true;
+}

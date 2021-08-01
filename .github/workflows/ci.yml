@@ -1,0 +1,111 @@
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - "**"
+
+name: Continuous Integration
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        system:
+          - albatross
+          - bluejay
+          - pigeon
+          - falcon
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+          token: ${{ secrets.PAT }}
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v13
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v10
+        with:
+          name: nixos-config
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          extraPullNames: nix-community
+
+      - name: Build ${{ matrix.system }}
+        run: nix build -L -f . ${{ matrix.system }}
+  vm:
+    strategy:
+      matrix:
+        system:
+          - falcon
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+          token: ${{ secrets.PAT }}
+
+      - name: Build ${{ matrix.system }} GCP Image
+        run: |
+            nix-build \
+            -A config.nodes.${{ matrix.system }}.configuration.system.build.googleComputeImage \
+            | cachix push nixos-config
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+  provision:
+    concurrency: provision
+    needs:
+      - vm
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+          token: ${{ secrets.PAT }}
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v13
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable-small
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v10
+        with:
+          name: nixos-config
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          extraPullNames: nix-community
+
+      - name: Set the pulumi command
+        id: set_pulumi_command
+        run: |
+          ${{ github.ref == 'refs/heads/master' }} && \
+            echo "::set-output name=command::up --yes" || \
+            echo "::set-output name=command::preview"
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      - name: Install npm packages
+        run: nix-shell ../shell.nix --pure --run 'npm install'
+        working-directory: pulumi
+
+      - name: Run pulumi ${{ steps.set_pulumi_command.outputs.command }}
+        run: |
+          nix-shell ../shell.nix \
+            --pure \
+            --keep GOOGLE_APPLICATION_CREDENTIALS \
+            --keep PULUMI_ACCESS_TOKEN \
+            --run 'pulumi --non-interactive ${{ steps.set_pulumi_command.outputs.command }} --stack dev'
+        working-directory: pulumi
+        env:
+          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
