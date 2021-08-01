@@ -94,6 +94,7 @@ jobs:
         run: |
           nix-shell ../shell.nix \
             --pure \
+            --keep GCP_PROJECT_ID \
             --keep GOOGLE_APPLICATION_CREDENTIALS \
             --keep PULUMI_ACCESS_TOKEN \
             --run 'pulumi --non-interactive ${{ steps.set_pulumi_command.outputs.command }} --stack dev'
