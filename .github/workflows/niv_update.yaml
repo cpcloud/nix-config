@@ -13,12 +13,10 @@ jobs:
           - nixos-hardware
           - nixpkgs
           - nixus
+          - sops-nix
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          submodules: true
-          token: ${{ secrets.PAT }}
 
       - name: Install Nix
         uses: cachix/install-nix-action@v13
