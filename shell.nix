@@ -32,6 +32,10 @@ pkgs.mkShell {
     "./keys/users"
   ];
 
+  shellHook = ''
+    cd pulumi && npm install --no-fund
+  '';
+
   PULUMI_SKIP_UPDATE_CHECK = "1";
   SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
 }
