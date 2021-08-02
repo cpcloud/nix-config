@@ -17,7 +17,7 @@
   fileSystems = {
     "/" =
       {
-        device = "/dev/disk/by-label/NIXOS";
+        device = "/dev/disk/by-label/nixos";
         fsType = "ext4";
       };
     "/boot" =
@@ -27,7 +27,7 @@
       };
   };
 
-  swapDevices = [{ device = "/dev/disk/by-label/SWAP"; }];
+  swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
 
   networking = {
     hostName = "weebill";
