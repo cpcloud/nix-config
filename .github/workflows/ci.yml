@@ -17,6 +17,7 @@ jobs:
           - bluejay
           - pigeon
           - falcon
+          - weebill
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
