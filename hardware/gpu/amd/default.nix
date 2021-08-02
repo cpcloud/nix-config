@@ -11,6 +11,7 @@
     extraPackages = with pkgs; [
       rocm-opencl-icd
       rocm-opencl-runtime
+      amdvlk
     ];
   };
 }
