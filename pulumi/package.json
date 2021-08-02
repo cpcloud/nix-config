@@ -1,7 +1,7 @@
 {
   "name": "cpcloud-dev",
   "license": "Proprietary",
-  "repository": "https://github.com/cpcloud/nixos-config",
+  "repository": "https://github.com/cpcloud/nix-config",
   "private": true,
   "description": "Pulumi provisioning code",
   "version": "1.0.0",
