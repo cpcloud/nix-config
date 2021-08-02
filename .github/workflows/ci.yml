@@ -4,7 +4,11 @@ on:
       - master
   pull_request:
     branches:
-      - "create-pull-request/update-*"
+      - create-pull-request/update-home-manager
+      - create-pull-request/update-nixos-hardware
+      - create-pull-request/update-nixpkgs
+      - create-pull-request/update-nixus
+      - create-pull-request/update-sops-nix
 
 name: Continuous Integration
 
