@@ -10,7 +10,7 @@
   services = {
     tailscale.enable = true;
     tailscale-up = {
-      enable = true;
+      enable = config.services.tailscale.enable;
       authKeyFile = config.sops.secrets.tailscale.path;
     };
     fail2ban.enable = config.networking.firewall.enable;
