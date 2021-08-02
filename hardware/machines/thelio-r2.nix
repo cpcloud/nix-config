@@ -1,8 +1,13 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+let
+  sources = import ../../../nix;
+in
+{
   imports = [
+    "${sources.nixos-hardware}/common/cpu/amd"
+    "${sources.nixos-hardware}/common/pc/ssd"
     ../audio.nix
     ../bluetooth.nix
-    ../cpu/amd.nix
     ../efi.nix
     ../gpu/nvidia/basic.nix
     ../hardware.nix

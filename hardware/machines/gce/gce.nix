@@ -3,7 +3,7 @@
     # Make sure to have this in all your GCE configurations to enable
     # generating a machine image
     "${toString modulesPath}/virtualisation/google-compute-image.nix"
-    ../../cpu/intel.nix
+    "${(import ../../../nix).nixos-hardware}/common/cpu/intel"
     ../../hardware.nix
   ];
 
