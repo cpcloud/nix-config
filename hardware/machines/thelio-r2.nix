@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  sources = import ../../../nix;
+  sources = import ../../nix;
 in
 {
   imports = [
