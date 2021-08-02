@@ -43,7 +43,7 @@
             "pulseaudio"
             "network"
             "temperature"
-            # "brillo"
+            "brightnessctl"
             "battery"
           ];
 
@@ -52,16 +52,13 @@
           tray-padding = 1;
           tray-position = "right";
           tray-maxsize = 512;
-
-          # scroll-up = "${pkgs.brillo}/bin/brillo -e -A 0.5";
-          # scroll-down = "${pkgs.brillo}/bin/brillo -e -U 0.5";
         };
 
-        "module/brillo" = {
+        "module/brightnessctl" = {
           type = "custom/script";
 
           format = "<label> ";
-          exec = ''echo "$(${pkgs.brillo}/bin/brillo)"%'';
+          exec = ''${pkgs.brightnessctl}/bin/brightnessctl -m | ${pkgs.coreutils-full}/bin/cut -d, -f4'';
           format-padding = 1;
           format-background = background;
         };
