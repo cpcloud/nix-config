@@ -1,4 +1,4 @@
-# Personal NixOS Configurations(s)
+# Personal NixOS Configuration(s)
 
 This repository contains my personal NixOS configurations, heavily inspired by
 [lovesegfault/nix-config](https://github.com/lovesegfault/nix-config).
