@@ -14,18 +14,20 @@
     ../users/cloud
   ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/6540d52c-7864-4650-913c-0d1957a20d2f";
-    fsType = "ext4";
-  };
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/f8190e62-431f-4500-b728-4b8a8fff4895";
+      fsType = "ext4";
+    };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/56C3-F8EA";
-    fsType = "vfat";
+    "/boot" = {
+      device = "/dev/disk/by-uuid/1A73-97F8";
+      fsType = "vfat";
+    };
   };
 
   swapDevices = [
-    { device = "/dev/disk/by-uuid/9cad798a-ad75-420c-8284-2dcb8573526a"; }
+    { device = "/dev/disk/by-uuid/89773b94-695e-4cd7-96f2-33ccec50926d"; }
   ];
 
   networking = {
