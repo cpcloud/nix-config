@@ -34,17 +34,12 @@
     hostName = "weebill";
     useDHCP = false;
     useNetworkd = true;
-    wireless.iwd.enable = true;
   };
 
   systemd.network.networks = {
     lan = {
       DHCP = "yes";
       matchConfig.MACAddress = "38:14:28:bb:61:fe";
-    };
-    wifi = {
-      DHCP = "yes";
-      matchConfig.MACAddress = "4c:79:6e:d5:1f:88";
     };
   };
 
