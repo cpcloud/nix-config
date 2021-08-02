@@ -38,8 +38,8 @@
         lib.mkOptionDefault ({
           "${modifier}+Shift+Return" = "exec ${terminal}";
           "${modifier}+Return" = "exec ${terminal-with-tmux}";
-          "${modifier}+c" = "exec $BROWSER";
-          "${modifier}+Shift+c" = "exec $BROWSER --private-window";
+          "${modifier}+c" = "exec brave";
+          "${modifier}+Shift+c" = "exec brave --incognito";
           "${modifier}+Shift+r" = "reload";
           "${modifier}+d" = "exec rofi -show combi";
           "${modifier}+Shift+i" = "exec i3lock";
