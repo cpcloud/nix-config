@@ -33,10 +33,23 @@
 
   networking = {
     hostName = "bluejay";
-    networkmanager.enable = true;
+    useDHCP = false;
+    useNetworkd = true;
+    wireless.iwd.enable = true;
   };
 
-  programs.nm-applet.enable = true;
+  systemd.network.networks = {
+    lan = {
+      DHCP = "yes";
+      matchConfig.Name = "enp60s0u2u4";
+    };
+    wifi = {
+      DHCP = "yes";
+      matchConfig.Name = "wlan0";
+    };
+  };
+
+  services.resolved.enable = true;
 
   time.timeZone = "America/New_York";
 }
