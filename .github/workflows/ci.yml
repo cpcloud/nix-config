@@ -99,14 +99,9 @@ jobs:
         run: |
           nix-shell \
             --pure \
-            --keep GCP_PROJECT_ID \
-            --keep CLOUDSDK_COMPUTE_REGION \
-            --keep CLOUDSDK_COMPUTE_ZONE \
             --keep GOOGLE_APPLICATION_CREDENTIALS \
             --keep PULUMI_ACCESS_TOKEN \
             --run 'pulumi --non-interactive ${{ steps.set_pulumi_command.outputs.command }} --stack dev'
         working-directory: pulumi
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
-          CLOUDSDK_COMPUTE_REGION: ${{ secrets.CLOUDSDK_COMPUTE_REGION }}
-          CLOUDSDK_COMPUTE_ZONE: ${{ secrets.CLOUDSDK_COMPUTE_ZONE }}
