@@ -69,6 +69,7 @@ in
       (import ../overlays/v4l-utils.nix)
       (import ../overlays/ayu-theme-gtk.nix)
       (import ../overlays/gh.nix { inherit config; })
+      (import ../overlays/linux-lto.nix)
     ];
   };
 
