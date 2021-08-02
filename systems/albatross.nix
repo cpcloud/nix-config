@@ -27,8 +27,7 @@
   };
 
   services.github-runner = {
-    enable = true;
-    replace = true;
+    enable = false;
     url = "https://github.com/cpcloud/nixos-config";
     tokenFile = config.sops.secrets.albatross_github_runner.path;
     extraPackages = [ pkgs.cachix ];
