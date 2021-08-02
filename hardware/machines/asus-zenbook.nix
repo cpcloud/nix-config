@@ -2,7 +2,7 @@
   imports = [
     ../audio.nix
     ../bluetooth.nix
-    ../cpu/intel.nix
+    "${(import ../../nix).nixos-hardware}/common/cpu/intel"
     ../efi.nix
     ../hardware.nix
   ];
