@@ -4,9 +4,11 @@ let
   config = { pkgs, ... }:
     with pkgs; {
       imports = [
-        <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-graphical-plasma5.nix>
+        <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix>
         <nixos-hardware/dell/xps/13-9310>
       ];
+
+      boot.kernelPackages = pkgs.linuxPackages_latest;
 
       services.pcscd.enable = true;
       services.udev.packages = [ yubikey-personalization ];
