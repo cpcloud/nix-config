@@ -132,7 +132,9 @@ rec {
           xset s off
         fi
 
-        setxkbmap -option ctrl:nocaps -option altwin:swap_lalt_lwin
+        if which setxkbmap > /dev/null; then
+          setxkbmap -option ctrl:nocaps -option altwin:swap_lalt_lwin
+        fi
 
         mkdir -p "${config.programs.zsh.sessionVariables.FAST_WORK_DIR}"
 
