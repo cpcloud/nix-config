@@ -56,12 +56,20 @@
 
   networking = {
     hostName = "albatross";
-    networkmanager.enable = true;
+    useDHCP = false;
+    useNetworkd = true;
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  systemd.network.networks = {
+    lan = {
+      DHCP = "yes";
+      matchConfig.Name = "enp5s0";
+    };
+  };
 
-  programs.nm-applet.enable = true;
+  services.resolved.enable = true;
+
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   time.timeZone = "America/New_York";
 }
