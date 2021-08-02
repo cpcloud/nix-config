@@ -14,20 +14,19 @@
     ../users/cloud
   ];
 
-  fileSystems = {
-    "/" =
-      {
-        device = "/dev/disk/by-label/nixos";
-        fsType = "ext4";
-      };
-    "/boot" =
-      {
-        device = "/dev/disk/by-label/BOOT";
-        fsType = "vfat";
-      };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/6540d52c-7864-4650-913c-0d1957a20d2f";
+    fsType = "ext4";
   };
 
-  swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/56C3-F8EA";
+    fsType = "vfat";
+  };
+
+  swapDevices = [
+    { device = "/dev/disk/by-uuid/9cad798a-ad75-420c-8284-2dcb8573526a"; }
+  ];
 
   networking = {
     hostName = "weebill";
