@@ -34,14 +34,21 @@
     hostName = "weebill";
     useDHCP = false;
     useNetworkd = true;
+    wireless.iwd.enable = true;
   };
 
   systemd.network.networks = {
     lan = {
       DHCP = "yes";
-      matchConfig.MACAddress = "38:14:28:bb:61:fe";
+      matchConfig.Name = "enp60s0u2u4";
+    };
+    wifi = {
+      DHCP = "yes";
+      matchConfig.Name = "wlan0";
     };
   };
+
+  services.resolved.enable = true;
 
   time.timeZone = "America/New_York";
 }
