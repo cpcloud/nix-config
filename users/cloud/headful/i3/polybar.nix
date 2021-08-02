@@ -187,7 +187,7 @@
           format = "<ramp><label>";
           format-background = background;
 
-          label = "%temperature-c%";
+          label = "%temperature-f%";
           label-background = background;
           label-padding = 1;
 
