@@ -2,6 +2,7 @@ keys:
   - &cloud a97647f4d6528177a3820b84d1333553d63d36a4
   - &albatross 512a533fdb1899f86137775ad6370e0d4cfeb3b5
   - &bluejay 3eb1bbbf97b5decbda204191aa47717d882fb914
+  - &weebill 6bd99b2ce67ed2449293095c8347a54783f181a2
 creation_rules:
   - path_regex: secrets/[^/]+\.yaml$
     key_groups:
@@ -9,3 +10,4 @@ creation_rules:
         - *cloud
         - *albatross
         - *bluejay
+        - *weebill
