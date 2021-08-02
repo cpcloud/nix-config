@@ -1,4 +1,4 @@
-name: niv update
+name: Update Deps
 on:
   schedule:
     - cron: "* */6 * * *"
