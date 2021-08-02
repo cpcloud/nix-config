@@ -8,7 +8,7 @@
   ];
 
   boot = {
-    initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "rtsx_pci_sdmmc" ];
+    initrd.availableKernelModules = [ "xhci_pci" "nvme" "thunderbolt" "rtsx_pci_sdmmc" ];
     kernelModules = [ "kvm-intel" ];
   };
 
