@@ -20,7 +20,7 @@ pkgs.mkShell {
   ]);
 
   shellHook = ''
-    cd pulumi && npm install --no-fund
+    npm install --no-fund
   '';
 
   PULUMI_SKIP_UPDATE_CHECK = "1";
