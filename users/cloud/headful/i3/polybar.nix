@@ -170,7 +170,7 @@
           ramp-volume-1 = "";
           ramp-volume-2 = "";
 
-          click-right = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
+          click-left = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
           scroll-up = "pactl set-sink-volume @DEFAULT_SINK@ +1%";
           scroll-down = "pactl set-sink-volume @DEFAULT_SINK@ -1%";
         };
