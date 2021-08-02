@@ -10,6 +10,7 @@
   boot = {
     initrd.availableKernelModules = [ "xhci_pci" "nvme" "thunderbolt" "rtsx_pci_sdmmc" ];
     kernelModules = [ "kvm-intel" ];
+    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
