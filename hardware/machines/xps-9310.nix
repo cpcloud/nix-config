@@ -21,7 +21,7 @@
     ];
     blacklistedKernelModules = [ "psmouse" ];
     kernelModules = [ "kvm-intel" ];
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_xanmod_lto_tigerlake;
   };
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
