@@ -20,7 +20,7 @@
       "rtsx_pci_sdmmc"
     ];
     blacklistedKernelModules = [ "psmouse" ];
-    kernelModules = [ "kvm-intel" ];
+    kernelModules = [ "kvm-intel" "amdgpu" ];
     kernelPackages = pkgs.linuxPackages_xanmod_lto_tigerlake;
   };
 
