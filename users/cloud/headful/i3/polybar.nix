@@ -164,7 +164,7 @@
           format-muted-padding = 1;
 
           label-volume = "%percentage%%";
-          label-muted = "";
+          label-muted = "×";
 
           ramp-volume-0 = "";
           ramp-volume-1 = "";
