@@ -41,7 +41,8 @@
           modules-center = [ "date" ];
           modules-right = [
             "pulseaudio"
-            "network"
+            "network-wired"
+            "network-wireless"
             "temperature"
             "brightnessctl"
             "battery"
@@ -125,10 +126,10 @@
           label-urgent-padding = 1;
         };
 
-        "module/network" = {
-          type = "internal/network";
-          interface = "enp5s0";
+        "module/net-base" = {
           interval = 5;
+
+          type = "internal/network";
 
           format-connected = "<label-connected>";
           format-connected-background = background;
@@ -137,8 +138,19 @@
           format-disconnected-background = alert;
           format-disconnected-padding = 1;
 
-          label-connected = "%local_ip% 👇 %downspeed% 👆 %upspeed% 🔗 %linkspeed%";
           label-disconnected = "⚠ Disconnected";
+        };
+
+        "module/network-wired" = {
+          "inherit" = "module/net-base";
+          interface = "enp5s0";
+          label-connected = "%local_ip% 👇 %downspeed% 👆 %upspeed% 🔗 %linkspeed%";
+        };
+
+        "module/network-wireless" = {
+          "inherit" = "module/net-base";
+          interface = "wlan0";
+          label-connected = "%local_ip% 👇 %downspeed% 👆 %upspeed%";
         };
 
         "module/pulseaudio" = {
