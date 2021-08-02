@@ -1,6 +1,9 @@
 { pkgs, lib, ... }: rec {
   imports = [
-    "${(import ../../nix).nixos-hardware}/dell/xps/13-9310"
+    # FIXME: this is broken upstream
+    # "${(import ../../nix).nixos-hardware}/dell/xps/13-9310"
+    "${(import ../../nix).nixos-hardware}/common/cpu/intel"
+    "${(import ../../nix).nixos-hardware}/common/pc/laptop"
     ../audio.nix
     ../bluetooth.nix
     ../efi.nix
@@ -16,6 +19,7 @@
       "sd_mod"
       "rtsx_pci_sdmmc"
     ];
+    blacklistedKernelModules = [ "psmouse" ];
     kernelModules = [ "kvm-intel" ];
     kernelPackages = pkgs.linuxPackages_latest;
   };
