@@ -36,6 +36,11 @@
           nums = map toString (builtins.genList lib.id numWorkspaces);
         in
         lib.mkOptionDefault ({
+          "XF86MonBrightnessUp" = "exec brightnessctl set +10%";
+          "XF86MonBrightnessDown" = "exec brightnessctl set 10%-";
+          "XF86VolumeUp" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
+          "XF86VolumeDown" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
+          "XF86Mute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
           "${modifier}+Shift+Return" = "exec ${terminal}";
           "${modifier}+Return" = "exec ${terminal-with-tmux}";
           "${modifier}+c" = "exec brave";
