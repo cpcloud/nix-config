@@ -8,6 +8,7 @@
     ../bluetooth.nix
     ../efi.nix
     ../hardware.nix
+    ../brightness.nix
   ];
 
   boot = {
