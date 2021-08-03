@@ -41,7 +41,7 @@
   systemd.network.networks = {
     lan = {
       DHCP = "yes";
-      matchConfig.Name = "enp60s0u2u4";
+      matchConfig.Name = "eth0";
     };
     wifi = {
       DHCP = "yes";
