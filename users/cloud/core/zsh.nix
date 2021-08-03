@@ -97,8 +97,8 @@ rec {
           src = pkgs.fetchFromGitHub {
             owner = "zdharma";
             repo = "fast-syntax-highlighting";
-            rev = "a62d721affc771de2c78201d868d80668a84c1e1";
-            sha256 = "0kwrkxkgsx9cchdrp9jg3p47y6h9w6dgv6zqapzczmx7slgmf4p3";
+            rev = "817916dfa907d179f0d46d8de355e883cf67bd97";
+            sha256 = "0m102makrfz1ibxq8rx77nngjyhdqrm8hsrr9342zzhq1nf4wxxc";
           };
         }
       ];
