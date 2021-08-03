@@ -139,19 +139,6 @@ in
         bindkey "\e[A" history-beginning-search-backward
         bindkey "\e[B" history-beginning-search-forward
 
-        if [ -n "$DISPLAY" ]; then
-          # set the key repeat rate and delay
-          xset r rate 200 30
-
-          # turn off powersave/sleep
-          xset -dpms
-          xset s off
-        fi
-
-        if which setxkbmap > /dev/null; then
-          setxkbmap -option ctrl:nocaps -option altwin:swap_lalt_lwin
-        fi
-
         mkdir -p "${config.programs.zsh.sessionVariables.FAST_WORK_DIR}"
 
         ${zshFunctions}
