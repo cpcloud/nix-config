@@ -7,7 +7,6 @@
 
   environment.systemPackages = with pkgs; [
     gnome3.adwaita-icon-theme
-    pitivi
   ];
 
   services.xserver.displayManager.lightdm.enable = true;
