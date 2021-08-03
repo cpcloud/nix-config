@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   shellConfig = pkgs.callPackage ./shell-config.nix { inherit config; };
   zshFunctions = ''
@@ -29,6 +29,12 @@ let
       "${pkgs.git}/bin/git" push --set-upstream "$@" "$remote" HEAD
     }
   '';
+  # ignore history of things that look like keys
+  historyIgnorePatterns = [
+    "CREDENTIALS=([^ ]+)"
+    "tskey-([^ ]+)"
+    "pul-([^ ]+)"
+  ];
 in
 rec {
   programs = {
@@ -101,6 +107,16 @@ rec {
             sha256 = "0m102makrfz1ibxq8rx77nngjyhdqrm8hsrr9342zzhq1nf4wxxc";
           };
         }
+        {
+          name = "passwordless-history";
+          file = "passwordless-history.plugin.zsh";
+          src = pkgs.fetchFromGitHub {
+            owner = "jgogstad";
+            repo = "passwordless-history";
+            rev = "b87d8385ef4d6d02d13ad77e5230da9c560dd156";
+            sha256 = "04pcnhwjf4vxr0js6fakq902zwvzdcsyapb6rd74sbn39rlcxii9";
+          };
+        }
       ];
 
       initExtra = ''
@@ -139,6 +155,8 @@ rec {
         mkdir -p "${config.programs.zsh.sessionVariables.FAST_WORK_DIR}"
 
         ${zshFunctions}
+
+        export HISTORY_EXCLUDE_PATTERN="${lib.concatStringsSep "|" historyIgnorePatterns}|$HISTORY_EXCLUDE_PATTERN";
       '';
     };
   };
