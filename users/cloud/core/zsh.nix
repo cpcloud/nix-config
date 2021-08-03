@@ -28,6 +28,7 @@ let
 
       "${pkgs.git}/bin/git" push --set-upstream "$@" "$remote" HEAD
     }
+
   '';
   # ignore history of things that look like keys
   historyIgnorePatterns = [
@@ -107,16 +108,6 @@ in
             sha256 = "0m102makrfz1ibxq8rx77nngjyhdqrm8hsrr9342zzhq1nf4wxxc";
           };
         }
-        {
-          name = "passwordless-history";
-          file = "passwordless-history.plugin.zsh";
-          src = pkgs.fetchFromGitHub {
-            owner = "jgogstad";
-            repo = "passwordless-history";
-            rev = "b87d8385ef4d6d02d13ad77e5230da9c560dd156";
-            sha256 = "04pcnhwjf4vxr0js6fakq902zwvzdcsyapb6rd74sbn39rlcxii9";
-          };
-        }
       ];
 
       initExtra = ''
@@ -143,7 +134,9 @@ in
 
         ${zshFunctions}
 
+        HISTORY_EXCLUDE_PATTERN='^ |//([^/]+:[^/]+)@|KEY=([^ ]+)|TOKEN=([^ ]+)|BEARER=([^ ]+)|PASSWORD=([^ ]+)|Authorization: *([^'"'"'\"]+)|-us?e?r? ([^:]+:[^:]+) '
         export HISTORY_EXCLUDE_PATTERN="${lib.concatStringsSep "|" historyIgnorePatterns}|$HISTORY_EXCLUDE_PATTERN";
+        source ${./zshaddhistory.zsh}
       '';
     };
   };
