@@ -14,6 +14,11 @@
           always = false;
           notification = false;
         }
+        {
+          command = "${pkgs.systemd}/bin/systemctl --user restart polybar";
+          always = true;
+          notification = false;
+        }
         { command = "${pkgs.autorandr}/bin/autorandr --load desktop"; }
         { command = "exec xset r rate 200 30"; }
       ];
