@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  font = "FiraCode";
+  font = "Hack";
 in
 {
   fonts = {
