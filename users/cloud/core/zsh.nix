@@ -63,12 +63,12 @@ rec {
 
       defaultKeymap = "emacs";
 
-      sessionVariables = rec {
+      sessionVariables = {
         BROWSER = "brave";
         RPROMPT = "";
-        DISABLE_UNTRACKED_FILES_DIRTY = "true";
-        GDK_DPI_SCALE = "0.5";
-        GDK_SCALE = "0.5";
+        DISABLE_UNTRACKED_FILES_DIRTY = true;
+        GDK_DPI_SCALE = 0.5;
+        GDK_SCALE = 0.5;
         GITHUB_USER = "cpcloud";
         HIST_STAMPS = "yyyy-mm-dd";
         PAGER = "less";
