@@ -55,8 +55,12 @@
       };
     };
 
+    bat = {
+      enable = true;
+      config.theme = "gruvbox-dark";
+    };
+
     exa.enable = true;
-    bat.enable = true;
     fzf.enable = true;
     jq.enable = true;
     man.enable = true;
