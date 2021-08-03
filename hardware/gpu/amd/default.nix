@@ -1,11 +1,4 @@
 { pkgs, ... }: {
-  environment.systemPackages = with pkgs; [
-    rocm-smi
-    radeontop
-    clinfo
-    vulkan-tools
-  ];
-
   hardware.opengl = {
     enable = true;
     driSupport = true;
