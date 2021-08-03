@@ -12,7 +12,7 @@ let
     function mkcd {
       "${pkgs.coreutils}/bin/mkdir" -p "$1"
 
-      if which z > /dev/null 2>&1; then
+      if which z > /dev/null; then
         z "$1"
       else
         cd "$1"
