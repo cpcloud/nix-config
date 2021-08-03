@@ -36,7 +36,7 @@ let
     "pul-([^ ]+)"
   ];
 in
-rec {
+{
   programs = {
     scmpuff = {
       enable = true;
@@ -58,12 +58,12 @@ rec {
 
       inherit (shellConfig) shellAliases;
 
-      history = rec {
+      history = {
         expireDuplicatesFirst = true;
         extended = true;
         ignoreDups = true;
         size = shellConfig.historySize;
-        save = size;
+        save = shellConfig.historySize;
         share = true;
       };
 
