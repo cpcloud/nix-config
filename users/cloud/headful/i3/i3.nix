@@ -6,7 +6,11 @@
       startup = [
         { command = "systemctl --user start gnome-keyring"; }
         {
-          command = "systemctl --user start i3-session.target";
+          command = ''
+            ${pkgs.systemd}/bin/systemctl --user import-environment; \
+              ${pkgs.systemd}/bin/systemctl --user import-environment DISPLAY; \
+              ${pkgs.systemd}/bin/systemctl --user start i3-session.target
+          '';
           always = false;
           notification = false;
         }
