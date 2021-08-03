@@ -20,7 +20,11 @@
           notification = false;
         }
         { command = "${pkgs.autorandr}/bin/autorandr --load desktop"; }
-        { command = "exec xset r rate 200 30"; }
+        {
+          command = "${pkgs.xorg.xset}/bin/xset r rate 200 30";
+          always = true;
+          notification = false;
+        }
       ];
       modifier = "Mod4";
       terminal = "${config.programs.alacritty.package}/bin/alacritty";
