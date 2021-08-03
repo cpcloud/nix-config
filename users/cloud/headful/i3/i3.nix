@@ -25,6 +25,21 @@
           always = true;
           notification = false;
         }
+        {
+          command = "${pkgs.xorg.xset}/bin/xset -dpms";
+          always = true;
+          notification = false;
+        }
+        {
+          command = "${pkgs.xorg.xset}/bin/xset s off";
+          always = true;
+          notification = false;
+        }
+        {
+          command = "${pkgs.xorg.setxkbmap}/bin/setxkbmap -option ctrl:nocaps -option altwin:swap_lalt_lwin";
+          always = true;
+          notification = false;
+        }
       ];
       modifier = "Mod4";
       terminal = "${config.programs.alacritty.package}/bin/alacritty";
