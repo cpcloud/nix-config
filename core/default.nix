@@ -70,6 +70,10 @@ in
       (import ../overlays/ayu-theme-gtk.nix)
       (import ../overlays/gh.nix { inherit config; })
       (import ../overlays/linux-lto.nix)
+      (import ../overlays/spawn.nix)
+      (import ../overlays/write-sane-shell-script-bin.nix)
+      (import ../overlays/drunmenu.nix)
+      (import ../overlays/emojimenu.nix)
     ];
   };
 
