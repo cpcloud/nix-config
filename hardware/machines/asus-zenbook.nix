@@ -6,6 +6,7 @@
     "${(import ../../nix).nixos-hardware}/common/pc/laptop"
     ../efi.nix
     ../hardware.nix
+    ../brightness.nix
   ];
 
   boot = {
