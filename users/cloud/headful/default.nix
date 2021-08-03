@@ -14,7 +14,6 @@
     zoom-us
     xclip
     xsel
-    mycrypto
   ];
 
   gtk.enable = true;
