@@ -40,9 +40,5 @@
     no-symkey-cache = "";
     # Enable smartcard
     use-agent = "";
-
-    enable-ssh-support = true;
-    default-cache-ttl = "60";
-    max-cache-ttl = "120";
   };
 }
