@@ -1,7 +1,7 @@
 {
   home.file.".ssh/config".text = ''
     Host github.com
-        ControlMaster auto
+        ControlMaster no
         IdentityFile ~/.ssh/id_rsa_yubikey.pub
         User git
     Host *
