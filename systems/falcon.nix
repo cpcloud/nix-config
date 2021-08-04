@@ -10,6 +10,10 @@
     ../users/cloud
   ];
 
+  home-manager.users.cloud = { ... }: {
+    imports = [ ../users/cloud/trusted ];
+  };
+
   networking.hostName = "falcon";
 
   time.timeZone = "America/New_York";
