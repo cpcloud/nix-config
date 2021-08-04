@@ -13,9 +13,9 @@
     ../hardware/tpu/coral.nix
 
     ../headful
-    ../headful/trusted.nix
 
     ../users/cloud
+    ../users/cloud/headful/trusted.nix
   ];
 
   fileSystems = {
