@@ -1,5 +1,9 @@
 {
   home.file.".ssh/config".text = ''
+    Host github.com
+        ControlMaster auto
+        IdentityFile ~/.ssh/id_rsa_yubikey.pub
+        User git
     Host *
         AddKeysToAgent yes
         ChallengeResponseAuthentication no
