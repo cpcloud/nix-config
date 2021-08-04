@@ -4,8 +4,8 @@
   ];
 
   home.packages = with pkgs; [
-    pinentry-gnome
+    pinentry-curses
   ];
 
-  services.gpg-agent.pinentryFlavor = "gnome3";
+  services.gpg-agent.pinentryFlavor = "curses";
 }
