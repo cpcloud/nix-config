@@ -15,8 +15,11 @@
     ../headful
 
     ../users/cloud
-    ../users/cloud/headful/trusted.nix
   ];
+
+  home-manager.users.cloud = { ... }: {
+    imports = [ ../users/cloud/headful/trusted.nix ];
+  };
 
   fileSystems = {
     "/" =
