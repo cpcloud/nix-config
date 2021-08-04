@@ -6,8 +6,6 @@ in
   # for coral edgetpus
   users.groups.plugdev.members = [ "cloud" ];
 
-  home.file.".ssh/id_rsa_yubikey.pub".text = idRsaYubikey;
-
   users.users.cloud = {
     isNormalUser = true;
     createHome = true;
@@ -57,6 +55,8 @@ in
         docker-credential-helpers
         docker-credential-gcr
       ]);
+
+      home.file.".ssh/id_rsa_yubikey.pub".text = idRsaYubikey;
 
       xdg.configFile =
         let
