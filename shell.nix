@@ -22,4 +22,6 @@ pkgs.mkShell {
     "./keys/hosts"
     "./keys/users"
   ];
+
+  SOPS_GPG_KEYSERVER = "https://keys.openpgp.org";
 }

@@ -66,15 +66,6 @@
     man.enable = true;
     info.enable = true;
     zoxide.enable = true;
-
-    keychain = {
-      enable = true;
-      enableZshIntegration = true;
-      keys = [
-        "google_compute_engine"
-        "id_ed25519"
-        "id_rsa"
-      ];
-    };
+    gpg.enable = true;
   };
 }

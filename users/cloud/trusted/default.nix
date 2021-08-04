@@ -1,14 +1,25 @@
 { pkgs, ... }: {
-
-  home.packages = with pkgs; [
-    berglas
-    gnome3.seahorse
+  imports = [
+    ./gpg.nix
+    ./ssh.nix
   ];
 
-  services = {
-    gnome-keyring = {
-      enable = true;
-      components = [ "pkcs11" "secrets" "ssh" ];
-    };
+  programs.git.signing = {
+    key = "";
+    signByDefault = true;
+  };
+
+  programs.gpg.settings = {
+    default-key = "0x898EA27607D72CCE";
+    trusted-key = "0x898EA27607D72CCE";
+  };
+
+  services.gpg-agent = {
+    enable = true;
+    enableExtraSocket = true;
+    enableScDaemon = true;
+    enableSshSupport = true;
+    defaultCacheTtl = 34560000;
+    maxCacheTtl = 34560000;
   };
 }

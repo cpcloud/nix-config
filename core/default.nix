@@ -77,6 +77,8 @@ in
     ];
   };
 
+  programs.ssh.startAgent = false;
+
   systemd = {
     extraConfig = ''
       DefaultTimeoutStopSec=15s

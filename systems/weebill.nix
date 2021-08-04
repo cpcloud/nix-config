@@ -10,9 +10,10 @@
     ../hardware/gpu/amd
 
     ../headful
-    ../headful/trusted.nix
 
     ../users/cloud
+    ../users/cloud/headful/trusted.nix
+    ../users/cloud/trusted.nix
   ];
 
   fileSystems = {

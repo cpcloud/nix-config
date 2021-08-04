@@ -4,7 +4,6 @@
     config = rec {
       bars = [ ];
       startup = [
-        { command = "systemctl --user start gnome-keyring"; }
         {
           command = ''
             ${pkgs.systemd}/bin/systemctl --user import-environment; \

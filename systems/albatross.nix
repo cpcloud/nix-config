@@ -17,10 +17,13 @@
     ../hardware/tpu/coral.nix
 
     ../headful
-    ../headful/trusted.nix
 
     ../users/cloud
   ];
+
+  home-manager.users.cloud = { ... }: {
+    imports = [ ../users/cloud/headful/trusted.nix ];
+  };
 
   sops.secrets.albatross_github_runner = {
     sopsFile = ../secrets/albatross-github-runner.yaml;
