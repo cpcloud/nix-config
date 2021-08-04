@@ -44,11 +44,11 @@
   systemd.network.networks = {
     lan = {
       DHCP = "yes";
-      matchConfig.Name = "enp60s0u2u4";
+      matchConfig.MACAddress = "38:14:28:bb:61:fe";
     };
     wifi = {
       DHCP = "yes";
-      matchConfig.Name = "wlan0";
+      matchConfig.MACAddress = "4c:79:6e:d5:1f:88";
     };
   };
 
