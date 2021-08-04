@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }: {
   imports = [
     ../core
 
@@ -66,7 +66,12 @@
   systemd.network.networks = {
     lan = {
       DHCP = "yes";
-      matchConfig.Name = "enp5s0";
+      matchConfig.MACAddress = "18:c0:4d:00:0f:1b";
+    };
+  } // lib.optionalAttrs config.networking.wireless.iwd.enable {
+    wifi = {
+      DHCP = "yes";
+      matchConfig.MACAddress = "08:d2:3e:a0:7f:a8";
     };
   };
 
