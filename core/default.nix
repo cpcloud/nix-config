@@ -30,6 +30,7 @@ in
     '')
     wireguard-tools
     cachix
+    pinentry-curses
   ];
 
   environment.etc."nixos/configuration.nix".source = dummyConfig;
