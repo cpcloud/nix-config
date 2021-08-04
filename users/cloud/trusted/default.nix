@@ -6,7 +6,7 @@
 
   programs.git.signing = {
     key = "0x898EA27607D72CCE";
-    signByDefault = false;
+    signByDefault = true;
   };
 
   programs.gpg.settings = {
