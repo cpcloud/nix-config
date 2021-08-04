@@ -5,8 +5,8 @@
   ];
 
   programs.git.signing = {
-    key = "";
-    signByDefault = true;
+    key = "0x898EA27607D72CCE";
+    signByDefault = false;
   };
 
   programs.gpg.settings = {
