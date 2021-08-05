@@ -11,7 +11,7 @@
   ];
 
   home-manager.users.cloud = { ... }: {
-    imports = [ ../users/cloud/trusted ];
+    imports = [ ../users/cloud/trusted/curses.nix ];
   };
 
   networking.hostName = "falcon";
