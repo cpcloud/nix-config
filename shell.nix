@@ -15,6 +15,7 @@ pkgs.mkShell {
     nix-linter
     nixpkgs-fmt
     sops
+    srm
     ssh-to-pgp
     yj
   ]);
