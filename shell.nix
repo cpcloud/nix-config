@@ -8,6 +8,7 @@ pkgs.mkShell {
     (pkgs.callPackage sources.sops-nix { }).sops-import-keys-hook
   ];
   buildInputs = (with pkgs; [
+    cryptsetup
     gnupg
     jq
     niv
