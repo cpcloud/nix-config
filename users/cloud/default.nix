@@ -62,6 +62,7 @@ in
 
       home.file.".ssh/id_rsa_yubikey_5_nano.pub".text = idRsaYubikey5Nano;
       home.file.".ssh/id_rsa_yubikey_5_nfc.pub".text = idRsaYubikey5Nfc;
+      home.file.".ssh/id_rsa_yubikey_5c_nano.pub".text = idRsaYubikey5CNano;
 
       xdg.configFile =
         let
