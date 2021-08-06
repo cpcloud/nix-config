@@ -5,7 +5,7 @@ let
     "5_nfc"
     "5c_nano"
   ];
-  genYubikeyPubKeyPath = model: "~/.ssh/id_rsa_yubikey_${model}";
+  genYubikeyPubKeyPath = model: "~/.ssh/id_rsa_yubikey_${model}.pub";
   identityFileConfig = lib.concatMapStringsSep
     "\n"
     (model: "IdentityFile ${genYubikeyPubKeyPath model}")
