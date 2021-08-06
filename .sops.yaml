@@ -3,7 +3,7 @@ keys:
   - &albatross 512a533fdb1899f86137775ad6370e0d4cfeb3b5
   - &bluejay 3eb1bbbf97b5decbda204191aa47717d882fb914
   - &weebill 76e0e477d660fc9a2d3c51be85a9500e177b53d3
-  - &falcon 85a2164955eda84804b9a2fd3709a1bdcfb0e1d6
+  - &yubikey ed835ed426ccbad217134bf2898ea27607d72cce
 creation_rules:
   - path_regex: secrets/[^/]+\.yaml$
     key_groups:
@@ -12,4 +12,4 @@ creation_rules:
         - *albatross
         - *bluejay
         - *weebill
-        - *falcon
+        - *yubikey
