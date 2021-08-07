@@ -38,7 +38,6 @@ def main(
     translate: bool,
 ) -> None:
     page = 1
-    per_page = 100
     endpoint = f"https://api.github.com/repos/{owner_repo}/compare/{begin}...{end}"
     commits_remaining = auth_request(endpoint, params={"per_page": 0})["ahead_by"]
 
