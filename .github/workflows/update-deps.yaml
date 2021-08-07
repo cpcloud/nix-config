@@ -8,12 +8,17 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dependency:
-          - home-manager
-          - nixos-hardware
-          - nixpkgs
-          - nixus
-          - sops-nix
+        dep:
+          - repo: home-manager
+            owner: nix-community
+          - repo: nixos-hardware
+            owner: NixOS
+          - repo: nixpkgs
+            owner: NixOS
+          - repo: nixus
+            owner: Infinisil
+          - repo: sops-nix
+            owner: Mic92
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -28,14 +33,34 @@ jobs:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           extraPullNames: nix-community
 
-      - name: Update ${{ matrix.dependency }}
-        run: nix run '(import (import ./nix).nixpkgs {}).niv' -c niv update ${{ matrix.dependency }}
+      - name: Get current commit
+        id: get_current_commit
+        run: echo ::set-output name=commit::$(nix run nixpkgs.jq -c jq -rcM '.["${{ matrix.dep.repo }}"].rev' < nix/sources.json)
 
-      - name: Create a pull request to update ${{ matrix.dependency }}
+      - name: Update ${{ matrix.dep.repo }}
+        run: nix run '(import (import ./nix).nixpkgs {}).niv' -c niv update ${{ matrix.dep.repo }}
+
+      - name: Get new commit
+        id: get_new_commit
+        run: echo ::set-output name=commit::$(nix run nixpkgs.jq -c jq -rcM '.["${{ matrix.dep.repo }}"].rev' < nix/sources.json)
+
+      - name: Checkout ${{ matrix.dep.owner }}/${{ matrix.dep.repo }}
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ matrix.dep.owner }}/${{ matrix.dep.repo }}
+          path: ${{ matrix.dep.repo }}
+
+      - name: Compute changes between commits
+        id: compute_changes
+        run: echo ::set-output name=log_lines::"$(git log --date=iso --no-merges --oneline --abbrev-commit --pretty=format:'%h - %s (%cd, %cr) by %an' ${{ steps.get_current_commit.outputs.commit }}..${{ steps.get_new_commit.outputs.commit }})"
+
+      - name: Create a pull request to update ${{ matrix.dep }}
         uses: peter-evans/create-pull-request@v3
         with:
-          commit-message: "feat(niv): update ${{ matrix.dependency }}"
-          branch: "create-pull-request/update-${{ matrix.dependency }}"
+          path: nix-config
+          commit-message: "feat(niv): update ${{ matrix.dep.repo }}"
+          branch: "create-pull-request/update-${{ matrix.dep.repo }}"
           delete-branch: true
-          title: "feat(niv): update ${{ matrix.dependency }}"
+          title: "feat(niv): update ${{ matrix.dep.repo }}"
           token: ${{ secrets.GITHUB_TOKEN }}
+          body: ${{ steps.compute_changes.outputs.log_lines }}
