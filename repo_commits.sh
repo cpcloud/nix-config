@@ -61,4 +61,4 @@ function get_log_lines() {
   done
 }
 
-get_log_lines "$@" | tac | python -c 'import sys; print(sys.stdin.read().translate({ord("\\"): r"\\", ord("\""): "\\\"", ord("\n"): r"\n"}))'
+get_log_lines "$@" | tac | python -c 'import sys; print(sys.stdin.read().translate({ord("%"): "%25", ord("\r"): "%0D", ord("\n"): "%0A"}))'
