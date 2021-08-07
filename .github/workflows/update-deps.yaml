@@ -27,6 +27,8 @@ jobs:
 
       - name: Install Nix
         uses: cachix/install-nix-action@v13
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable-small
 
       - name: Setup Cachix
         uses: cachix/cachix-action@v10
@@ -37,16 +39,21 @@ jobs:
 
       - name: Get current commit
         id: get_current_commit
-        run: echo ::set-output name=sha256::$(nix run '(import (import ./nix).nixpkgs {}).jq' -c jq -rcM '.["${{ matrix.dep.repo }}"].rev' < nix/sources.json)
+        run: echo ::set-output name=sha256::$(nix run nixpkgs.jq -c jq -rcM '.["${{ matrix.dep.repo }}"].rev' < nix/sources.json)
         working-directory: main
 
       - name: Update ${{ matrix.dep.repo }}
-        run: nix run '(import (import ./nix).nixpkgs {}).niv' -c niv update ${{ matrix.dep.repo }}
+        run: nix run nixpkgs.niv -c niv update ${{ matrix.dep.repo }}
         working-directory: main
 
       - name: Get new commit
         id: get_new_commit
-        run: echo ::set-output name=sha256::$(nix run '(import (import ./nix).nixpkgs {}).jq' -c jq -rcM '.["${{ matrix.dep.repo }}"].rev' < nix/sources.json)
+        run: echo ::set-output name=sha256::$(nix run nixpkgs.jq -c jq -rcM '.["${{ matrix.dep.repo }}"].rev' < nix/sources.json)
+        working-directory: main
+
+      - name: Get branch
+        id: get_branch
+        run: echo ::set-output name=branch::$(nix run nixpkgs.jq -c jq -rcM '.["${{ matrix.dep.repo }}"].branch' < nix/sources.json)
         working-directory: main
 
       - name: Checkout ${{ matrix.dep.owner }}/${{ matrix.dep.repo }}
@@ -54,6 +61,7 @@ jobs:
         with:
           repository: ${{ matrix.dep.owner }}/${{ matrix.dep.repo }}
           path: ${{ matrix.dep.repo }}
+          ref: ${{ steps.get_branch.outputs.branch }}
           fetch-depth: 0
 
       - name: Compute changes between commits
