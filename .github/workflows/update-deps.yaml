@@ -52,7 +52,7 @@ jobs:
       - name: Get log lines for upstream changes
         id: compute_log_lines
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
-        run: echo ::set-output name=log_lines::$(./repo_commits.sh NixOS/nixpkgs ${{ steps.get_current_commit.outputs.sha256 }} ${{ steps.get_new_commit.outputs.sha256 }})
+        run: echo "::set-output name=log_lines::$(./repo_commits.sh NixOS/nixpkgs ${{ steps.get_current_commit.outputs.sha256 }} ${{ steps.get_new_commit.outputs.sha256 }})"
         working-directory: main
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_LOG_GENERATOR }}
