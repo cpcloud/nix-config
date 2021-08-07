@@ -61,4 +61,4 @@ function get_log_lines() {
   done
 }
 
-get_log_lines "$@" | tac
+get_log_lines "$@" | tac | jq -sRr "@uri"
