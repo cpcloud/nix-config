@@ -27,11 +27,6 @@ in
     ];
   };
 
-  sops.secrets.github_token = {
-    sopsFile = ../../secrets/github.token.yaml;
-    owner = "cloud";
-  };
-
   sops.secrets.github_gh_token = {
     sopsFile = ../../secrets/github.gh.token.yaml;
     owner = "cloud";
