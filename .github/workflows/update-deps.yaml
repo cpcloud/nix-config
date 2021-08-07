@@ -10,6 +10,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Install Nix
+        uses: cachix/install-nix-action@v13
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable-small
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v10
+        with:
+          name: nix-community
+
       - name: Create PRs for niv dependencies
         uses: knl/niv-updater-action@v9
         env:
