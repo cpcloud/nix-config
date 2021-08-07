@@ -53,6 +53,7 @@ jobs:
       - name: Compute changes between commits
         id: compute_changes
         run: echo ::set-output name=log_lines::"$(git log --date=iso --no-merges --oneline --abbrev-commit --pretty=format:'%h - %s (%cd, %cr) by %an' ${{ steps.get_current_commit.outputs.commit }}..${{ steps.get_new_commit.outputs.commit }})"
+        working-directory: ${{ matrix.dep.repo }}
 
       - name: Create a pull request to update ${{ matrix.dep }}
         uses: peter-evans/create-pull-request@v3
