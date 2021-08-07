@@ -51,3 +51,10 @@ creation_rules:
         - *albatross
         - *bluejay
         - *weebill
+  - path_regex: secrets/github.nix-config.commit-log.token.yaml
+    key_groups:
+      - pgp:
+        - *yubikey
+        - *albatross
+        - *bluejay
+        - *weebill
