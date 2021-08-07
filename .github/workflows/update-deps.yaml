@@ -55,20 +55,12 @@ jobs:
         run: echo ::set-output name=branch::$(nix run nixpkgs.jq -c jq -rcM '.["${{ matrix.dep.repo }}"].branch' < nix/sources.json)
         working-directory: main
 
-      - name: Checkout ${{ matrix.dep.owner }}/${{ matrix.dep.repo }}
-        uses: actions/checkout@v2
+      - name: Get log lines for upstream changes
+        id: compute_log_lines
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
-        with:
-          repository: ${{ matrix.dep.owner }}/${{ matrix.dep.repo }}
-          path: ${{ matrix.dep.repo }}
-          ref: ${{ steps.get_branch.outputs.branch }}
-          fetch-depth: 250
-
-      - name: Compute changes between commits
-        id: compute_changes
-        if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
-        run: echo ::set-output name=log_lines::"$(git log --date=iso --no-merges --oneline --abbrev-commit --pretty=format:'* %h - %s (%cd, %cr) by %an' ${{ steps.get_current_commit.outputs.sha256 }}..${{ steps.get_new_commit.outputs.sha256 }})"
-        working-directory: ${{ matrix.dep.repo }}
+        run: echo ::set-output name=log_lines::$(./repo_commits.sh NixOS/nixpkgs ${{ steps.get_current_commit.outputs.sha256 }} ${{ steps.get_new_commit.outputs.sha256 }})
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create a pull request to update ${{ matrix.dep.repo }}
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
@@ -80,4 +72,4 @@ jobs:
           delete-branch: true
           title: "feat(niv): update ${{ matrix.dep.repo }}"
           token: ${{ secrets.GITHUB_TOKEN }}
-          body: ${{ steps.compute_changes.outputs.log_lines }}
+          body: ${{ steps.compute_log_lines.outputs.log_lines }}
