@@ -54,6 +54,7 @@ jobs:
         with:
           repository: ${{ matrix.dep.owner }}/${{ matrix.dep.repo }}
           path: ${{ matrix.dep.repo }}
+          fetch-depth: 0
 
       - name: Compute changes between commits
         id: compute_changes
