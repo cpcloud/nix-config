@@ -52,13 +52,7 @@ jobs:
       - name: Get log lines for upstream changes
         id: compute_log_lines
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
-        run: |
-          # this is really gross: https://github.community/t/set-output-truncates-multiline-strings/16852/4
-          lines="$(./repo_commits.sh NixOS/nixpkgs ${{ steps.get_current_commit.outputs.sha256 }} ${{ steps.get_new_commit.outputs.sha256 }})"
-          # lines="${lines//'%'/'%25'}"
-          # lines="${lines//$'\n'/'%0A'}"
-          # lines="${lines//$'\r'/'%0D'}"
-          echo "::set-output name=log_lines::$lines"
+        run: echo "::set-output name=log_lines::$(./repo_commits.sh NixOS/nixpkgs ${{ steps.get_current_commit.outputs.sha256 }} ${{ steps.get_new_commit.outputs.sha256 }})"
         working-directory: main
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_LOG_GENERATOR }}
