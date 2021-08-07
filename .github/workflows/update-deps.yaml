@@ -48,12 +48,12 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: ${{ matrix.dep.owner }}/${{ matrix.dep.repo }}
-          path: ${{ matrix.dep.repo }}
+          path: /tmp/${{ matrix.dep.repo }}
 
       - name: Compute changes between commits
         id: compute_changes
         run: echo ::set-output name=log_lines::"$(git log --date=iso --no-merges --oneline --abbrev-commit --pretty=format:'%h - %s (%cd, %cr) by %an' ${{ steps.get_current_commit.outputs.sha256 }}..${{ steps.get_new_commit.outputs.sha256 }})"
-        working-directory: ${{ matrix.dep.repo }}
+        working-directory: /tmp/${{ matrix.dep.repo }}
 
       - name: Create a pull request to update ${{ matrix.dep }}
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
