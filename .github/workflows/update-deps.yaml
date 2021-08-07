@@ -49,16 +49,11 @@ jobs:
         run: echo ::set-output name=sha256::$(nix run nixpkgs.jq -c jq -rcM '.["${{ matrix.dep.repo }}"].rev' < nix/sources.json)
         working-directory: main
 
-      - name: Get branch
-        id: get_branch
-        if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
-        run: echo ::set-output name=branch::$(nix run nixpkgs.jq -c jq -rcM '.["${{ matrix.dep.repo }}"].branch' < nix/sources.json)
-        working-directory: main
-
       - name: Get log lines for upstream changes
         id: compute_log_lines
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
         run: echo ::set-output name=log_lines::$(./repo_commits.sh NixOS/nixpkgs ${{ steps.get_current_commit.outputs.sha256 }} ${{ steps.get_new_commit.outputs.sha256 }})
+        working-directory: main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
