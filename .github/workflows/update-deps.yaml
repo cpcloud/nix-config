@@ -88,4 +88,3 @@ jobs:
           title: "feat(niv): update ${{ matrix.dep.repo }}"
           token: ${{ secrets.GITHUB_TOKEN }}
           body: ${{ steps.compute_changes.outputs.log_lines }}
-          assignees: cpcloud
