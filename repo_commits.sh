@@ -43,10 +43,10 @@ function get_log_lines() {
     local commit
     for commit in $(seq 0 $((num_commits - 1))); do
       local sha256
-      sha256="$(jq -rcM '.[$commit].sha[:10]' --argjson commit "$commit" <<<"$commits")"
+      sha256="$(jq -rcM '.[$commit].sha[:8]' --argjson commit "$commit" <<<"$commits")"
 
       local sha_url
-      sha_url="$(jq -rcM '.[$commit].url' --argjson commit "$commit" <<<"$commits")"
+      sha_url="$(jq -rcM '.[$commit].html_url' --argjson commit "$commit" <<<"$commits")"
 
       local commit_message
       commit_message="$(jq -rcM '.[$commit].commit.message | split("\n") | .[0]' --argjson commit "$commit" <<<"$commits")"
@@ -54,11 +54,11 @@ function get_log_lines() {
       local date
       date="$(jq -rcM '.[$commit].commit.committer.date' --argjson commit "$commit" <<<"$commits")"
 
-      echo "- [$sha256]($sha_url) - \`$commit_message\` on \`$date\`"
+      echo "- \`[$sha256]($sha_url)\` - \`$commit_message\` on \`$date\`"
     done
     ((commits_remaining -= num_commits_on_page))
     ((++page))
-  done | tac
+  done
 }
 
-get_log_lines "$@"
+get_log_lines "$@" | tac
