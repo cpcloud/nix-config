@@ -33,9 +33,7 @@ jobs:
       - name: Setup Cachix
         uses: cachix/cachix-action@v10
         with:
-          name: nixos-config
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          extraPullNames: nix-community
+          name: nix-community
 
       - name: Get current commit
         id: get_current_commit
