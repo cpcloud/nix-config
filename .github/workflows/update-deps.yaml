@@ -35,14 +35,14 @@ jobs:
 
       - name: Get current commit
         id: get_current_commit
-        run: echo ::set-output name=commit::$(nix run nixpkgs.jq -c jq -rcM '.["${{ matrix.dep.repo }}"].rev' < nix/sources.json)
+        run: echo ::set-output name=commit::$(nix run '(import (import ./nix).nixpkgs {}).jq' -c jq -rcM '.["${{ matrix.dep.repo }}"].rev' < nix/sources.json)
 
       - name: Update ${{ matrix.dep.repo }}
         run: nix run '(import (import ./nix).nixpkgs {}).niv' -c niv update ${{ matrix.dep.repo }}
 
       - name: Get new commit
         id: get_new_commit
-        run: echo ::set-output name=commit::$(nix run nixpkgs.jq -c jq -rcM '.["${{ matrix.dep.repo }}"].rev' < nix/sources.json)
+        run: echo ::set-output name=commit::$(nix run '(import (import ./nix).nixpkgs {}).jq' -c jq -rcM '.["${{ matrix.dep.repo }}"].rev' < nix/sources.json)
 
       - name: Checkout ${{ matrix.dep.owner }}/${{ matrix.dep.repo }}
         uses: actions/checkout@v2
