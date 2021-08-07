@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell --keep GITHUB_TOKEN --pure -p coreutils -p jq -p curl -p cacert -i bash
+#!nix-shell --keep GITHUB_TOKEN --pure -p coreutils -p jq -p curl -p cacert -p python3 -i bash
 
 set -euo pipefail
 
@@ -61,4 +61,4 @@ function get_log_lines() {
   done
 }
 
-get_log_lines "$@" | tac | jq -sRr "@uri"
+get_log_lines "$@" | tac | python -c 'import sys; print(sys.stdin.read().translate({ord("\\"): r"\\", ord("\""): "\\\"", ord("\n"): r"\n"}))'
