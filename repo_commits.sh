@@ -54,7 +54,7 @@ function get_log_lines() {
       local author_name
       author_name="$(jq -rcM '.[$commit].commit.author.name' --argjson commit "$commit" <<<"$commits")"
 
-      echo "* $sha256 - \`$commit_message ($date) by <$author_name>\`"
+      echo "- $sha256 - \`$commit_message ($date) by <$author_name>\`"
     done
     ((commits_remaining -= num_commits_on_page))
     ((++page))
