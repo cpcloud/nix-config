@@ -51,13 +51,20 @@ jobs:
         run: echo ::set-output name=sha256::$(nix run nixpkgs.jq -c jq -rcM '.["${{ matrix.dep.repo }}"].rev' < nix/sources.json)
         working-directory: main
 
+      - name: Set needs update
+        id: set_needs_update
+        run: echo ::set-output name=needs_update::${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
+        working-directory: main
+
       - name: Get branch
         id: get_branch
+        if: ${{ steps.set_needs_update.outputs.needs_udpate }}
         run: echo ::set-output name=branch::$(nix run nixpkgs.jq -c jq -rcM '.["${{ matrix.dep.repo }}"].branch' < nix/sources.json)
         working-directory: main
 
       - name: Checkout ${{ matrix.dep.owner }}/${{ matrix.dep.repo }}
         uses: actions/checkout@v2
+        if: ${{ steps.set_needs_update.outputs.needs_udpate }}
         with:
           repository: ${{ matrix.dep.owner }}/${{ matrix.dep.repo }}
           path: ${{ matrix.dep.repo }}
@@ -66,11 +73,12 @@ jobs:
 
       - name: Compute changes between commits
         id: compute_changes
+        if: ${{ steps.set_needs_update.outputs.needs_udpate }}
         run: echo ::set-output name=log_lines::"$(git log --date=iso --no-merges --oneline --abbrev-commit --pretty=format:'* %h - %s (%cd, %cr) by %an' ${{ steps.get_current_commit.outputs.sha256 }}..${{ steps.get_new_commit.outputs.sha256 }})"
         working-directory: ${{ matrix.dep.repo }}
 
       - name: Create a pull request to update ${{ matrix.dep.repo }}
-        if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
+        if: ${{ steps.set_needs_update.outputs.needs_udpate }}
         uses: peter-evans/create-pull-request@v3
         with:
           path: main
