@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell --pure -p jq -p curl -p cacert -i bash
+#!nix-shell --keep GITHUB_TOKEN --pure -p coreutils -p jq -p curl -p cacert -i bash
 
 set -euo pipefail
 
@@ -21,9 +21,6 @@ function get_log_lines() {
 
   local commits_remaining
   commits_remaining="$(auth_request "$endpoint" | jq -rcM '.ahead_by')"
-
-  local -a lines
-  lines=()
 
   while true; do
     if ((commits_remaining == 0)); then
@@ -57,19 +54,11 @@ function get_log_lines() {
       local author_name
       author_name="$(jq -rcM '.[$commit].commit.author.name' --argjson commit "$commit" <<<"$commits")"
 
-      lines+=("* $sha256 - $commit_message ($date) by <$author_name>")
+      echo "* $sha256 - \`$commit_message ($date) by <$author_name>\`"
     done
     ((commits_remaining -= num_commits_on_page))
     ((++page))
-  done
-
-  local num_lines="${#lines}"
-
-  for i in $(seq "$((num_lines - 1))" -1 0); do
-    set +u
-    echo "${lines[$i]}"
-    set -u
-  done
+  done | tac
 }
 
 get_log_lines "$@"
