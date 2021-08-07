@@ -64,6 +64,7 @@ jobs:
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
         uses: peter-evans/create-pull-request@v3
         with:
+          path: ${{ matrix.dep.repo }}
           commit-message: "feat(niv): update ${{ matrix.dep.repo }}"
           branch: "create-pull-request/update-${{ matrix.dep.repo }}"
           delete-branch: true
