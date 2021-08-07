@@ -62,7 +62,7 @@ jobs:
           repository: ${{ matrix.dep.owner }}/${{ matrix.dep.repo }}
           path: ${{ matrix.dep.repo }}
           ref: ${{ steps.get_branch.outputs.branch }}
-          fetch-depth: 500
+          fetch-depth: 250
 
       - name: Compute changes between commits
         id: compute_changes
