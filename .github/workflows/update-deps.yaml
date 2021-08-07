@@ -69,7 +69,7 @@ jobs:
         run: echo ::set-output name=log_lines::"$(git log --date=iso --no-merges --oneline --abbrev-commit --pretty=format:'%h - %s (%cd, %cr) by %an' ${{ steps.get_current_commit.outputs.sha256 }}..${{ steps.get_new_commit.outputs.sha256 }})"
         working-directory: ${{ matrix.dep.repo }}
 
-      - name: Create a pull request to update ${{ matrix.dep }}
+      - name: Create a pull request to update ${{ matrix.dep.repo }}
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
         uses: peter-evans/create-pull-request@v3
         with:
