@@ -54,7 +54,7 @@ function get_log_lines() {
       local date
       date="$(jq -rcM '.[$commit].commit.committer.date' --argjson commit "$commit" <<<"$commits")"
 
-      echo "- \`[$sha256]($sha_url)\` - \`$commit_message\` on \`$date\`"
+      echo "- [\`$sha256\`]($sha_url) - \`$commit_message\` on \`$date\`"
     done
     ((commits_remaining -= num_commits_on_page))
     ((++page))
