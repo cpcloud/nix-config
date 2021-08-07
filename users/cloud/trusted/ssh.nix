@@ -6,7 +6,7 @@ let
     "5c_nano"
   ];
   genYubikeyPubKeyPath = model: "~/.ssh/id_rsa_yubikey_${model}.pub";
-  identityFileConfig = lib.concatMapStringsSep
+  identityFileConfigLines = lib.concatMapStringsSep
     "\n"
     (model: "IdentityFile ${genYubikeyPubKeyPath model}")
     yubikeyModels;
@@ -19,23 +19,26 @@ in
     controlMaster = "auto";
     controlPath = "~/.ssh/a-%C";
     controlPersist = "30m";
+    serverAliveCountMax = 5;
+    serverAliveInterval = 60;
+
     extraConfig = ''
       IdentityAgent /run/user/1000/gnupg/S.gpg-agent.ssh
       ChallengeResponseAuthentication no
       AddKeysToAgent yes
-      ForwardX11 no
-      ForwardX11Trusted no
       StrictHostKeyChecking ask
       VerifyHostKeyDNS yes
-      IdentitiesOnly yes
-      ${identityFileConfig}
-      ServerAliveCountMax 5
-      ServerAliveInterval 60
+      ${identityFileConfigLines}
     '';
+
+    extraOptionOverrides = {
+      ForwardX11 = "no";
+      ForwardX11Trusted = "no";
+      IdentitiesOnly = "yes";
+    };
 
     matchBlocks = {
       "github.com" = {
-        hostname = "github.com";
         identityFile = map genYubikeyPubKeyPath yubikeyModels;
         user = "git";
       };
