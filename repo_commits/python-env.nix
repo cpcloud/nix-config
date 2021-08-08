@@ -1,5 +1,5 @@
 let
-  sources = import ./nix;
+  sources = import ../nix;
   pkgs = import sources.nixpkgs { };
   pythonEnv = pkgs.python3.withPackages (p: [ p.requests ]);
 in
