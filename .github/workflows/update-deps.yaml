@@ -49,6 +49,11 @@ jobs:
         run: echo ::set-output name=sha256::$(nix run nixpkgs.jq -c jq -rcM '.["${{ matrix.dep.repo }}"].rev' < nix/sources.json)
         working-directory: main
 
+      - name: Install node dependencies
+        if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
+        run: nix-shell --pure --run "npm install"
+        working-directory: main/repo_commits
+
       - name: Get log lines for upstream changes
         id: compute_log_lines
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
