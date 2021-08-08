@@ -9,9 +9,11 @@ import requests
 
 
 def auth_request(
-    endpoint: str, params: Optional[Mapping[str, int]] = None
+    endpoint: str,
+    *,
+    params: Optional[Mapping[str, int]] = None,
+    token: str,
 ) -> Mapping[str, Any]:
-    token = os.environ.get("GITHUB_TOKEN")
     return requests.get(
         endpoint,
         headers={
@@ -36,10 +38,18 @@ def main(
     end: str,
     per_page: int,
     translate: bool,
+    token: Optional[str],
+    show_merge_commits: bool,
 ) -> None:
+    if token is None:
+        token = os.environ["GITHUB_TOKEN"]
     page = 1
     endpoint = f"https://api.github.com/repos/{owner_repo}/compare/{begin}...{end}"
-    commits_remaining = auth_request(endpoint, params={"per_page": 0})["ahead_by"]
+    commits_remaining = auth_request(
+        endpoint,
+        params={"per_page": 0},
+        token=token,
+    ).get("ahead_by", 0)
 
     header = ["SHA256", "Commit Message", "Timestamp"]
     header_line = f"|{'|'.join(header)}|"
@@ -50,13 +60,21 @@ def main(
     lines = []
 
     while commits_remaining:
-        resp = auth_request(endpoint, params={"per_page": per_page, "page": page})
+        resp = auth_request(
+            endpoint,
+            params=dict(per_page=per_page, page=page),
+            token=token,
+        )
 
         commits = resp["commits"]
         num_commits_on_page = len(commits)
 
         # skip merge commits
-        for commit_data in (commit for commit in commits if len(commit["parents"]) < 2):
+        for commit_data in (
+            commit
+            for commit in commits
+            if show_merge_commits or len(commit["parents"]) < 2
+        ):
             sha256 = commit_data["sha"][:8]
             sha_url = commit_data["html_url"]
 
@@ -102,6 +120,19 @@ if __name__ == "__main__":
         action="store_false",
         help="Whether to translate characters for use in creating a pull request",
     )
+    p.add_argument(
+        "-t",
+        "--token",
+        type=str,
+        default=None,
+        help="GitHub authentication token",
+    )
+    p.add_argument(
+        "-m",
+        "--show-merge-commits",
+        action="store_true",
+        help="Whether to show merge commits",
+    )
 
     args = p.parse_args()
 
@@ -111,4 +142,6 @@ if __name__ == "__main__":
         end=args.end,
         per_page=args.per_page,
         translate=args.no_translate,
+        token=args.token,
+        show_merge_commits=args.show_merge_commits,
     )
