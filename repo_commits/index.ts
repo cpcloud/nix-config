@@ -4,7 +4,7 @@ import * as superagent from "superagent";
 
 interface Params {
   page: number;
-  perPage: number;
+  ["per-page"]: number;
 }
 
 interface Request {
@@ -14,7 +14,7 @@ interface Request {
 }
 
 const authRequest = async (request: Request): Promise<any> => {
-  const { page, perPage } = request.params;
+  const { page, ["per-page"]: perPage } = request.params;
   return (
     await superagent
       .get(request.endpoint)
@@ -31,10 +31,10 @@ interface Args {
   begin: string;
   end: string;
   help?: boolean;
-  perPage: number;
-  noTranslate: boolean;
+  ["per-page"]: number;
+  ["no-translate"]: boolean;
   token: string;
-  showMergeCommits: boolean;
+  ["show-merge-commits"]: boolean;
 }
 
 const main = async (): Promise<void> => {
@@ -43,32 +43,42 @@ const main = async (): Promise<void> => {
       owner: {
         type: String,
         description: "The owner of the GitHub repository",
+        alias: "o",
       },
       repo: {
         type: String,
         description: "The name of the GitHub repository",
+        alias: "r",
       },
-      begin: { type: String, description: "Start of the commit range" },
-      end: { type: String, description: "End of the commit range" },
-      perPage: {
+      begin: {
+        type: String,
+        description: "Start of the commit range",
+        alias: "b",
+      },
+      end: { type: String, description: "End of the commit range", alias: "e" },
+      ["per-page"]: {
         type: Number,
         defaultValue: 100,
         description: "The number of commits per GitHub API response",
+        alias: "p",
       },
-      noTranslate: {
+      ["no-translate"]: {
         type: Boolean,
         defaultValue: false,
         description:
           "Turn off translating characters for use in a pull request body",
+        alias: "n",
       },
       token: {
         type: String,
         defaultValue: process.env.GITHUB_TOKEN,
         description: "GitHub authentication token",
+        alias: "t",
       },
-      showMergeCommits: {
+      ["show-merge-commits"]: {
         type: Boolean,
         defaultValue: false,
+        alias: "m",
         description: "Show merge commits when passed",
       },
       help: {
@@ -97,7 +107,7 @@ const main = async (): Promise<void> => {
   let commitsRemaining = (
     await authRequest({
       endpoint,
-      params: { perPage: 0, page },
+      params: { ["per-page"]: 0, page },
       token: args.token,
     })
   ).ahead_by;
@@ -112,7 +122,7 @@ const main = async (): Promise<void> => {
   while (commitsRemaining) {
     const resp = await authRequest({
       endpoint,
-      params: { perPage: args.perPage, page },
+      params: { ["per-page"]: args["per-page"], page },
       token: args.token,
     });
 
@@ -120,7 +130,7 @@ const main = async (): Promise<void> => {
     const numCommitsOnPage = commits.length;
 
     for (let commitData of commits.filter(
-      (commit: any) => args.showMergeCommits || commit.parents.length < 2
+      (commit: any) => args["show-merge-commits"] || commit.parents.length < 2
     )) {
       const sha256 = commitData.sha.slice(0, 8);
       const shaUrl = commitData.html_url;
@@ -142,7 +152,7 @@ const main = async (): Promise<void> => {
 
   const joinedResult = headerLines.concat(lines.reverse()).join("\n");
 
-  if (args.noTranslate) {
+  if (args["no-translate"]) {
     console.log(joinedResult);
   } else {
     console.log(
