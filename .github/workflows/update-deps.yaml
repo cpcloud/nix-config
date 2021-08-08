@@ -62,7 +62,7 @@ jobs:
           repo="${{ matrix.dep.repo }}"
           begin="${{ steps.get_current_commit.outputs.sha256 }}"
           end="${{ steps.get_new_commit.outputs.sha256 }}"
-          echo "::set-output name=log_lines::$("./repo_commits.sh --owner $owner --repo $repo --begin $begin --end $end")"
+          echo "::set-output name=log_lines::$(./repo_commits.sh --owner $owner --repo $repo --begin $begin --end $end)"
         working-directory: main/repo_commits
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_LOG_GENERATOR }}
