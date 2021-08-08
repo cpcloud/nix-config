@@ -1,14 +1,15 @@
 {
-  "name": "repo-commits",
+  "name": "repo_commits",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cpcloud/nix-config.git"
   },
   "private": true,
-  "description": "Code for generating a non-merge commit log for use in a pull request body.",
+  "description": "Code for generating a commit log for use in a pull request body.",
   "version": "1.0.0",
   "devDependencies": {
+    "@types/superagent": "^4.1.12",
     "@typescript-eslint/eslint-plugin": "^4.28.5",
     "@typescript-eslint/parser": "^4.28.5",
     "eslint": "^7.31.0"
@@ -18,8 +19,9 @@
   },
   "homepage": "https://github.com/cpcloud/nix-config#readme",
   "main": "index.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Phillip Cloud"
+  "author": "Phillip Cloud",
+  "dependencies": {
+    "superagent": "^6.1.0",
+    "ts-command-line-args": "^2.1.0"
+  }
 }
