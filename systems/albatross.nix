@@ -22,7 +22,7 @@
   ];
 
   home-manager.users.cloud = { ... }: {
-    imports = [ ../users/cloud/trusted/gnome.nix ];
+    imports = [ ../users/cloud/trusted/curses.nix ];
   };
 
   sops.secrets.albatross_github_runner = {
