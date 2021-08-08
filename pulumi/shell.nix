@@ -7,12 +7,8 @@ pkgs.mkShell {
   buildInputs = (with pkgs; [
     cacert
     google-cloud-sdk
-    nix
     nodejs
     pulumi-bin
-    sops
-    ssh-to-pgp
-    yj
   ]) ++ (with pkgs.nodePackages; [
     npm
     typescript
