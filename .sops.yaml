@@ -58,3 +58,10 @@ creation_rules:
         - *albatross
         - *bluejay
         - *weebill
+  - path_regex: secrets/github.nix-config.deploy.token.yaml
+    key_groups:
+      - pgp:
+        - *yubikey
+        - *albatross
+        - *bluejay
+        - *weebill

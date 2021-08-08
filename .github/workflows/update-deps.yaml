@@ -76,5 +76,5 @@ jobs:
           branch: "create-pull-request/update-${{ matrix.dep.repo }}"
           delete-branch: true
           title: "feat(niv): update ${{ matrix.dep.repo }}"
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PR }}
           body: ${{ steps.compute_log_lines.outputs.log_lines }}
