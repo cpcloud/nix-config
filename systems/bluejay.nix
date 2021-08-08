@@ -16,7 +16,7 @@
   ];
 
   home-manager.users.cloud = { ... }: {
-    imports = [ ../users/cloud/trusted/gnome.nix ];
+    imports = [ ../users/cloud/trusted/curses.nix ];
   };
 
   fileSystems = {
