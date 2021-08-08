@@ -12,7 +12,9 @@ pkgs.mkShell {
     eslint
   ]);
 
+  # npm forces output that can't possibly be useful to stdout so redirect
+  # stdout to stderr
   shellHook = ''
-    npm install --no-fund
+    npm install --no-fund 1>&2
   '';
 }
