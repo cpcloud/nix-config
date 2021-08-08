@@ -4,11 +4,13 @@ let
 in
 pkgs.mkShell {
   name = "repo-commits";
-  buildInputs = with pkgs.nodePackages; [
+  buildInputs = (with pkgs; [
+    nodejs
+  ]) ++ (with pkgs.nodePackages; [
     npm
     typescript
     eslint
-  ];
+  ]);
 
   shellHook = ''
     npm install --no-fund
