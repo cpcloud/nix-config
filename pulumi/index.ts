@@ -116,7 +116,8 @@ export = async (): Promise<void> => {
     // construst a network specific to the instance
     const network = new compute.Network(`${instanceName}-network`);
 
-    // if instance has a GPU then the only valid host maintenance action is to terminate the running instance
+    // if instance has a GPU then the only valid host maintenance action is
+    // to terminate the running instance
     const onHostMaintenance = instanceGpu ? "TERMINATE" : "MIGRATE";
     const guestAccelerators = instanceGpu
       ? [{ count: instanceGpu.count, type: instanceGpu.type }]
