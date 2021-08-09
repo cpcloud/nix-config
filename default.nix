@@ -3,11 +3,11 @@ let
   nixus = import sources.nixus { };
   inherit (sources) nixpkgs;
   systems = [
+    "albatross"
+    "bluejay"
+    "falcon"
     "pigeon"
     "plover"
-    "albatross"
-    "falcon"
-    "bluejay"
     "weebill"
   ];
   hostAttrList = map
