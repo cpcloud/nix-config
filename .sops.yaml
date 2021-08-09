@@ -9,6 +9,7 @@ creation_rules:
     key_groups:
       - pgp:
         - *yubikey
+        - *albatross
         - *bluejay
         - *weebill
   - path_regex: secrets/albatross-github-runner.yaml
