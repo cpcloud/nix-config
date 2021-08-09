@@ -25,17 +25,6 @@
     imports = [ ../users/cloud/trusted/curses.nix ];
   };
 
-  sops.secrets.albatross_github_runner = {
-    sopsFile = ../secrets/albatross-github-runner.yaml;
-  };
-
-  services.github-runner = {
-    enable = true;
-    url = "https://github.com/cpcloud/nix-config";
-    tokenFile = config.sops.secrets.albatross_github_runner.path;
-    extraPackages = [ pkgs.cachix ];
-  };
-
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-uuid/5a68c5b9-a66b-4efd-9fc9-b1a307c15eff";
