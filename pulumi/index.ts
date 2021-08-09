@@ -1,11 +1,6 @@
 import * as p from "@pulumi/pulumi";
-import { compute, storage } from "@pulumi/gcp";
-import * as child_process from "child_process";
-import * as path from "path";
-import * as util from "util";
-import * as globby from "globby";
-
-const execFile = util.promisify(child_process.execFile);
+import { compute, projects, storage } from "@pulumi/gcp";
+import * as nixos from "./nixos";
 
 interface Disk {
   size_gb: number;
@@ -24,104 +19,101 @@ interface Instance {
   gpu: Gpu;
 }
 
-interface NixBuildPaths {
-  outPath: string;
-  imagePath: string;
+interface Image {
+  bucket: string;
+  family: string;
 }
 
 const NESTED_VIRTUALIZATION_LICENSE =
   "https://www.googleapis.com/compute/v1/projects/vm-options/global/licenses/enable-vmx";
 const IMAGE_CONTENT_TYPE = "application/tar+gzip";
 
-const buildNixOsImage = async (
-  instanceName: string
-): Promise<NixBuildPaths> => {
-  const imageExpr = [
-    "config",
-    "nodes",
-    instanceName,
-    "configuration",
-    "system",
-    "build",
-    "googleComputeImage",
-  ].join(".");
-  const { stdout: outPathBytes } = await execFile("nix-build", [
-    "..",
-    "--no-out-link",
-    "--attr",
-    imageExpr,
-  ]);
-  const outPath = outPathBytes.trim();
-  const pattern = path.join(outPath, "*.tar.gz");
-  const [imagePath] = await globby(pattern);
-  return { imagePath, outPath };
+const enableService = (name: string): p.Resource => {
+  return new projects.Service(name, {
+    service: `${name}.googleapis.com`,
+    disableDependentServices: false,
+    disableOnDestroy: false,
+  });
 };
 
 export = async (): Promise<void> => {
   const conf = new p.Config("dev");
-  const instances = conf.requireObject<Instance[]>("instances");
-  const imageBucketName = conf.require("image_bucket");
-  const imageBucket = new storage.Bucket(imageBucketName);
 
-  // loop over instances
+  const { family, bucket } = conf.requireObject<Image>("image");
+
+  const computeService = enableService("compute");
+  const storageService = enableService("storage");
+
+  const machineImageBucket = new storage.Bucket(
+    bucket,
+    {},
+    {
+      parent: storageService,
+      dependsOn: [storageService],
+    }
+  );
+
+  const instances = conf.requireObject<Instance[]>("instances");
   for (const {
     name: instanceName,
-    machine_type: instanceMachineType,
-    gpu: instanceGpu,
-    disk: instanceDisk,
+    machine_type: machineType,
+    gpu,
+    disk,
   } of instances) {
-    // build a nixos compute image
-    const { imagePath, outPath } = await buildNixOsImage(instanceName);
-    const baseImagePath = path.basename(imagePath);
-    const outHash = path.basename(outPath).split("-")[0];
-    const imageBucketObjectName = `${outHash}-${baseImagePath}`;
+    const nixosImage = new nixos.Image(
+      `${instanceName}`,
+      {
+        osImage: instanceName.replace(/_/g, "-"),
+        nixpkgsPath: "..",
+        family,
+        expr: `config.nodes.${instanceName}.configuration.system.build.googleComputeImage`,
+      },
+      { parent: machineImageBucket }
+    );
 
     // store the nix-generated tarball in a GCP bucket
     const imageBucketObject = new storage.BucketObject(
-      imageBucketObjectName,
+      `${family}-${instanceName}`,
       {
-        source: new p.asset.FileAsset(imagePath),
-        bucket: imageBucket.name,
-        name: imageBucketObjectName,
+        source: nixosImage.bucketObjectSource.apply(
+          imagePath => new p.asset.FileAsset(imagePath)
+        ),
+        bucket: machineImageBucket.name,
+        name: nixosImage.bucketObjectName,
         contentType: IMAGE_CONTENT_TYPE,
-        metadata: { nix_store_hash: outHash },
       },
       {
         deleteBeforeReplace: true,
-        parent: imageBucket,
+        parent: nixosImage,
+        dependsOn: [storageService],
       }
     );
 
-    const removeExtension = /\.raw\.tar\.gz|nixos-image-/g;
-    const imageNameNoExtension = baseImagePath.replace(removeExtension, "");
-
-    const replaceDotAndUnderscore = /[._]+/g;
-    const imageNameNoUnderscores = imageNameNoExtension.replace(
-      replaceDotAndUnderscore,
-      "-"
-    );
-    const imageName = `x-${outHash.slice(0, 12)}-${imageNameNoUnderscores}`;
-
-    // construct a new compute image resource
+    // construct a new GCP compute image
     const computeImage = new compute.Image(
-      imageName,
+      `${family}-${instanceName}`,
       {
-        family: "nixos",
+        family,
         licenses: [NESTED_VIRTUALIZATION_LICENSE],
         rawDisk: { source: imageBucketObject.selfLink },
       },
-      { parent: imageBucketObject }
+      { parent: imageBucketObject, dependsOn: [computeService] }
     );
 
     // construst a network specific to the instance
-    const network = new compute.Network(`${instanceName}-network`);
+    const network = new compute.Network(
+      `${instanceName}-network`,
+      {},
+      {
+        parent: computeService,
+        dependsOn: [computeService],
+      }
+    );
 
     // if instance has a GPU then the only valid host maintenance action is
     // to terminate the running instance
-    const onHostMaintenance = instanceGpu ? "TERMINATE" : "MIGRATE";
-    const guestAccelerators = instanceGpu
-      ? [{ count: instanceGpu.count, type: instanceGpu.type }]
-      : [];
+    const onHostMaintenance = gpu ? "TERMINATE" : "MIGRATE";
+    const guestAccelerators = gpu ? [{ count: gpu.count, type: gpu.type }] : [];
 
     // the instance has a completely private IP, which means we do not
     // have external access without NAT, so set up NAT
@@ -130,7 +122,7 @@ export = async (): Promise<void> => {
     const router = new compute.Router(
       `${instanceName}-router`,
       { network: network.selfLink },
-      { parent: network }
+      { parent: network, dependsOn: [computeService] }
     );
 
     // the second step is to construct NAT for the router
@@ -142,7 +134,7 @@ export = async (): Promise<void> => {
         sourceSubnetworkIpRangesToNat: "ALL_SUBNETWORKS_ALL_IP_RANGES",
         logConfig: { enable: true, filter: "ALL" },
       },
-      { parent: router }
+      { parent: router, dependsOn: [computeService] }
     );
 
     // enable in bound SSH traffic for the instance, but limit
@@ -161,14 +153,14 @@ export = async (): Promise<void> => {
           },
         ],
       },
-      { parent: network }
+      { parent: network, dependsOn: [computeService] }
     );
 
     // finally, construct the instance
     new compute.Instance(
       instanceName,
       {
-        machineType: instanceMachineType,
+        machineType,
         guestAccelerators,
         tags: ["dev"],
         scheduling: { onHostMaintenance },
@@ -176,13 +168,13 @@ export = async (): Promise<void> => {
         bootDisk: {
           initializeParams: {
             image: computeImage.selfLink,
-            size: instanceDisk.size_gb,
-            type: instanceDisk.type,
+            size: disk.size_gb,
+            type: disk.type,
           },
         },
-        allowStoppingForUpdate: !!instanceGpu,
+        allowStoppingForUpdate: !!gpu,
       },
-      { parent: computeImage, dependsOn: [iapSshFirewall] }
+      { parent: computeImage, dependsOn: [iapSshFirewall, computeService] }
     );
   }
 };
