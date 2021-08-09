@@ -3,7 +3,7 @@ let
   pkgs = import sources.nixpkgs { };
 in
 pkgs.mkShell {
-  name = "nixos-config";
+  name = "nix-config";
   nativeBuildInputs = [
     (pkgs.callPackage sources.sops-nix { }).sops-import-keys-hook
   ];
