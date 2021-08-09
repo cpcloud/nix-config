@@ -1,10 +1,7 @@
 {
   "name": "repo_commits",
   "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cpcloud/nix-config.git"
-  },
+  "repository": "git+https://github.com/cpcloud/nix-config.git",
   "private": true,
   "description": "Code for generating a commit log for use in a pull request body.",
   "version": "1.0.0",
@@ -12,16 +9,22 @@
     "@types/superagent": "^4.1.12",
     "@typescript-eslint/eslint-plugin": "^4.28.5",
     "@typescript-eslint/parser": "^4.28.5",
-    "eslint": "^7.31.0"
+    "eslint": "^7.31.0",
+    "typescript": "^4.3.5"
   },
   "bugs": {
     "url": "https://github.com/cpcloud/nix-config/issues"
+  },
+  "scripts": {
+    "repo_commits": "ts-node index.ts"
   },
   "homepage": "https://github.com/cpcloud/nix-config#readme",
   "main": "index.ts",
   "author": "Phillip Cloud",
   "dependencies": {
     "superagent": "^6.1.0",
-    "ts-command-line-args": "^2.1.0"
-  }
+    "ts-command-line-args": "^2.1.0",
+    "ts-node": "^10.2.0"
+  },
+  "packageManager": "yarn@3.0.0"
 }
