@@ -4,17 +4,11 @@ let
 in
 pkgs.mkShell {
   name = "repo-commits";
-  buildInputs = (with pkgs; [
-    nodejs
-  ]) ++ (with pkgs.nodePackages; [
-    npm
-    typescript
-    eslint
-  ]);
+  buildInputs = (with pkgs; [ nodejs yarn ]);
 
   # npm forces output that can't possibly be useful to stdout so redirect
   # stdout to stderr
   shellHook = ''
-    npm install --no-fund 1>&2
+    yarn install 1>&2
   '';
 }
