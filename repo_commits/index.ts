@@ -100,17 +100,17 @@ const main = async (): Promise<void> => {
   for await (const {
     data: { commits },
   } of octokit.paginate.iterator(
-    octokit.rest.repos.compareCommitsWithBasehead,
-    { owner, repo, basehead }
-  )) {
-    for (const commitData of commits.filter(
-      c => showMergeCommits || c.parents.length < 2
-    )) {
-      const sha256 = commitData.sha.slice(0, shaLength);
-      const shaUrl = commitData.html_url;
-      const commit = commitData.commit;
-      const commitMessage = commit.message.split("\n")[0];
-      const date = commit.committer?.date ?? "unknown";
+    octokit.rest.repos.compareCommitsWithBasehead, // eslint-disable-line indent
+    { owner, repo, basehead } // eslint-disable-line indent
+  )) /* eslint-disable-line indent */ {
+    for (const {
+      sha,
+      html_url: shaUrl,
+      commit: { message, committer },
+    } of commits.filter(c => showMergeCommits || c.parents.length < 2)) {
+      const sha256 = sha.slice(0, shaLength);
+      const commitMessage = message.split("\n")[0];
+      const date = committer?.date ?? "unknown";
 
       const fields = [
         `[\`${sha256}\`](${shaUrl})`,
