@@ -4,21 +4,16 @@ let
 in
 pkgs.mkShell {
   name = "pulumi";
-  buildInputs = (with pkgs; [
-    cacert
+  buildInputs = with pkgs; [
     google-cloud-sdk
     nodejs
     pulumi-bin
-  ]) ++ (with pkgs.nodePackages; [
-    npm
-    typescript
-    eslint
-  ]);
+    yarn
+  ];
 
   shellHook = ''
-    npm install --no-fund
+    yarn install 1>&2
   '';
 
   PULUMI_SKIP_UPDATE_CHECK = "1";
-  SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
 }

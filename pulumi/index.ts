@@ -63,16 +63,20 @@ export = async (): Promise<void> => {
   const imageBucketName = conf.require("image_bucket");
   const imageBucket = new storage.Bucket(imageBucketName);
 
+  // loop over instances
   for (const {
     name: instanceName,
     machine_type: instanceMachineType,
     gpu: instanceGpu,
     disk: instanceDisk,
   } of instances) {
+    // build a nixos compute image
     const { imagePath, outPath } = await buildNixOsImage(instanceName);
     const baseImagePath = path.basename(imagePath);
     const outHash = path.basename(outPath).split("-")[0];
     const imageBucketObjectName = `${outHash}-${baseImagePath}`;
+
+    // store the nix-generated tarball in a GCP bucket
     const imageBucketObject = new storage.BucketObject(
       imageBucketObjectName,
       {
@@ -89,14 +93,16 @@ export = async (): Promise<void> => {
     );
 
     const removeExtension = /\.raw\.tar\.gz|nixos-image-/g;
-    const replaceDotAndUnderscore = /[._]+/g;
     const imageNameNoExtension = baseImagePath.replace(removeExtension, "");
+
+    const replaceDotAndUnderscore = /[._]+/g;
     const imageNameNoUnderscores = imageNameNoExtension.replace(
       replaceDotAndUnderscore,
       "-"
     );
     const imageName = `x-${outHash.slice(0, 12)}-${imageNameNoUnderscores}`;
 
+    // construct a new compute image resource
     const computeImage = new compute.Image(
       imageName,
       {
@@ -106,18 +112,27 @@ export = async (): Promise<void> => {
       },
       { parent: imageBucketObject }
     );
+
+    // construst a network specific to the instance
     const network = new compute.Network(`${instanceName}-network`);
 
+    // if instance has a GPU then the only valid host maintenance action is to terminate the running instance
     const onHostMaintenance = instanceGpu ? "TERMINATE" : "MIGRATE";
     const guestAccelerators = instanceGpu
       ? [{ count: instanceGpu.count, type: instanceGpu.type }]
       : [];
 
+    // the instance has a completely private IP, which means we do not
+    // have external access without NAT, so set up NAT
+    //
+    // the first step is to construct a router
     const router = new compute.Router(
       `${instanceName}-router`,
       { network: network.selfLink },
       { parent: network }
     );
+
+    // the second step is to construct NAT for the router
     new compute.RouterNat(
       `${instanceName}-router-nat`,
       {
@@ -129,6 +144,8 @@ export = async (): Promise<void> => {
       { parent: router }
     );
 
+    // enable in bound SSH traffic for the instance, but limit
+    // it to the Google IAP IP address
     const iapSshFirewall = new compute.Firewall(
       "allow-inbound-iap",
       {
@@ -146,6 +163,7 @@ export = async (): Promise<void> => {
       { parent: network }
     );
 
+    // finally, construct the instance
     new compute.Instance(
       instanceName,
       {
@@ -161,7 +179,7 @@ export = async (): Promise<void> => {
             type: instanceDisk.type,
           },
         },
-        allowStoppingForUpdate: true,
+        allowStoppingForUpdate: !!instanceGpu,
       },
       { parent: computeImage, dependsOn: [iapSshFirewall] }
     );
