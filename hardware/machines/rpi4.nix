@@ -35,26 +35,6 @@
     nrBuildUsers = 4;
     maxJobs = 4;
     buildCores = 4;
-
-    autoOptimiseStore = true;
-
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d";
-    };
-
-    # Free up to 1GiB whenever there is less than 100MiB left.
-    extraOptions =
-      let
-        kb = 1024;
-        mb = kb * kb;
-        gb = kb * mb;
-      in
-      ''
-        min-free = ${toString (100 * mb)}
-        max-free = ${toString gb}
-      '';
   };
 
   hardware.raspberry-pi."4".fkms-3d.enable = true;
