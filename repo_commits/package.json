@@ -6,10 +6,12 @@
   "description": "Code for generating a commit log for use in a pull request body.",
   "version": "1.0.0",
   "devDependencies": {
-    "@types/superagent": "^4.1.12",
-    "@typescript-eslint/eslint-plugin": "^4.28.5",
+    "@types/node": "^16.4.13",
+    "@types/prettier": "^2",
+    "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.28.5",
-    "eslint": "^7.31.0",
+    "eslint": "^7.32.0",
+    "prettier": "^2.3.2",
     "typescript": "^4.3.5"
   },
   "bugs": {
@@ -22,7 +24,7 @@
   "main": "index.ts",
   "author": "Phillip Cloud",
   "dependencies": {
-    "superagent": "^6.1.0",
+    "@octokit/rest": "^18.9.0",
     "ts-command-line-args": "^2.1.0",
     "ts-node": "^10.2.0"
   },
