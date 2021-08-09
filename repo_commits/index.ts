@@ -1,40 +1,17 @@
 import { parse } from "ts-command-line-args";
+import { Octokit } from "@octokit/rest";
 import * as process from "process";
-import * as superagent from "superagent";
-
-interface Params {
-  page: number;
-  ["per-page"]: number;
-}
-
-interface Request {
-  endpoint: string;
-  params: Params;
-  token: string;
-}
-
-const authRequest = async (request: Request): Promise<any> => {
-  const { page, ["per-page"]: perPage } = request.params;
-  return (
-    await superagent
-      .get(request.endpoint)
-      .query({ page, per_page: perPage })
-      .accept("application/vnd.github.v3+json")
-      .set("User-Agent", "node-superagent/6.1.0")
-      .set("Authorization", `token ${request.token}`)
-  ).body;
-};
 
 interface Args {
   owner: string;
   repo: string;
-  begin: string;
-  end: string;
-  help?: boolean;
+  basehead: string;
   ["per-page"]: number;
   ["no-translate"]: boolean;
   token: string;
   ["show-merge-commits"]: boolean;
+  ["sha-length"]: number;
+  help?: boolean;
 }
 
 const main = async (): Promise<void> => {
@@ -50,12 +27,11 @@ const main = async (): Promise<void> => {
         description: "The name of the GitHub repository",
         alias: "r",
       },
-      begin: {
+      basehead: {
         type: String,
-        description: "Start of the commit range",
+        description: "Commit range",
         alias: "b",
       },
-      end: { type: String, description: "End of the commit range", alias: "e" },
       ["per-page"]: {
         type: Number,
         defaultValue: 100,
@@ -81,6 +57,12 @@ const main = async (): Promise<void> => {
         alias: "m",
         description: "Show merge commits when passed",
       },
+      ["sha-length"]: {
+        type: Number,
+        defaultValue: 8,
+        alias: "s",
+        description: "The length of the commit hash to show",
+      },
       help: {
         type: Boolean,
         optional: true,
@@ -94,49 +76,41 @@ const main = async (): Promise<void> => {
         {
           header: "repo_commits",
           content:
-            "Generate a Markdown table of changes for a given commit range",
+            "Generate a Markdown table of changes for a given owner, repo and commit range",
         },
       ],
     }
   );
 
-  let page = 1;
+  const octokit = new Octokit({
+    auth: args.token,
+  });
 
-  const endpoint = `https://api.github.com/repos/${args.owner}/${args.repo}/compare/${args.begin}...${args.end}`;
-
-  let commitsRemaining = (
-    await authRequest({
-      endpoint,
-      params: { ["per-page"]: 0, page },
-      token: args.token,
-    })
-  ).ahead_by;
+  const { owner, repo, basehead } = args;
 
   const header = ["SHA256", "Commit Message", "Timestamp"];
   const headerLine = `|${header.join("|")}|`;
   const headerSepLine = `|${new Array(header.length).fill("---").join("|")}|`;
   const headerLines = [headerLine, headerSepLine];
+  const shaLength = args["sha-length"];
+  const showMergeCommits = args["show-merge-commits"];
 
-  let lines = [];
+  const lines = [];
 
-  while (commitsRemaining) {
-    const resp = await authRequest({
-      endpoint,
-      params: { ["per-page"]: args["per-page"], page },
-      token: args.token,
-    });
-
-    const commits = resp.commits;
-    const numCommitsOnPage = commits.length;
-
-    for (let commitData of commits.filter(
-      (commit: any) => args["show-merge-commits"] || commit.parents.length < 2
+  for await (const {
+    data: { commits },
+  } of octokit.paginate.iterator(
+    octokit.rest.repos.compareCommitsWithBasehead,
+    { owner, repo, basehead }
+  )) {
+    for (const commitData of commits.filter(
+      c => showMergeCommits || c.parents.length < 2
     )) {
-      const sha256 = commitData.sha.slice(0, 8);
+      const sha256 = commitData.sha.slice(0, shaLength);
       const shaUrl = commitData.html_url;
       const commit = commitData.commit;
       const commitMessage = commit.message.split("\n")[0];
-      const date = commit.committer.date;
+      const date = commit.committer?.date ?? "unknown";
 
       const fields = [
         `[\`${sha256}\`](${shaUrl})`,
@@ -145,9 +119,6 @@ const main = async (): Promise<void> => {
       ];
       lines.push(`|${fields.join("|")}|`);
     }
-
-    commitsRemaining -= numCommitsOnPage;
-    ++page;
   }
 
   const joinedResult = headerLines.concat(lines.reverse()).join("\n");
