@@ -22,8 +22,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          path: main
 
       - name: Install Nix
         uses: cachix/install-nix-action@v13
@@ -39,21 +37,18 @@ jobs:
       - name: Get current commit
         id: get_current_commit
         run: echo ::set-output name=sha256::$(nix run nixpkgs.jq -c jq -rcM '.["${{ matrix.dep.repo }}"].rev' < nix/sources.json)
-        working-directory: main
 
       - name: Update ${{ matrix.dep.repo }}
         run: nix run nixpkgs.niv -c niv update ${{ matrix.dep.repo }}
-        working-directory: main
 
       - name: Get new commit
         id: get_new_commit
         run: echo ::set-output name=sha256::$(nix run nixpkgs.jq -c jq -rcM '.["${{ matrix.dep.repo }}"].rev' < nix/sources.json)
-        working-directory: main
 
-      - name: Install node dependencies
+      - name: Install yarn dependencies
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
-        run: nix-shell --pure --run "npm install"
-        working-directory: main/repo_commits
+        run: nix-shell --pure --run "yarn install"
+        working-directory: repo_commits
 
       - name: Get log lines for upstream changes
         id: compute_log_lines
@@ -63,8 +58,8 @@ jobs:
           repo="${{ matrix.dep.repo }}"
           begin="${{ steps.get_current_commit.outputs.sha256 }}"
           end="${{ steps.get_new_commit.outputs.sha256 }}"
-          echo "::set-output name=log_lines::$(./repo_commits.sh --owner $owner --repo $repo --begin $begin --end $end)"
-        working-directory: main/repo_commits
+          echo "::set-output name=log_lines::$(nix-shell --keep GITHUB_TOKEN --pure --run "yarn run repo_commits --owner $owner --repo $repo --begin $begin --end $end")"
+        working-directory: repo_commits
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_LOG_GENERATOR }}
 
@@ -72,7 +67,6 @@ jobs:
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
         uses: peter-evans/create-pull-request@v3
         with:
-          path: main
           commit-message: "feat(niv): update ${{ matrix.dep.repo }}"
           branch: "create-pull-request/update-${{ matrix.dep.repo }}"
           delete-branch: true
