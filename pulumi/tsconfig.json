@@ -2,9 +2,9 @@
   "compilerOptions": {
     "outDir": "bin",
     "lib": [
-      "es2021"
+      "es2020"
     ],
-    "target": "es2021",
+    "target": "es2020",
     "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,
@@ -19,6 +19,8 @@
     "strict": true
   },
   "include": [
-    "index.ts"
+    "index.ts",
+    "provisioners.ts",
+    "nix_components.ts"
   ]
 }

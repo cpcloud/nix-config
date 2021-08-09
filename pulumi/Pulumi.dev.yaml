@@ -1,5 +1,7 @@
 config:
-  dev:image_bucket: nixos-images
+  dev:image:
+    bucket: nixos-images
+    family: nixos
   dev:instances:
   - disk:
       size_gb: 250

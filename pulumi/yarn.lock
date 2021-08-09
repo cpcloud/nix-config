@@ -183,14 +183,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pulumi/gcp@npm:^5.14.0":
-  version: 5.14.0
-  resolution: "@pulumi/gcp@npm:5.14.0"
+"@pulumi/gcp@npm:5.13":
+  version: 5.13.0
+  resolution: "@pulumi/gcp@npm:5.13.0"
   dependencies:
     "@pulumi/pulumi": ^3.0.0
     "@types/express": ^4.16.0
     read-package-json: ^2.0.13
-  checksum: 852c67a64bbed15fee3048caa2d1fcee6ce4455b8ee4b6b35af141b3eb24f42fb091e3406f6c516b865a8353f8def8cc35dccdafb619f95a6d8afa931ba744cb
+  checksum: 4020569e2ecd675721716c6d8d9f86b581ec3aaf74a9f2b228b09dc6a5fb81429cb61ae32d17e164a504b0aa75e96542b90063c99d9962c7e60ba7c211fb520d
   languageName: node
   linkType: hard
 
@@ -332,6 +332,13 @@ __metadata:
     "@types/mime": ^1
     "@types/node": "*"
   checksum: eaca858739483e3ded254cad7d7a679dc2c8b3f52c8bb0cd845b3b7eb1984bde0371fdcb0a5c83aa12e6daf61b6beb762545021f520f08a1fe882a3fa4ea5554
+  languageName: node
+  linkType: hard
+
+"@types/uuid@npm:8.3.1":
+  version: 8.3.1
+  resolution: "@types/uuid@npm:8.3.1"
+  checksum: b41bdc5e86c6f0f1899306be10455636da0f2168c9489b869edd6837ddeb7c0e501b1ff7d857402462986bada2a379125743dd895fa801d03437cd632116a373
   languageName: node
   linkType: hard
 
@@ -659,13 +666,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "cpcloud-dev-pulumi@workspace:."
   dependencies:
-    "@pulumi/gcp": ^5.14.0
+    "@pulumi/gcp": 5.13
     "@pulumi/pulumi": ^3.9.1
     "@types/eslint": ^7
     "@typescript-eslint/eslint-plugin": ^4.29.0
     "@typescript-eslint/parser": ^4.29.0
     eslint: ^7.32.0
     globby: ^11
+    uuidv4: ^6.2.11
   languageName: unknown
   linkType: soft
 
@@ -2161,6 +2169,25 @@ typescript@~3.7.3:
   dependencies:
     object.getownpropertydescriptors: ^2.0.3
   checksum: 75e74c46213e49e8d6a85cef942dcbfd8abf2389e789eddfde10e354349778cfca36fe33fa7c74a3ff1c7170462a7f856d5471bd69b06eb37a69362ffe21434e
+  languageName: node
+  linkType: hard
+
+"uuid@npm:8.3.2":
+  version: 8.3.2
+  resolution: "uuid@npm:8.3.2"
+  bin:
+    uuid: dist/bin/uuid
+  checksum: 5575a8a75c13120e2f10e6ddc801b2c7ed7d8f3c8ac22c7ed0c7b2ba6383ec0abda88c905085d630e251719e0777045ae3236f04c812184b7c765f63a70e58df
+  languageName: node
+  linkType: hard
+
+"uuidv4@npm:^6.2.11":
+  version: 6.2.11
+  resolution: "uuidv4@npm:6.2.11"
+  dependencies:
+    "@types/uuid": 8.3.1
+    uuid: 8.3.2
+  checksum: 53fb4d786e50f323e7a62ee6b0e56d0edd60381a928e730f6f7436c63ec21e3ce7708c1df18df8df628cd507909356a53f1480edc7845f0b48858dc079a82b4b
   languageName: node
   linkType: hard
 

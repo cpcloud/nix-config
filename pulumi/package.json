@@ -5,9 +5,10 @@
   "license": "Apache-2.0",
   "packageManager": "yarn@3.0.0",
   "dependencies": {
-    "@pulumi/gcp": "^5.14.0",
+    "@pulumi/gcp": "5.13",
     "@pulumi/pulumi": "^3.9.1",
-    "globby": "^11"
+    "globby": "^11",
+    "uuidv4": "^6.2.11"
   },
   "devDependencies": {
     "@types/eslint": "^7",
