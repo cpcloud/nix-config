@@ -19,10 +19,4 @@
       builders-use-substitutes = true
     '';
   };
-
-  services.openssh.knownHosts.albatross-builder = {
-    hostNames = [ "albatross" ];
-    publicKey =
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBfj2qNy7s8RaOg/OtWdOW2S2wXe914NlIfB1WmZdW+r albatross-builder";
-  };
 }
