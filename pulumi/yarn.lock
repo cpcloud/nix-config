@@ -113,9 +113,9 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
 
-"@pulumi/gcp@5.13":
-  version "5.13.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/gcp/-/gcp-5.13.0.tgz#1b4df59afb0be83ba330e7782fb2b4908a1fdbda"
+"@pulumi/gcp@5.14":
+  version "5.14.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/gcp/-/gcp-5.14.0.tgz#3b5373b347e6841df35a6759252e4458268d6485"
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
     "@types/express" "^4.16.0"
