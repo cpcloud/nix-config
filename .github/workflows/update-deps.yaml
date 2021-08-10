@@ -48,15 +48,15 @@ jobs:
       - name: Get log lines for upstream changes
         uses: cpcloud/compare-commits-action@main
         id: compare_commits
-        # if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
+        if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
         with:
-          owner: NixOS
-          repo: nixpkgs
-          basehead: cc455c004a60e1d65a0fb86ad6cc76168c6bb4d5...67c80531be622641b5b2ccc3a7aff355cb02476b
+          owner: ${{ matrix.dep.owner }}
+          repo: ${{ matrix.dep.repo }}
+          basehead: ${{ steps.get_current_commit.outputs.sha256 }}...${{ steps.get_new_commit.outputs.sha256 }}
           token: ${{ secrets.REPO_LOG_GENERATOR }}
 
       - name: Create a pull request to update ${{ matrix.dep.repo }}
-        # if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
+        if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
         uses: peter-evans/create-pull-request@v3
         with:
           commit-message: "feat(niv): update ${{ matrix.dep.repo }}"
