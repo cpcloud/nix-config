@@ -36,14 +36,14 @@ jobs:
 
       - name: Get current commit
         id: get_current_commit
-        run: echo ::set-output name=sha256::$(nix run nixpkgs.jq -c jq -rcM '.["${{ matrix.dep.repo }}"].rev' < nix/sources.json)
+        run: echo ::set-output name=sha256::$(nix-shell --pure --run 'get-commit ${{ matrix.dep.repo }}')
 
       - name: Update ${{ matrix.dep.repo }}
         run: nix run nixpkgs.niv -c niv update ${{ matrix.dep.repo }}
 
       - name: Get new commit
         id: get_new_commit
-        run: echo ::set-output name=sha256::$(nix run nixpkgs.jq -c jq -rcM '.["${{ matrix.dep.repo }}"].rev' < nix/sources.json)
+        run: echo ::set-output name=sha256::$(nix-shell --pure --run 'get-commit ${{ matrix.dep.repo }}')
 
       - name: Install yarn dependencies
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
