@@ -9,7 +9,7 @@
     git = {
       enable = true;
       userName = "Phillip Cloud";
-      userEmail = "cpcloud@gmail.com";
+      userEmail = "417981+cpcloud@users.noreply.github.com";
       extraConfig = {
         core.pager = "${pkgs.gitAndTools.delta}/bin/delta --dark";
         difftool.prompt = true;
