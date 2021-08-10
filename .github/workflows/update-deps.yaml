@@ -53,7 +53,9 @@ jobs:
           owner: ${{ matrix.dep.owner }}
           repo: ${{ matrix.dep.repo }}
           basehead: ${{ steps.get_current_commit.outputs.sha256 }}...${{ steps.get_new_commit.outputs.sha256 }}
-          token: ${{ secrets.REPO_LOG_GENERATOR }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          show-differences: true
+          show-merge-commits: false
 
       - name: Create a pull request to update ${{ matrix.dep.repo }}
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
