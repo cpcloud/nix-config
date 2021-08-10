@@ -36,14 +36,14 @@ jobs:
 
       - name: Get current commit
         id: get_current_commit
-        run: echo ::set-output name=sha256::$(nix-shell --pure --run 'get-commit ${{ matrix.dep.repo }}')
+        run: echo ::set-output name=sha256::$(./get_commit.sh ${{ matrix.dep.repo }})
 
       - name: Update ${{ matrix.dep.repo }}
         run: nix run nixpkgs.niv -c niv update ${{ matrix.dep.repo }}
 
       - name: Get new commit
         id: get_new_commit
-        run: echo ::set-output name=sha256::$(nix-shell --pure --run 'get-commit ${{ matrix.dep.repo }}')
+        run: echo ::set-output name=sha256::$(./get_commit.sh ${{ matrix.dep.repo }})
 
       - name: Get log lines for upstream changes
         uses: cpcloud/compare-commits-action@main
