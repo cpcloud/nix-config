@@ -45,26 +45,18 @@ jobs:
         id: get_new_commit
         run: echo ::set-output name=sha256::$(nix-shell --pure --run 'get-commit ${{ matrix.dep.repo }}')
 
-      - name: Install yarn dependencies
-        if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
-        run: nix-shell --pure --run "yarn install"
-        working-directory: repo_commits
-
       - name: Get log lines for upstream changes
-        id: compute_log_lines
-        if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
-        run: |
-          owner="${{ matrix.dep.owner }}"
-          repo="${{ matrix.dep.repo }}"
-          begin="${{ steps.get_current_commit.outputs.sha256 }}"
-          end="${{ steps.get_new_commit.outputs.sha256 }}"
-          echo "::set-output name=log_lines::$(nix-shell --keep GITHUB_TOKEN --pure --run "yarn run repo_commits --owner $owner --repo $repo --basehead $begin...$end")"
-        working-directory: repo_commits
-        env:
-          GITHUB_TOKEN: ${{ secrets.REPO_LOG_GENERATOR }}
+        uses: cpcloud/compare-commits-action@master
+        id: compare_commits
+        # if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
+        with:
+          owner: NixOS
+          repo: nixpkgs
+          basehead: cc455c004a60e1d65a0fb86ad6cc76168c6bb4d5...67c80531be622641b5b2ccc3a7aff355cb02476b
+          token: ${{ secrets.REPO_LOG_GENERATOR }}
 
       - name: Create a pull request to update ${{ matrix.dep.repo }}
-        if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
+        # if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
         uses: peter-evans/create-pull-request@v3
         with:
           commit-message: "feat(niv): update ${{ matrix.dep.repo }}"
@@ -72,4 +64,4 @@ jobs:
           delete-branch: true
           title: "feat(niv): update ${{ matrix.dep.repo }}"
           token: ${{ secrets.PR }}
-          body: ${{ steps.compute_log_lines.outputs.log_lines }}
+          body: ${{ steps.compare_commits.outputs.differences }}
