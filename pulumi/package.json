@@ -7,7 +7,7 @@
   "dependencies": {
     "@pulumi/gcp": "5.14",
     "@pulumi/pulumi": "^3.9.1",
-    "globby": "^11",
+    "globby": "^12",
     "uuidv4": "^6.2.11"
   },
   "devDependencies": {
