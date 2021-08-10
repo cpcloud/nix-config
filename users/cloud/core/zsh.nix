@@ -35,6 +35,7 @@ let
     "CREDENTIALS=([^ ]+)"
     "tskey-([^ ]+)"
     "pul-([^ ]+)"
+    "ghp_([^ ]+)"
   ];
 in
 {
