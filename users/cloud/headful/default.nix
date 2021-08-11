@@ -20,7 +20,6 @@
 
   programs = {
     brave.enable = true;
-    zathura.enable = true;
   };
 
   xsession = {
@@ -44,6 +43,7 @@
         After = [ "graphical-session-pre.target" ];
       };
     };
+
     services = {
       polybar = {
         Unit.PartOf = lib.mkForce [ "i3-session.target" ];
