@@ -31,7 +31,6 @@
     '';
   };
 
-  services.picom.enable = false;
 
   systemd.user = {
     targets.i3-session = {
