@@ -31,6 +31,7 @@
     '';
   };
 
+  services.blueman-applet.enable = true;
 
   systemd.user = {
     targets.i3-session = {
