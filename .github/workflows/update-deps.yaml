@@ -1,4 +1,4 @@
-name: Update Deps
+name: Update Dependencies
 on:
   schedule:
     - cron: "* */6 * * *"
