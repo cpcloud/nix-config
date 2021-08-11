@@ -46,7 +46,7 @@ jobs:
         run: echo ::set-output name=sha256::$(./get_commit.sh ${{ matrix.dep.repo }})
 
       - name: Get log lines for upstream changes
-        uses: cpcloud/compare-commits-action@main
+        uses: cpcloud/compare-commits-action@v1
         id: compare_commits
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
         with:
