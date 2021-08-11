@@ -1,7 +1,7 @@
 import * as p from "@pulumi/pulumi";
 import { Provisioner } from "./provisioners";
 import * as util from "util";
-import * as globby from "globby";
+import * as fg from "fast-glob";
 import * as path from "path";
 import * as child_process from "child_process";
 
@@ -52,7 +52,7 @@ export class Image extends p.ComponentResource {
             { maxBuffer: 1024 * 1024 * 1024 }
           );
 
-          const [imagePath] = await globby(
+          const [imagePath] = await fg(
             path.join(nixImageDirUntrimmed.trim(), "*.tar.gz")
           );
 
