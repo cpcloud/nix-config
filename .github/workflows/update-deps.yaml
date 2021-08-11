@@ -46,7 +46,7 @@ jobs:
         run: echo ::set-output name=sha256::$(./get_commit.sh ${{ matrix.dep.repo }})
 
       - name: Get log lines for upstream changes
-        uses: cpcloud/compare-commits-action@v2.0.1
+        uses: cpcloud/compare-commits-action@v2.0.4
         id: compare_commits
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
         with:
@@ -54,8 +54,8 @@ jobs:
           repo: ${{ matrix.dep.repo }}
           basehead: ${{ steps.get_current_commit.outputs.sha256 }}...${{ steps.get_new_commit.outputs.sha256 }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          show-differences: false
           show-merge-commits: false
+          verbose: true
 
       - name: Create a pull request to update ${{ matrix.dep.repo }}
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
