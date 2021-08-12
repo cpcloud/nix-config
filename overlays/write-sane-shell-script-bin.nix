@@ -17,6 +17,7 @@ self: _: {
           destination = "/bin/${name}";
           text = ''
             #!${runtimeShell}
+            set -e
             set -o errexit
             set -o nounset
             set -o pipefail
