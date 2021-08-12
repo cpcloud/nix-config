@@ -174,7 +174,7 @@ local lsps_settings = {
         },
       },
       formatFiletypes = {
-        lua = "lua-format",
+        lua = "stylua",
         nix = "nixpkgs-fmt",
         sh = "shfmt",
         toml = "prettier",
