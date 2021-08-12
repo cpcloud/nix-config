@@ -36,6 +36,12 @@ in
         files = "\\.sh$";
         types_or = lib.mkForce [ ];
       };
+
+      shfmt = {
+        enable = true;
+        entry = lib.mkForce "shfmt -i 2 -sr -d -s -l";
+        files = "\\.sh$";
+      };
     };
   };
 }

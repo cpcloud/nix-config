@@ -14,4 +14,4 @@ jq \
   --arg dep "$1" \
   --arg prop "$2" \
   '(.[$dep] // error("invalid dependency \"\($dep)\""))[$prop] // error("invalid property \"\($prop)\" of dependency \"\($dep)\"")' \
-  <"$(dirname "$(readlink -f "$0")")/nix/sources.json"
+  < "$(dirname "$(readlink -f "$0")")/nix/sources.json"
