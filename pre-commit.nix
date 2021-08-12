@@ -48,7 +48,7 @@ in
 
       stylua = {
         enable = true;
-        entry = lib.mkForce "stylua --check";
+        entry = lib.mkForce "stylua --check --verify";
         files = "\\.lua$";
       };
     };
