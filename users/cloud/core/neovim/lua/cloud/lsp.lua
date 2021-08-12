@@ -161,7 +161,7 @@ local lsps_settings = {
         },
       },
       formatters = {
-        ["stylua"] = { command = "stylua" },
+        ["stylua"] = { command = "stylua", args = { "%filepath" } },
         ["nixpkgs-fmt"] = { command = "nixpkgs-fmt" },
         shfmt = {
           command = "shfmt",
@@ -185,12 +185,13 @@ local lsps_settings = {
   },
 }
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = { "documentation", "detail", "additionalTextEdits" },
+}
+
 for _, lsp in ipairs(servers) do
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
-  capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = { "documentation", "detail", "additionalTextEdits" },
-  }
   nvim_lsp[lsp].setup(vim.tbl_extend("force", {
     on_attach = on_attach,
     capabilities = capabilities,
