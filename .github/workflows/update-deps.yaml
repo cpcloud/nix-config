@@ -9,16 +9,12 @@ jobs:
     strategy:
       matrix:
         dep:
-          - repo: home-manager
-            owner: nix-community
-          - repo: nixos-hardware
-            owner: NixOS
-          - repo: nixpkgs
-            owner: NixOS
-          - repo: nixus
-            owner: Infinisil
-          - repo: sops-nix
-            owner: Mic92
+          - home-manager
+          - nixos-hardware
+          - nixpkgs
+          - nixus
+          - sops-nix
+          - pre-commit-hooks
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -36,35 +32,42 @@ jobs:
 
       - name: Get current commit
         id: get_current_commit
-        run: echo ::set-output name=sha256::$(./get_commit.sh ${{ matrix.dep.repo }})
+        run: echo ::set-output name=sha256::$(nix run nixpkgs.jq -c jq -rcM '.["${{ matrix.dep.name }}"].rev')
 
-      - name: Update ${{ matrix.dep.repo }}
-        run: nix run nixpkgs.niv -c niv update ${{ matrix.dep.repo }}
+      - name: Update ${{ matrix.dep.name }}
+        run: nix run nixpkgs.niv -c niv update ${{ matrix.dep.name }}
 
       - name: Get new commit
         id: get_new_commit
-        run: echo ::set-output name=sha256::$(./get_commit.sh ${{ matrix.dep.repo }})
+        run: echo ::set-output name=sha256::$(nix run nixpkgs.jq -c jq -rcM '.["${{ matrix.dep.name }}"].rev')
+
+      - name: Get repository owner
+        id: repo_owner
+        run: echo ::set-output name=value::$(nix run nixpkgs.jq -c jq -rcM '.["${{ matrix.dep.name }}"].owner')
+
+      - name: Get repository name
+        id: repo_name
+        run: echo ::set-output name=value::$(nix run nixpkgs.jq -c jq -rcM '.["${{ matrix.dep.name }}"].repo')
 
       - name: Get log lines for upstream changes
         uses: cpcloud/compare-commits-action@v2.0.4
         id: compare_commits
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
         with:
-          owner: ${{ matrix.dep.owner }}
-          repo: ${{ matrix.dep.repo }}
+          owner: ${{ steps.repo_owner.outputs.value }}
+          name: ${{ steps.repo_name.outputs.value }}
           basehead: ${{ steps.get_current_commit.outputs.sha256 }}...${{ steps.get_new_commit.outputs.sha256 }}
           token: ${{ secrets.GITHUB_TOKEN }}
           show-merge-commits: false
-          verbose: true
 
-      - name: Create a pull request to update ${{ matrix.dep.repo }}
+      - name: Create a pull request to update ${{ matrix.dep.name }}
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
         uses: peter-evans/create-pull-request@v3
         with:
-          commit-message: "feat(niv): update ${{ matrix.dep.repo }}"
-          branch: "create-pull-request/update-${{ matrix.dep.repo }}"
+          commit-message: "feat(niv): update ${{ matrix.dep.name }}"
+          branch: "create-pull-request/update-${{ matrix.dep.name }}"
           delete-branch: true
           author: "Phillip Cloud <417981+cpcloud@users.noreply.github.com>"
-          title: "feat(niv): update ${{ matrix.dep.repo }}"
+          title: "feat(niv): update ${{ matrix.dep.name }}"
           token: ${{ secrets.PR }}
           body: ${{ steps.compare_commits.outputs.differences }}

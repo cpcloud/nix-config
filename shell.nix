@@ -6,8 +6,9 @@ in
 pkgs.mkShell {
   name = "nix-config";
   nativeBuildInputs = [ sops-nix.sops-import-keys-hook ];
-  buildInputs = with pkgs; [
+  buildInputs = (with pkgs; [
     cryptsetup
+    git
     gnupg
     jq
     niv
@@ -17,7 +18,11 @@ pkgs.mkShell {
     srm
     ssh-to-pgp
     yj
-  ];
+  ]) ++ (with pkgs.nodePackages; [ eslint prettier ]);
+
+  shellHook = ''
+    ${(import ./pre-commit.nix).pre-commit-check.shellHook}
+  '';
 
   sopsPGPKeyDirs = [
     "./keys/hosts"
