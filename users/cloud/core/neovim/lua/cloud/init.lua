@@ -13,12 +13,12 @@ opt.history = 500
 opt.autochdir = true
 
 -- filetype plugins
-cmd "filetype plugin on"
-cmd "filetype indent on"
+cmd("filetype plugin on")
+cmd("filetype indent on")
 
 -- auto load when a file is changed
 opt.autoread = true
-cmd "autocmd FocusGained,BufEnter * checktime"
+cmd("autocmd FocusGained,BufEnter * checktime")
 
 g.loaded_node_provider = 1
 g.loaded_python_provider = 1
@@ -45,7 +45,7 @@ opt.wildmenu = true
 
 -- ignore a variety of irrelevant files
 opt.wildignore =
-    "*/tmp/*,*.so,*.a,*.dylib,*.swp,*.zip,*.gz,*.bz2,*.xz,*.7z,*/__pycache__,__pycache__/*,*.pyc,*.pyo"
+  "*/tmp/*,*.so,*.a,*.dylib,*.swp,*.zip,*.gz,*.bz2,*.xz,*.7z,*/__pycache__,__pycache__/*,*.pyc,*.pyo"
 
 -- show the current position
 opt.ruler = true
@@ -87,8 +87,8 @@ opt.tm = 500
 opt.foldcolumn = "1"
 
 -- syntax things
-cmd "syntax enable"
-cmd "syntax on"
+cmd("syntax enable")
+cmd("syntax on")
 
 -- utf8 as the the default encoding
 opt.encoding = "utf8"
@@ -102,7 +102,7 @@ opt.backup = false
 opt.writebackup = false
 opt.swapfile = false
 opt.undofile = true
-cmd "set undodir=$HOME/.cache/nvim"
+cmd("set undodir=$HOME/.cache/nvim")
 
 -- spaces, tabs, religious wars, etc
 opt.expandtab = true
@@ -142,7 +142,7 @@ opt.wrap = false
 opt.textwidth = 0
 
 -- high searches when in normal mode and underscore is pressed
-map("", "_", ":noh<CR>", {silent = true})
+map("", "_", ":noh<CR>", { silent = true })
 
 -- window nav
 map("n", "<C-k>", "<C-w><Up>")
@@ -170,20 +170,24 @@ map("v", ">", ">gv")
 map("", "<leader>tn", ":tabnew<CR>")
 
 -- various filetype settings
-cmd "autocmd BufRead,BufNewFile *.ll setlocal filetype=llvm"
-cmd "autocmd BufRead,BufNewFile *.pxi,*.pyx,*.pxd setlocal filetype=cython"
-cmd "autocmd BufRead,BufNewFile berglas-*,*.toml.tpl setlocal filetype=toml"
-cmd "autocmd BufRead,BufNewFile .condarc,*condarc,*.yaml.tpl,*.yml.tpl,*.yml.j2,*.yaml.j2 setlocal filetype=yaml"
-cmd "autocmd BufRead,BufNewFile *.rkt setlocal filetype=racket"
-cmd "autocmd BufRead,BufNewFile *.avsc,*.json.tpl,*.ipynb setlocal filetype=json"
-cmd "autocmd BufRead,BufNewFile *.jsx setlocal filetype=javascript.jsx"
+cmd("autocmd BufRead,BufNewFile *.ll setlocal filetype=llvm")
+cmd("autocmd BufRead,BufNewFile *.pxi,*.pyx,*.pxd setlocal filetype=cython")
+cmd("autocmd BufRead,BufNewFile berglas-*,*.toml.tpl setlocal filetype=toml")
+cmd(
+  "autocmd BufRead,BufNewFile .condarc,*condarc,*.yaml.tpl,*.yml.tpl,*.yml.j2,*.yaml.j2 setlocal filetype=yaml"
+)
+cmd("autocmd BufRead,BufNewFile *.rkt setlocal filetype=racket")
+cmd("autocmd BufRead,BufNewFile *.avsc,*.json.tpl,*.ipynb setlocal filetype=json")
+cmd("autocmd BufRead,BufNewFile *.jsx setlocal filetype=javascript.jsx")
 
 -- tab/spaces for specific file types
-cmd "autocmd FileType html,sh,fbs,groovy,yaml,crystal,ruby,racket,markdown,json,hcl,typescript,javascript.jsx,c,cpp,javascript setlocal shiftwidth=2 tabstop=2"
-cmd "autocmd FileType go setlocal shiftwidth=4 tabstop=4"
+cmd(
+  "autocmd FileType html,sh,fbs,groovy,yaml,crystal,ruby,racket,markdown,json,hcl,typescript,javascript.jsx,c,cpp,javascript setlocal shiftwidth=2 tabstop=2"
+)
+cmd("autocmd FileType go setlocal shiftwidth=4 tabstop=4")
 
 -- i don't remember what this does
-cmd "autocmd BufEnter * silent! lcd %:p:h"
+cmd("autocmd BufEnter * silent! lcd %:p:h")
 
 opt.switchbuf = "useopen,usetab,newtab"
 opt.stal = 2
@@ -192,7 +196,9 @@ opt.stal = 2
 map("n", "<leader>ff", [[:echo expand("%:p:")<cr>]])
 
 -- last edit position when opening a file
-cmd [[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]]
+cmd(
+  [[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]]
+)
 
 -- show last status line
 opt.laststatus = 2

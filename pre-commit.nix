@@ -16,7 +16,10 @@ in
         ];
       };
 
-      nixpkgs-fmt.enable = true;
+      nixpkgs-fmt = {
+        enable = true;
+        entry = lib.mkForce "nixpkgs-fmt";
+      };
 
       prettier = {
         enable = true;
@@ -26,7 +29,7 @@ in
 
       eslint = {
         enable = true;
-        entry = lib.mkForce "eslint";
+        entry = lib.mkForce "eslint --resolve-plugins-relative-to pulumi";
         files = "\\.ts$";
       };
 
@@ -41,6 +44,12 @@ in
         enable = true;
         entry = lib.mkForce "shfmt -i 2 -sr -d -s -l";
         files = "\\.sh$";
+      };
+
+      stylua = {
+        enable = true;
+        entry = lib.mkForce "stylua --check";
+        files = "\\.lua$";
       };
     };
   };

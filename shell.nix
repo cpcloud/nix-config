@@ -19,6 +19,7 @@ pkgs.mkShell {
     sops
     srm
     ssh-to-pgp
+    stylua
     yj
   ]) ++ (with pkgs.nodePackages; [ eslint prettier ]);
 

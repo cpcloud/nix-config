@@ -22,6 +22,9 @@ let
       inherit packageOverrides;
       self = python3;
     };
+  styluaWithFormat = pkgs.writeSaneShellScriptBin "stylua" ''
+    ${pkgs.stylua}/bin/stylua --config-path "${./../../../../../.stylua.toml}" "$@"
+  '';
 in
 {
   home = {
@@ -77,9 +80,9 @@ in
             go
             gopls
             jq
-            luaformatter
             nix-linter
             ripgrep
+            styluaWithFormat
             sumneko-lua-language-server
             texlab
             tree-sitter
