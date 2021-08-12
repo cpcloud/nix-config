@@ -55,7 +55,7 @@ jobs:
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
         with:
           owner: ${{ steps.repo_owner.outputs.value }}
-          name: ${{ steps.repo_name.outputs.value }}
+          repo: ${{ steps.repo_name.outputs.value }}
           basehead: ${{ steps.get_current_commit.outputs.sha256 }}...${{ steps.get_new_commit.outputs.sha256 }}
           token: ${{ secrets.GITHUB_TOKEN }}
           show-merge-commits: false
