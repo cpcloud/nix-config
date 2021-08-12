@@ -3,11 +3,11 @@ config:
     bucket: nixos-images
     family: nixos
   dev:instances:
-  - disk:
-      size_gb: 250
-      type: pd-ssd
-    machine_type: e2-standard-8
-    name: falcon
+    - disk:
+        size_gb: 250
+        type: pd-ssd
+      machine_type: e2-standard-8
+      name: falcon
   gcp:project:
     secure: AAABANcD8hGbIjYOEgIgHOpjO+f5ngKT/TWv4yeeUGR1hMmSufAv8dzsbgeLGPL536KJ
   gcp:region:
