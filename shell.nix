@@ -1,7 +1,19 @@
 let
   sources = import ./nix;
-  pkgs = import sources.nixpkgs { };
+  pkgs = import sources.nixpkgs {
+    overlays = [
+      (import ./overlays/write-sane-shell-script-bin.nix)
+    ];
+  };
   sops-nix = pkgs.callPackage sources.sops-nix { };
+  prettier = pkgs.writeSaneShellScriptBin {
+    name = "prettier";
+    src = ''
+      ${pkgs.nodePackages.prettier}/bin/prettier \
+      --plugin-search-dir "${pkgs.nodePackages.prettier-plugin-toml}/lib" \
+      "$@"
+    '';
+  };
 in
 pkgs.mkShell {
   name = "nix-config";
@@ -21,7 +33,7 @@ pkgs.mkShell {
     ssh-to-pgp
     stylua
     yj
-  ]) ++ (with pkgs.nodePackages; [ eslint prettier ]);
+  ]) ++ [ prettier pkgs.nodePackages.eslint ];
 
   shellHook = ''
     ${(import ./pre-commit.nix).pre-commit-check.shellHook}

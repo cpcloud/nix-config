@@ -25,7 +25,7 @@ let
   styluaWithFormat = pkgs.writeSaneShellScriptBin {
     name = "stylua";
     src = ''
-      ${pkgs.stylua}/bin/stylua --config-path "${./../../../../.stylua.toml}" "$@"
+      ${pkgs.stylua}/bin/stylua --config-path "${./../../../../stylua.toml}" "$@"
     '';
   };
 in
