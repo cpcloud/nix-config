@@ -32,22 +32,22 @@ jobs:
 
       - name: Get current commit
         id: get_current_commit
-        run: echo ::set-output name=sha256::$(nix run nixpkgs.jq -c jq -ercM '.["${{ matrix.dep }}"].rev // error("invalid dependency \"${{ matrix.dep }}\"")')
+        run: echo ::set-output name=sha256::$(./get_dep_info.sh ${{ matrix.dep }} rev)
 
       - name: Update ${{ matrix.dep }}
         run: nix run nixpkgs.niv -c niv update ${{ matrix.dep }}
 
       - name: Get new commit
         id: get_new_commit
-        run: echo ::set-output name=sha256::$(nix run nixpkgs.jq -c jq -ercM '.["${{ matrix.dep }}"].rev // error("invalid dependency \"${{ matrix.dep }}\"")')
+        run: echo ::set-output name=sha256::$(./get_dep_info.sh ${{ matrix.dep }} rev)
 
       - name: Get repository owner
         id: repo_owner
-        run: echo ::set-output name=value::$(nix run nixpkgs.jq -c jq -ercM '.["${{ matrix.dep }}"].owner // error("invalid dependency \"${{ matrix.dep }}\"")')
+        run: echo ::set-output name=value::$(./get_dep_info.sh ${{ matrix.dep }} owner)
 
       - name: Get repository name
         id: repo_name
-        run: echo ::set-output name=value::$(nix run nixpkgs.jq -c jq -ercM '.["${{ matrix.dep }}"].repo // error("invalid dependency \"${{ matrix.dep }}\"")')
+        run: echo ::set-output name=value::$(./get_dep_info.sh ${{ matrix.dep }} repo)
 
       - name: Get log lines for upstream changes
         uses: cpcloud/compare-commits-action@v2.0.4
