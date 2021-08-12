@@ -29,6 +29,13 @@ in
         entry = lib.mkForce "eslint";
         files = "\\.ts$";
       };
+
+      shellcheck = {
+        enable = true;
+        entry = lib.mkForce "shellcheck";
+        files = "\\.sh$";
+        types_or = lib.mkForce [ ];
+      };
     };
   };
 }
