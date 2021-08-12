@@ -22,9 +22,15 @@ let
       inherit packageOverrides;
       self = python3;
     };
+  styluaSettings = builtins.fromTOML (
+    lib.replaceStrings [ "_" ] [ "-" ] (lib.readFile ../../../../stylua.toml)
+  );
+  styluaSettingsArgs = lib.concatStringsSep
+    " "
+    (lib.mapAttrsToList (name: value: "--${name}=${toString value}") styluaSettings);
   styluaWithFormat = pkgs.writeSaneShellScriptBin {
     name = "stylua";
-    src = ''${pkgs.stylua}/bin/stylua --config-path "${../../../../stylua.toml}" "$@"'';
+    src = ''${pkgs.stylua}/bin/stylua ${styluaSettingsArgs} "$@"'';
   };
 in
 {

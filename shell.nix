@@ -5,6 +5,7 @@ let
       (import ./overlays/write-sane-shell-script-bin.nix)
     ];
   };
+  lib = pkgs.lib;
   sops-nix = pkgs.callPackage sources.sops-nix { };
   prettier = pkgs.writeSaneShellScriptBin {
     name = "prettier";
@@ -13,6 +14,16 @@ let
       --plugin-search-dir "${pkgs.nodePackages.prettier-plugin-toml}/lib" \
       "$@"
     '';
+  };
+  styluaSettings = builtins.fromTOML (
+    lib.replaceStrings [ "_" ] [ "-" ] (lib.readFile ./stylua.toml)
+  );
+  styluaSettingsArgs = lib.concatStringsSep
+    " "
+    (lib.mapAttrsToList (name: value: "--${name}=${toString value}") styluaSettings);
+  styluaWithFormat = pkgs.writeSaneShellScriptBin {
+    name = "stylua";
+    src = ''${pkgs.stylua}/bin/stylua ${styluaSettingsArgs} "$@"'';
   };
 in
 pkgs.mkShell {
@@ -31,7 +42,7 @@ pkgs.mkShell {
     sops
     srm
     ssh-to-pgp
-    stylua
+    styluaWithFormat
     yj
   ]) ++ [ prettier pkgs.nodePackages.eslint ];
 

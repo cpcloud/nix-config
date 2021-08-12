@@ -161,7 +161,7 @@ local lsps_settings = {
         },
       },
       formatters = {
-        ["stylua"] = { command = "stylua", args = { "%filepath" } },
+        ["stylua"] = { command = "stylua", args = { "--stdin-filepath", "%filepath" } },
         ["nixpkgs-fmt"] = { command = "nixpkgs-fmt" },
         shfmt = {
           command = "shfmt",
