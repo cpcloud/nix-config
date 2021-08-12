@@ -18,7 +18,7 @@ in
 
       nixpkgs-fmt = {
         enable = true;
-        entry = lib.mkForce "nixpkgs-fmt";
+        entry = lib.mkForce "nixpkgs-fmt --check";
       };
 
       prettier = {

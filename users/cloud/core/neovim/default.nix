@@ -22,9 +22,12 @@ let
       inherit packageOverrides;
       self = python3;
     };
-  styluaWithFormat = pkgs.writeSaneShellScriptBin "stylua" ''
-    ${pkgs.stylua}/bin/stylua --config-path "${./../../../../../.stylua.toml}" "$@"
-  '';
+  styluaWithFormat = pkgs.writeSaneShellScriptBin {
+    name = "stylua";
+    src = ''
+      ${pkgs.stylua}/bin/stylua --config-path "${./../../../../.stylua.toml}" "$@"
+    '';
+  };
 in
 {
   home = {
