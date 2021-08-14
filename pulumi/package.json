@@ -10,10 +10,18 @@
     "fast-glob": "^3.2.7",
     "uuidv4": "^6.2.11"
   },
+  "scripts": {
+    "lint": "eslint **/*.ts",
+    "format-check": "prettier --check **/*.ts **/*.json **/*.y{a,}ml",
+    "format": "prettier --write **/*.ts **/*.json **/*.y{a,}ml"
+  },
   "devDependencies": {
     "@types/eslint": "^7",
+    "@types/prettier": "^2",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.0",
-    "eslint": "^7.32.0"
+    "eslint": "^7.32.0",
+    "eslint-plugin-github": "^4.2.0",
+    "prettier": "^2.3.2"
   }
 }
