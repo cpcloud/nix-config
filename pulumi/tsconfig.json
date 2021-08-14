@@ -1,9 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "bin",
-    "lib": [
-      "es2020"
-    ],
+    "lib": ["es2020"],
     "target": "es2020",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -18,9 +15,5 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true
   },
-  "include": [
-    "index.ts",
-    "provisioners.ts",
-    "nix_components.ts"
-  ]
+  "include": ["*.ts"]
 }
