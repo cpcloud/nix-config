@@ -15,5 +15,6 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true
   },
-  "include": ["*.ts"]
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "pulumi/node_modules"]
 }

@@ -1,9 +1,9 @@
+import * as nixos from "./nixos";
 import * as p from "@pulumi/pulumi";
 import { compute, projects, storage } from "@pulumi/gcp";
-import * as nixos from "./nixos";
 
 interface Disk {
-  size_gb: number;
+  size_gb: number; // eslint-disable-line camelcase
   type: string;
 }
 
@@ -15,7 +15,7 @@ interface Gpu {
 interface Instance {
   name: string;
   disk: Disk;
-  machine_type: string;
+  machine_type: string; // eslint-disable-line camelcase
   gpu: Gpu;
 }
 
@@ -27,6 +27,7 @@ interface Image {
 const NESTED_VIRTUALIZATION_LICENSE =
   "https://www.googleapis.com/compute/v1/projects/vm-options/global/licenses/enable-vmx";
 const IMAGE_CONTENT_TYPE = "application/tar+gzip";
+const IAP_INGRESS_ADDRESS = "35.235.240.0/20";
 
 const enableService = (name: string): p.Resource => {
   return new projects.Service(name, {
@@ -63,10 +64,9 @@ export = async (): Promise<void> => {
     const nixosImage = new nixos.Image(
       `${instanceName}`,
       {
-        osImage: instanceName.replace(/_/g, "-"),
-        nixpkgsPath: "..",
+        nixExpr: "..",
         family,
-        expr: `config.nodes.${instanceName}.configuration.system.build.googleComputeImage`,
+        imageExpr: `config.nodes.${instanceName}.configuration.system.build.googleComputeImage`,
       },
       { parent: machineImageBucket }
     );
@@ -102,7 +102,7 @@ export = async (): Promise<void> => {
 
     // construst a network specific to the instance
     const network = new compute.Network(
-      `${instanceName}-network`,
+      instanceName,
       {},
       {
         parent: computeService,
@@ -143,7 +143,7 @@ export = async (): Promise<void> => {
       "allow-inbound-iap",
       {
         network: network.selfLink,
-        sourceRanges: ["35.235.240.0/20"],
+        sourceRanges: [IAP_INGRESS_ADDRESS],
         targetTags: ["dev"],
         logConfig: { metadata: "INCLUDE_ALL_METADATA" },
         allows: [

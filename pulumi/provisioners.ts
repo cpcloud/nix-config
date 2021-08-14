@@ -1,15 +1,15 @@
 import * as p from "@pulumi/pulumi";
-import { uuid } from "uuidv4";
 import * as util from "util";
+import * as uuidv4 from "uuidv4";
 
 export class Provisioner<T, U> extends p.dynamic.Resource {
-  public readonly args!: p.Output<T>;
-  public readonly result!: p.Output<U>;
-  public readonly changeToken!: p.Output<string>;
+  public readonly args!: p.Output<T>; // eslint-disable-line max-len, @typescript-eslint/explicit-member-accessibility
+  public readonly result!: p.Output<U>; // eslint-disable-line max-len, @typescript-eslint/explicit-member-accessibility
+  public readonly changeToken!: p.Output<string>; // eslint-disable-line max-len, @typescript-eslint/explicit-member-accessibility
 
   constructor(
     name: string,
-    props: ProvisionerProperties<T, U>,
+    { args, changeToken, onCreate }: ProvisionerProperties<T, U>,
     opts?: p.CustomResourceOptions
   ) {
     const provider: p.dynamic.ResourceProvider = {
@@ -35,20 +35,20 @@ export class Provisioner<T, U> extends p.dynamic.Resource {
         };
       },
       create: async (inputs: State<T, U>): Promise<p.dynamic.CreateResult> => {
-        const result = await props.onCreate(inputs.args);
+        const result = await onCreate(inputs.args);
         if (result !== undefined) {
           inputs.result = result;
         }
-        return { id: uuid(), outs: inputs };
+        return { id: uuidv4.uuid(), outs: inputs };
       },
     };
     super(
       provider,
       name,
       {
-        args: props.args,
+        args,
         result: undefined,
-        changeToken: props.changeToken,
+        changeToken,
       },
       opts
     );
