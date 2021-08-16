@@ -22,6 +22,7 @@ let
       inherit packageOverrides;
       self = python3;
     };
+
   styluaSettings = builtins.fromTOML (
     lib.replaceStrings [ "_" ] [ "-" ] (lib.readFile ../../../../stylua.toml)
   );
@@ -32,6 +33,15 @@ let
     name = "stylua";
     src = ''${pkgs.stylua}/bin/stylua ${styluaSettingsArgs} "$@"'';
   };
+
+  extraPython3Packages = p: with p; [
+    pyls-flake8
+    pyls-isort
+    pylsp-mypy
+    python-lsp-black
+    python-lsp-server
+    debugpy
+  ];
 in
 {
   home = {
@@ -68,14 +78,7 @@ in
         withNodeJs = true;
         withPython3 = true;
 
-        extraPython3Packages = (p: with p; [
-          pyls-flake8
-          pyls-isort
-          pylsp-mypy
-          python-lsp-black
-          python-lsp-server
-          debugpy
-        ]);
+        inherit extraPython3Packages;
 
         extraPackages = (
           with pkgs; [
@@ -95,16 +98,7 @@ in
             yaml-language-server
           ]
         ) ++ [
-          (python3.withPackages (
-            p: with p; [
-              pyls-flake8
-              pyls-isort
-              pylsp-mypy
-              python-lsp-black
-              python-lsp-server
-              debugpy
-            ]
-          ))
+          (python3.withPackages extraPython3Packages)
         ] ++ (
           with pkgs.nodePackages; [
             eslint
