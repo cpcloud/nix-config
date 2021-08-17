@@ -8,7 +8,7 @@
     "@pulumi/gcp": "5.15",
     "@pulumi/pulumi": "^3.10.1",
     "fast-glob": "^3.2.7",
-    "uuidv4": "^6.2.11"
+    "uuidv4": "^6.2.12"
   },
   "scripts": {
     "lint": "eslint **/*.ts",
