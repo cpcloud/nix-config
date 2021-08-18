@@ -1,3 +1,4 @@
+hostName:
 { lib, ... }:
 let
   yubikeyModels = [
@@ -43,6 +44,37 @@ in
         identityFile = map genYubikeyPubKeyPath yubikeyModels;
         user = "git";
       };
-    };
+    } // (
+      let
+        notThisSystem = builtins.filter
+          (name: name != hostName)
+          (map (lib.removeSuffix ".nix") (lib.attrNames (builtins.readDir ../../../systems)));
+      in
+      builtins.listToAttrs (
+        map
+          (name: {
+            inherit name;
+            value = {
+              forwardAgent = true;
+              remoteForwards = [
+                {
+                  # local
+                  host.address = "/run/user/1000/gnupg/S.gpg-agent.extra";
+                  # remote
+                  bind.address = "/run/user/1000/gnupg/S.gpg-agent";
+                }
+                {
+                  host.address = "/run/user/1000/gnupg/S.gpg-agent.ssh";
+                  bind.address = "/run/user/1000/gnupg/S.gpg-agent.ssh";
+                }
+              ];
+              extraOptions = {
+                StreamLocalBindUnlink = "yes";
+              };
+            };
+          })
+          notThisSystem
+      )
+    );
   };
 }

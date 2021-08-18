@@ -1,7 +1,8 @@
-{ pkgs, ... }: {
+hostName:
+{ ... }: {
   imports = [
     ./gpg.nix
-    ./ssh.nix
+    ((import ./ssh.nix) hostName)
   ];
 
   programs.git.signing = {
@@ -15,6 +16,7 @@
   };
 
   services.gpg-agent = {
+    pinentryFlavor = "curses";
     enable = true;
     enableExtraSocket = true;
     enableScDaemon = true;

@@ -1,4 +1,4 @@
-{ ... }: {
+{ config, ... }: {
   imports = [
     ../core
 
@@ -11,7 +11,7 @@
   ];
 
   home-manager.users.cloud = { ... }: {
-    imports = [ ../users/cloud/trusted/curses.nix ];
+    imports = [ ((import ../users/cloud/trusted) config.networking.hostName) ];
   };
 
   networking.hostName = "falcon";

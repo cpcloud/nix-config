@@ -22,21 +22,7 @@
   ];
 
   home-manager.users.cloud = { ... }: {
-    imports = [ ../users/cloud/trusted/curses.nix ];
-    programs.ssh.matchBlocks = {
-      "weebill" = {
-        forwardAgent = true;
-        extraOptions = {
-          Hostname = "weebill";
-          StreamLocalBindUnlink = "yes";
-          # <remote> <local>
-          RemoteForward = [
-            "/run/user/1000/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra"
-            "/run/user/1000/gnupg/S.gpg-agent.ssh /run/user/1000/gnupg/S.gpg-agent.ssh"
-          ];
-        };
-      };
-    };
+    imports = [ ((import ../users/cloud/trusted) config.networking.hostName) ];
   };
 
   fileSystems = {
