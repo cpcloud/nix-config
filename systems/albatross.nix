@@ -29,7 +29,8 @@
         extraOptions = {
           Hostname = "weebill";
           StreamLocalBindUnlink = "yes";
-          RemoteForward = "/run/user/1000/gnupg/S.gpg-agent.ssh /run/user/1000/gnupg/S.gpg-agent.ssh";
+          # <remote> <local>
+          RemoteForward = "/run/user/1000/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra";
         };
       };
     };
