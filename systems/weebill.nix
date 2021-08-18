@@ -23,7 +23,10 @@
         extraOptions = {
           Hostname = "albatross";
           StreamLocalBindUnlink = "yes";
-          RemoteForward = "/run/user/1000/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra";
+          RemoteForward = [
+            "/run/user/1000/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra"
+            "/run/user/1000/gnupg/S.gpg-agent.ssh /run/user/1000/gnupg/S.gpg-agent.ssh"
+          ];
         };
       };
     };
