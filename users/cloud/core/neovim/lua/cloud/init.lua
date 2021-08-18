@@ -211,3 +211,4 @@ map("", "<leader>m", "mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm")
 
 -- Toggle paste mode on and off
 map("", "<leader>pp", ":setlocal paste!<cr>")
+cmd("let @p='Obreakpoint()'")
