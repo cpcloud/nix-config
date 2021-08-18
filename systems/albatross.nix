@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ config, lib, ... }: {
   imports = [
     ../core
 
@@ -23,6 +23,16 @@
 
   home-manager.users.cloud = { ... }: {
     imports = [ ../users/cloud/trusted/curses.nix ];
+    programs.ssh.matchBlocks = {
+      "weebill" = {
+        forwardAgent = true;
+        extraOptions = {
+          Hostname = "weebill";
+          StreamLocalBindUnlink = "yes";
+          RemoteForward = "/run/user/1000/gnupg/S.gpg-agent.ssh /run/user/1000/gnupg/S.gpg-agent.ssh";
+        };
+      };
+    };
   };
 
   fileSystems = {

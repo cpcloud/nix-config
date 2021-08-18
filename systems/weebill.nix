@@ -17,6 +17,16 @@
 
   home-manager.users.cloud = { ... }: {
     imports = [ ../users/cloud/trusted/curses.nix ];
+    programs.ssh.matchBlocks = {
+      "albatross" = {
+        forwardAgent = true;
+        extraOptions = {
+          Hostname = "albatross";
+          StreamLocalBindUnlink = "yes";
+          RemoteForward = "/run/user/1000/gnupg/S.gpg-agent.ssh /run/user/1000/gnupg/S.gpg-agent.ssh";
+        };
+      };
+    };
   };
 
   fileSystems = {

@@ -28,6 +28,7 @@ in
       AddKeysToAgent yes
       StrictHostKeyChecking ask
       VerifyHostKeyDNS yes
+      StreamLocalBindUnlink yes
       ${identityFileConfigLines}
     '';
 

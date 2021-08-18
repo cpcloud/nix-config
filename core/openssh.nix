@@ -4,5 +4,8 @@
     challengeResponseAuthentication = false;
     passwordAuthentication = false;
     permitRootLogin = lib.mkDefault "no";
+    extraConfig = ''
+      StreamLocalBindUnlink yes
+    '';
   };
 }
