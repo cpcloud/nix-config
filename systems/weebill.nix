@@ -17,6 +17,7 @@
 
   home-manager.users.cloud = { ... }: {
     imports = [ ((import ../users/cloud/trusted) config.networking.hostName) ];
+    programs.alacritty.settings.font.size = 5;
   };
 
   fileSystems = {

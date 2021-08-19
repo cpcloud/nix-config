@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  size = 8;
+  size = lib.mkDefault 8;
   family = "monospace";
   theme = "gruvbox_dark.yaml";
   themeSettingsFile = pkgs.fetchurl {
