@@ -165,11 +165,11 @@
 
           menu-1-0 = "back";
           menu-1-0-exec = "menu-open-0";
-          menu-1-1 = "really reboot?";
-          menu-1-1-exec = "systemctl reboot";
+          menu-1-1 = "reboot?";
+          menu-1-1-exec = "sudo systemctl reboot";
 
-          menu-2-0 = "really shutdown?";
-          menu-2-0-exec = "systemctl poweroff";
+          menu-2-0 = "shutdown?";
+          menu-2-0-exec = "sudo systemctl poweroff";
           menu-2-1 = "back";
           menu-2-1-exec = "menu-open-0";
 
