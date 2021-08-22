@@ -21,6 +21,7 @@ dap.configurations.python = {
     pythonPath = function()
       return "python"
     end,
+    justMyCode = false,
   },
 }
 
