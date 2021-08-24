@@ -124,7 +124,7 @@ in
           lightline-gruvbox-vim
           lsp-colors-nvim
           lsp_signature-nvim
-          nvim-bufferline-lua
+          bufferline-nvim
           nvim-base16 # base16-gruvbox-dark-hard
           gruvbox # for lightline
 
