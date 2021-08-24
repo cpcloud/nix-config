@@ -11,6 +11,7 @@ name: Continuous Integration
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         system:
           - albatross
