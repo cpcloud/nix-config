@@ -64,10 +64,10 @@ jobs:
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
         uses: peter-evans/create-pull-request@v3
         with:
-          commit-message: "feat(niv): update ${{ matrix.dep }}"
+          commit-message: "chore(deps): update ${{ matrix.dep }}"
           branch: "create-pull-request/update-${{ matrix.dep }}"
           delete-branch: true
           author: "Phillip Cloud <417981+cpcloud@users.noreply.github.com>"
-          title: "feat(niv): update ${{ matrix.dep }}"
+          title: "chore(deps): update ${{ matrix.dep }}"
           token: ${{ secrets.PR }}
           body: ${{ steps.compare_commits.outputs.differences }}
