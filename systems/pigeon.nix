@@ -41,16 +41,12 @@
     networkmanager.enable = true;
   };
 
-  fonts.fontconfig.dpi = 192;
-
   services = {
     xserver = {
-      inherit (config.fonts.fontconfig) dpi;
       videoDrivers = [ "nvidia" ];
 
       displayManager.lightdm.greeters.gtk = {
         cursorTheme.size = 48;
-        extraConfig = "xft-dpi=${toString config.fonts.fontconfig.dpi}";
       };
     };
   };
