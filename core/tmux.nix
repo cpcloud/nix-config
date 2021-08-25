@@ -28,10 +28,6 @@
       bind r move-window -r \; display "Panes reordered!"
       bind / list-keys
 
-      # for tmate, because it appears to be using an older tmux version
-      bind -T copy-mode-vi v send-keys -X begin-selection
-      bind -T copy-mode-vi y send-keys -X copy-selection
-
       set-window-option -g status-style bg=blue
 
       bind-key -n C-Space resize-pane -Z
