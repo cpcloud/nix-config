@@ -2,12 +2,18 @@
 with lib;
 let
   cfg = config.services.tailscale-up;
-  tailscaleUp = pkgs.writeShellScriptBin "tailscale-up" ''
-    ${cfg.package}/bin/tailscale up --authkey "$(${pkgs.coreutils}/bin/cat ${cfg.authKeyFile})"
-  '';
-  tailscaleDown = pkgs.writeShellScriptBin "tailscale-down" ''
-    ${cfg.package}/bin/tailscale logout
-  '';
+  tailscaleUp = pkgs.writeSaneShellScriptBin {
+    name = "tailscale-up";
+    buildInputs = [ pkgs.coreutils cfg.package ];
+    src = ''
+      tailscale up --authkey "$(cat ${cfg.authKeyFile})"
+    '';
+  };
+  tailscaleDown = pkgs.writeSaneShellScriptBin {
+    name = "tailscale-down";
+    buildInputs = [ cfg.package ];
+    src = "tailscale logout";
+  };
 in
 {
   options.services.tailscale-up = {

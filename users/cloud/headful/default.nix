@@ -14,6 +14,7 @@
     zoom-us
     xclip
     xsel
+    zulip-term
   ];
 
   gtk.enable = true;

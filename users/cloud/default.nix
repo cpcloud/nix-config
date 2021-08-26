@@ -39,9 +39,10 @@ in
     owner = "cloud";
   };
 
-  sops.secrets.cargo_token = {
-    sopsFile = ../../secrets/cargo.token.yaml;
+  sops.secrets.ursalabs-zulip = {
+    sopsFile = ../../secrets/ursalabs-zulip.yaml;
     owner = "cloud";
+    key = "config";
   };
 
   home-manager.users.cloud =

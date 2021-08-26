@@ -8,27 +8,34 @@ creation_rules:
   - path_regex: secrets/albatross-builder.yaml
     key_groups:
       - pgp:
-        - *yubikey
-        - *bluejay
-        - *weebill
+          - *yubikey
+          - *bluejay
+          - *weebill
   - path_regex: secrets/cargo.token.yaml
     key_groups:
       - pgp:
-        - *yubikey
-        - *albatross
-        - *bluejay
-        - *weebill
+          - *yubikey
+          - *albatross
+          - *bluejay
+          - *weebill
   - path_regex: secrets/github.gh.token.yaml
     key_groups:
       - pgp:
-        - *yubikey
-        - *albatross
-        - *bluejay
-        - *weebill
+          - *yubikey
+          - *albatross
+          - *bluejay
+          - *weebill
   - path_regex: secrets/tailscale.yaml
     key_groups:
       - pgp:
-        - *yubikey
-        - *albatross
-        - *bluejay
-        - *weebill
+          - *yubikey
+          - *albatross
+          - *bluejay
+          - *weebill
+  - path_regex: secrets/ursalabs-zulip.yaml
+    key_groups:
+      - pgp:
+          - *yubikey
+          - *albatross
+          - *bluejay
+          - *weebill

@@ -1,2 +1,3 @@
 .pre-commit-config.yaml
 nix/sources.json
+secrets/*.yaml

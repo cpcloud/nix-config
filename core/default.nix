@@ -35,9 +35,12 @@ in
   '';
 
   environment.systemPackages = with pkgs; [
-    (writeShellScriptBin "nix-flakes" ''
-      exec ${nixUnstable}/bin/nix --experimental-features "nix-command flakes" "$@"
-    '')
+    (writeSaneShellScriptBin {
+      name = "nix-flakes";
+      src = ''
+        exec ${nixUnstable}/bin/nix --experimental-features "nix-command flakes" "$@"
+      '';
+    })
     wireguard-tools
     cachix
     pinentry-curses
@@ -80,6 +83,7 @@ in
       (import ../overlays/v4l-utils.nix)
       (import ../overlays/ayu-theme-gtk.nix)
       (import ../overlays/gh.nix { inherit config; })
+      (import ../overlays/zulip-term.nix { inherit config; })
       (import ../overlays/linux-lto.nix)
       (import ../overlays/spawn.nix)
       (import ../overlays/write-sane-shell-script-bin.nix)
