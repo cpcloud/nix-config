@@ -8,7 +8,7 @@ import { Provisioner } from "./provisioners";
 const execFile = util.promisify(childProcess.execFile);
 
 export interface ImageArgs {
-  nixExpr: string;
+  nixRootExpr: string;
   imageExpr: string;
   family: string;
   outHashLength?: number;
@@ -36,25 +36,26 @@ export class Image extends p.ComponentResource {
   ) {
     super(`nixos:${Image.name}`, name, args, opts);
 
-    const { nixExpr, imageExpr, outHashLength } = args;
+    const { nixRootExpr, imageExpr, outHashLength } = args;
 
     this.provisioner = new Provisioner(
       `${name}-provisioner`,
       {
         args,
         changeToken: execFile(NIX_INSTANTIATE, [
-          nixExpr,
+          nixRootExpr,
           "--attr",
           imageExpr,
         ]).then(({ stdout }: { stdout: string }): string => stdout.trim()), // eslint-disable-line max-len, github/no-then
         onCreate: async ({
           family,
         }: p.Unwrap<ImageArgs>): Promise<ImageOutputs> => {
-          const { stdout: nixImageDirUntrimmed } = await util.promisify(
-            childProcess.execFile
-          )(NIX_BUILD, [nixExpr, "--attr", imageExpr, "--no-out-link"], {
-            maxBuffer: 1024 * 1024 * 1024,
-          });
+          const execFileLocal = util.promisify(childProcess.execFile);
+          const { stdout: nixImageDirUntrimmed } = await execFileLocal(
+            NIX_BUILD,
+            [nixRootExpr, "--attr", imageExpr, "--no-out-link"],
+            { maxBuffer: 1024 * 1024 * 1024 }
+          );
 
           const [bucketObjectSource] = await fg(
             path.join(

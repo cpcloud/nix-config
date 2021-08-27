@@ -55,18 +55,20 @@ export = async (): Promise<void> => {
   );
 
   const instances = conf.requireObject<Instance[]>("instances");
+
   for (const {
     name: instanceName,
     machine_type: machineType,
     gpu,
     disk,
   } of instances) {
+    const imageExpr = `config.nodes.${instanceName}.configuration.system.build.googleComputeImage`;
     const nixosImage = new nixos.Image(
-      `${instanceName}`,
+      instanceName,
       {
-        nixExpr: "..",
+        nixRootExpr: "..",
         family,
-        imageExpr: `config.nodes.${instanceName}.configuration.system.build.googleComputeImage`,
+        imageExpr,
       },
       { parent: machineImageBucket }
     );
@@ -120,14 +122,14 @@ export = async (): Promise<void> => {
     //
     // the first step is to construct a router
     const router = new compute.Router(
-      `${instanceName}-router`,
+      instanceName,
       { network: network.selfLink },
       { parent: network, dependsOn: [computeService] }
     );
 
     // the second step is to construct NAT for the router
     new compute.RouterNat(
-      `${instanceName}-router-nat`,
+      instanceName,
       {
         router: router.name,
         natIpAllocateOption: "AUTO_ONLY",
@@ -153,7 +155,10 @@ export = async (): Promise<void> => {
           },
         ],
       },
-      { parent: network, dependsOn: [computeService] }
+      {
+        parent: network,
+        dependsOn: [computeService],
+      }
     );
 
     // finally, construct the instance
@@ -174,7 +179,10 @@ export = async (): Promise<void> => {
         },
         allowStoppingForUpdate: !!gpu,
       },
-      { parent: computeImage, dependsOn: [iapSshFirewall, computeService] }
+      {
+        parent: computeImage,
+        dependsOn: [iapSshFirewall, computeService],
+      }
     );
   }
 };
