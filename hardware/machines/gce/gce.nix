@@ -22,13 +22,8 @@
     localSystem.system = "x86_64-linux";
 
     overlays = [
-      (self: super: {
-        # XXX: boto is used by google-compute-engine, and boto is not compatible
-        # with Python > 3.8, so we downgrade these two libraries to allow
-        # the system to work
-        google-compute-engine = super.python38Packages.google-compute-engine;
+      (_: super: {
         google-cloud-sdk = super.google-cloud-sdk.override {
-          python = self.python38;
           with-gce = true;
         };
       })
