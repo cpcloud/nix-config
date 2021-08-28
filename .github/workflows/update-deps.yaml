@@ -49,7 +49,7 @@ jobs:
         id: repo_name
         run: echo ::set-output name=value::$(./get_dep_info.sh ${{ matrix.dep }} repo)
 
-      - name: Get log lines for upstream changes
+      - name: Get commit details for ${{ matrix.dep }} changes
         uses: cpcloud/compare-commits-action@v2.0.4
         id: compare_commits
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
