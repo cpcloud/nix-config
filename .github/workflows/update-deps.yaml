@@ -50,7 +50,7 @@ jobs:
         run: echo ::set-output name=value::$(./get_dep_info.sh ${{ matrix.dep }} repo)
 
       - name: Get commit details for ${{ matrix.dep }} changes
-        uses: cpcloud/compare-commits-action@v2.0.4
+        uses: cpcloud/compare-commits-action@v3.0.0
         id: compare_commits
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
         with:
@@ -58,7 +58,7 @@ jobs:
           repo: ${{ steps.repo_name.outputs.value }}
           basehead: ${{ steps.get_current_commit.outputs.sha256 }}...${{ steps.get_new_commit.outputs.sha256 }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          show-merge-commits: false
+          include-merge-commits: false
 
       - name: Create a pull request to update ${{ matrix.dep }}
         if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
