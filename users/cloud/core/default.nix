@@ -36,25 +36,6 @@
       nix-direnv.enable = true;
     };
 
-    htop = {
-      enable = true;
-      settings = {
-        vim_mode = true;
-        tree_view = false;
-        show_cpu_usage = true;
-        left_meters = [
-          "AllCPUs4"
-          "Memory"
-          "Swap"
-        ];
-        right_meters = [
-          "Tasks"
-          "LoadAverage"
-          "Uptime"
-        ];
-      };
-    };
-
     bat = {
       enable = true;
       config.theme = "gruvbox-dark";
