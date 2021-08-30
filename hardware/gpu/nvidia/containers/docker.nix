@@ -1,3 +1,3 @@
-{ ... }: {
-  virtualisation.docker.enableNvidia = true;
+{ config, ... }: {
+  virtualisation.docker.enableNvidia = config.virtualisation.docker.enable;
 }
