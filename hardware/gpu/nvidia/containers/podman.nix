@@ -1,3 +1,3 @@
-{ ... }: {
-  virtualisation.podman.enableNvidia = true;
+{ config, ... }: {
+  virtualisation.podman.enableNvidia = config.virtualisation.podman.enable;
 }
