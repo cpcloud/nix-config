@@ -23,6 +23,7 @@ in
       ++ lib.optionals config.networking.networkmanager.enable [ "networkmanager" ]
       ++ lib.optionals config.programs.wireshark.enable [ "wireshark" ]
       ++ lib.optionals config.virtualisation.docker.enable [ "docker" ]
+      ++ lib.optionals config.virtualisation.podman.enable [ "podman" ]
       ++ lib.optionals config.virtualisation.virtualbox.host.enable [ "vboxsf" "vboxusers" ];
 
     shell = lib.mkIf config.programs.zsh.enable pkgs.zsh;
