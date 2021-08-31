@@ -46,7 +46,6 @@
             "temperature"
             "brightnessctl"
             "battery"
-            "powermenu"
           ];
 
           monitor = "\${env:MONITOR:}";
@@ -152,33 +151,6 @@
           "inherit" = "module/net-base";
           interface = "wlan0";
           label-connected = "%local_ip% 👇 %downspeed% 👆 %upspeed%";
-        };
-
-        "module/powermenu" = {
-          type = "custom/menu";
-          expand-right = true;
-
-          menu-0-0 = "reboot";
-          menu-0-0-exec = "menu-open-1";
-          menu-0-1 = "shutdown";
-          menu-0-1-exec = "menu-open-2";
-
-          menu-1-0 = "back";
-          menu-1-0-exec = "menu-open-0";
-          menu-1-1 = "reboot?";
-          menu-1-1-exec = "sudo systemctl reboot";
-
-          menu-2-0 = "shutdown?";
-          menu-2-0-exec = "sudo systemctl poweroff";
-          menu-2-1 = "back";
-          menu-2-1-exec = "menu-open-0";
-
-          format-spacing = 1;
-          format-padding = 1;
-
-          label-open = "";
-          label-close = "";
-          label-separator = "|";
         };
 
         "module/pulseaudio" = {
