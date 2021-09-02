@@ -16,7 +16,7 @@
     gap = "git add --patch";
     gbD = "git branch --delete --force";
     gb = "git branch -vv";
-    gcb = "git rev-parse --abbrev-ref HEAD";
+    gcb = "git branch --show-current";
     gc = "git cz";
     gck = "git commit --all --message Checkpoint";
     gcob = "git checkout -b";
