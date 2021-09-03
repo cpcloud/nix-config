@@ -180,6 +180,7 @@ local lsps_settings = {
         toml = "prettier",
         yaml = "prettier",
         typescript = "prettier",
+        json = "prettier",
       },
     },
   },
