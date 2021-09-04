@@ -32,36 +32,32 @@ jobs:
 
       - name: Get current commit
         id: get_current_commit
-        run: echo ::set-output name=sha256::$(./get_dep_info.sh ${{ matrix.dep }} rev)
+        uses: cpcloud/niv-dep-info-action@v1.0.0
+        with:
+          dependency: ${{ matrix.dep }}
 
       - name: Update ${{ matrix.dep }}
         run: nix run nixpkgs.niv -c niv update ${{ matrix.dep }}
 
       - name: Get new commit
         id: get_new_commit
-        run: echo ::set-output name=sha256::$(./get_dep_info.sh ${{ matrix.dep }} rev)
-
-      - name: Get repository owner
-        id: repo_owner
-        run: echo ::set-output name=value::$(./get_dep_info.sh ${{ matrix.dep }} owner)
-
-      - name: Get repository name
-        id: repo_name
-        run: echo ::set-output name=value::$(./get_dep_info.sh ${{ matrix.dep }} repo)
+        uses: cpcloud/niv-dep-info-action@v1.0.0
+        with:
+          dependency: ${{ matrix.dep }}
 
       - name: Get commit details for ${{ matrix.dep }} changes
         uses: cpcloud/compare-commits-action@v3.0.1
         id: compare_commits
-        if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
+        if: ${{ steps.get_current_commit.outputs.rev != steps.get_new_commit.outputs.rev }}
         with:
-          owner: ${{ steps.repo_owner.outputs.value }}
-          repo: ${{ steps.repo_name.outputs.value }}
-          basehead: ${{ steps.get_current_commit.outputs.sha256 }}...${{ steps.get_new_commit.outputs.sha256 }}
+          owner: ${{ steps.get_current_commit.outputs.owner }}
+          repo: ${{ steps.get_current_commit.outputs.repo }}
+          basehead: ${{ steps.get_current_commit.outputs.rev }}...${{ steps.get_new_commit.outputs.rev }}
           token: ${{ secrets.GITHUB_TOKEN }}
           include-merge-commits: false
 
       - name: Create a pull request to update ${{ matrix.dep }}
-        if: ${{ steps.get_current_commit.outputs.sha256 != steps.get_new_commit.outputs.sha256 }}
+        if: ${{ steps.get_current_commit.outputs.rev != steps.get_new_commit.outputs.rev }}
         uses: peter-evans/create-pull-request@v3
         with:
           commit-message: "chore(deps): update ${{ matrix.dep }}"
