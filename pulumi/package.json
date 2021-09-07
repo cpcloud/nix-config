@@ -18,7 +18,7 @@
   "devDependencies": {
     "@types/eslint": "^7",
     "@types/prettier": "^2",
-    "@typescript-eslint/eslint-plugin": "^4.29.3",
+    "@typescript-eslint/eslint-plugin": "^4.31.0",
     "@typescript-eslint/parser": "^4.30.0",
     "eslint": "^7.32.0",
     "eslint-plugin-github": "^4.2.0",
