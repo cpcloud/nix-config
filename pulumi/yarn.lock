@@ -183,7 +183,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pulumi/gcp@npm:5.19":
+"@pulumi/gcp@npm:5.19.0":
   version: 5.19.0
   resolution: "@pulumi/gcp@npm:5.19.0"
   dependencies:
@@ -194,7 +194,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pulumi/pulumi@npm:^3.0.0, @pulumi/pulumi@npm:^3.12.0":
+"@pulumi/pulumi@npm:3.12.0, @pulumi/pulumi@npm:^3.0.0":
   version: 3.12.0
   resolution: "@pulumi/pulumi@npm:3.12.0"
   dependencies:
@@ -243,7 +243,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:^7":
+"@types/eslint@npm:7.28.0":
   version: 7.28.0
   resolution: "@types/eslint@npm:7.28.0"
   dependencies:
@@ -318,7 +318,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prettier@npm:^2":
+"@types/prettier@npm:2.3.2":
   version: 2.3.2
   resolution: "@types/prettier@npm:2.3.2"
   checksum: c4313e16650811f47b07a0fa7ac0742e966f61283a7292eb667fd4626d760bf3b7d896be3eaabb3354ad45fdbe3a340299b018dd3bcce1ff753d030a8cd2479c
@@ -356,7 +356,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^4.20.0, @typescript-eslint/eslint-plugin@npm:^4.29.3":
+"@typescript-eslint/eslint-plugin@npm:4.31.1, @typescript-eslint/eslint-plugin@npm:^4.20.0":
   version: 4.31.1
   resolution: "@typescript-eslint/eslint-plugin@npm:4.31.1"
   dependencies:
@@ -393,7 +393,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^4.20.0, @typescript-eslint/parser@npm:^4.31.0":
+"@typescript-eslint/parser@npm:4.31.1, @typescript-eslint/parser@npm:^4.20.0":
   version: 4.31.1
   resolution: "@typescript-eslint/parser@npm:4.31.1"
   dependencies:
@@ -704,17 +704,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "cpcloud-dev-pulumi@workspace:."
   dependencies:
-    "@pulumi/gcp": 5.19
-    "@pulumi/pulumi": ^3.12.0
-    "@types/eslint": ^7
-    "@types/prettier": ^2
-    "@typescript-eslint/eslint-plugin": ^4.29.3
-    "@typescript-eslint/parser": ^4.31.0
-    eslint: ^7.32.0
-    eslint-plugin-github: ^4.2.0
-    fast-glob: ^3.2.7
-    prettier: ^2.4.0
-    uuidv4: ^6.2.11
+    "@pulumi/gcp": 5.19.0
+    "@pulumi/pulumi": 3.12.0
+    "@types/eslint": 7.28.0
+    "@types/prettier": 2.3.2
+    "@typescript-eslint/eslint-plugin": 4.31.1
+    "@typescript-eslint/parser": 4.31.1
+    eslint: 7.32.0
+    eslint-plugin-github: 4.3.0
+    fast-glob: 3.2.7
+    prettier: 2.4.0
+    uuidv4: 6.2.12
   languageName: unknown
   linkType: soft
 
@@ -959,7 +959,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-github@npm:^4.2.0":
+"eslint-plugin-github@npm:4.3.0":
   version: 4.3.0
   resolution: "eslint-plugin-github@npm:4.3.0"
   dependencies:
@@ -1090,7 +1090,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^7.32.0":
+"eslint@npm:7.32.0":
   version: 7.32.0
   resolution: "eslint@npm:7.32.0"
   dependencies:
@@ -1214,7 +1214,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:^3.1.1, fast-glob@npm:^3.2.7":
+"fast-glob@npm:3.2.7, fast-glob@npm:^3.1.1":
   version: 3.2.7
   resolution: "fast-glob@npm:3.2.7"
   dependencies:
@@ -2107,7 +2107,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.2.1, prettier@npm:^2.4.0":
+"prettier@npm:2.4.0, prettier@npm:^2.2.1":
   version: 2.4.0
   resolution: "prettier@npm:2.4.0"
   bin:
@@ -2672,7 +2672,7 @@ typescript@~3.7.3:
   languageName: node
   linkType: hard
 
-"uuidv4@npm:^6.2.11":
+"uuidv4@npm:6.2.12":
   version: 6.2.12
   resolution: "uuidv4@npm:6.2.12"
   dependencies:
