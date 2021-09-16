@@ -11,9 +11,9 @@
     "uuidv4": "6.2.12"
   },
   "scripts": {
-    "lint": "eslint **/*.ts",
-    "format-check": "prettier --check **/*.ts **/*.json **/*.y{a,}ml",
-    "format": "prettier --write **/*.ts **/*.json **/*.y{a,}ml"
+    "lint": "eslint .",
+    "format-check": "prettier --check .",
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@types/eslint": "7.28.0",
