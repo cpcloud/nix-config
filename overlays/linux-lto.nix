@@ -84,12 +84,12 @@ let
 in
 _: rec {
   linuxPackages_xanmod_lto_tigerlake = linuxLTOPackagesFor {
-    kernel = self.linux_xanmod;
+    kernel = self.linuxKernel.kernels.linux_xanmod;
     extraConfig = { MTIGERLAKE = lib.kernel.yes; };
   };
 
   linuxPackages_xanmod_lto_skylake = linuxLTOPackagesFor {
-    kernel = self.linux_xanmod;
+    kernel = self.linuxKernel.kernels.linux_xanmod;
     extraConfig = { MSKYLAKE = lib.kernel.yes; };
   };
 }
