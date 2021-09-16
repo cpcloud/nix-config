@@ -1383,9 +1383,9 @@ __metadata:
   linkType: hard
 
 "google-protobuf@npm:^3.5.0":
-  version: 3.17.3
-  resolution: "google-protobuf@npm:3.17.3"
-  checksum: efe264f3cf854a78f7197c4d8c84eabd1ce8c4ef2806cb3e0bb7f2b5e18f559739ab31adfefbd99e81312c3683f482400fa370896a8b0cc66adfedb114256420
+  version: 3.18.0
+  resolution: "google-protobuf@npm:3.18.0"
+  checksum: 0838d000c4db38556ebd200378ff114afbb48c4536c6321cfe2dde1208798da93805ee25317f4518ad971191f01eae7432ae9e21b0fd8efaeb89d65728047368
   languageName: node
   linkType: hard
 
@@ -2107,21 +2107,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.4.1":
+"prettier@npm:2.4.1, prettier@npm:^2.2.1":
   version: 2.4.1
   resolution: "prettier@npm:2.4.1"
   bin:
     prettier: bin-prettier.js
   checksum: cc6830588b401b0d742862fe9c46bc9118204fb307c3abe0e49e95b35ed23629573807ffdf9cdd65289c252a0bb51fc0171437f6626ee36378dea80f0ee80b91
-  languageName: node
-  linkType: hard
-
-"prettier@npm:^2.2.1":
-  version: 2.4.0
-  resolution: "prettier@npm:2.4.0"
-  bin:
-    prettier: bin-prettier.js
-  checksum: ac1bf07566dad5f58469e6d8a954bd5c0f833935597deb00330e9f673e14e4cf81e07dee7eff5776c0edebe11358d199f332d9940be40c8b455516034e553ce0
   languageName: node
   linkType: hard
 
