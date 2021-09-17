@@ -41,10 +41,10 @@
         "homepage": "",
         "owner": "Infinisil",
         "repo": "nixus",
-        "rev": "4c06f5a4d8168f81fda89b8b2c73fb41e68b1937",
-        "sha256": "1s9zixi3w1xrma042z7csqwc6agvl9xh11462r7dvsc0dvzhb7hm",
+        "rev": "851b6b7480815afd0032fd15ebcf23e80e1d7e57",
+        "sha256": "1vr39sa7gldwkkhcq70ki878zgnj9z4gvwg85asi2mai0x47f3lb",
         "type": "tarball",
-        "url": "https://github.com/Infinisil/nixus/archive/4c06f5a4d8168f81fda89b8b2c73fb41e68b1937.tar.gz",
+        "url": "https://github.com/Infinisil/nixus/archive/851b6b7480815afd0032fd15ebcf23e80e1d7e57.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pre-commit-hooks": {
