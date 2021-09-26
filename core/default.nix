@@ -76,19 +76,19 @@ in
     config.allowUnfree = true;
 
     overlays = [
-      # exa requires pandoc which builds ghc from scratch for some reason
-      (import ../overlays/exa.nix)
-      (import ../overlays/nix-direnv.nix)
-      (import ../overlays/weechat.nix)
-      (import ../overlays/v4l-utils.nix)
       (import ../overlays/ayu-theme-gtk.nix)
-      (import ../overlays/gh.nix { inherit config; })
-      (import ../overlays/zulip-term.nix { inherit config; })
-      (import ../overlays/linux-lto.nix)
-      (import ../overlays/spawn.nix)
-      (import ../overlays/write-sane-shell-script-bin.nix)
       (import ../overlays/drunmenu.nix)
       (import ../overlays/emojimenu.nix)
+      (import ../overlays/exa.nix)
+      (import ../overlays/gh.nix { inherit config; })
+      (import ../overlays/linux-lto.nix)
+      (import ../overlays/nix-direnv.nix)
+      (import ../overlays/optimized.nix)
+      (import ../overlays/spawn.nix)
+      (import ../overlays/v4l-utils.nix)
+      (import ../overlays/weechat.nix)
+      (import ../overlays/write-sane-shell-script-bin.nix)
+      (import ../overlays/zulip-term.nix { inherit config; })
     ];
   };
 
