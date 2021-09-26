@@ -10,8 +10,9 @@
   ];
 
   boot = {
+    extraModprobeConfig = "options kvm_intel nested=1";
     initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
-    kernelModules = [ "kvm-intel" ];
+    kernelModules = [ "kvm-intel" "kvm_intel" ];
     kernelPackages = pkgs.linuxPackages_xanmod_lto_skylake;
   };
 
