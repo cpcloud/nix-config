@@ -8,7 +8,6 @@
 
     ../hardware/machines/xps-9310.nix
     ../hardware/yubikey.nix
-    ../hardware/gpu/amd
 
     ../headful
 
