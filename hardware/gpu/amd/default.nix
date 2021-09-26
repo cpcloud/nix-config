@@ -9,4 +9,6 @@
       amdvlk
     ];
   };
+
+  boot.kernelModules = [ "amdgpu" ];
 }
