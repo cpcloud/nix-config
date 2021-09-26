@@ -12,6 +12,7 @@
   ];
 
   boot = {
+    extraModprobeConfig = "options kvm_intel nested=1";
     initrd.availableKernelModules = [
       "xhci_pci"
       "thunderbolt"
@@ -21,7 +22,7 @@
       "rtsx_pci_sdmmc"
     ];
     blacklistedKernelModules = [ "psmouse" ];
-    kernelModules = [ "kvm-intel" "amdgpu" ];
+    kernelModules = [ "kvm-intel" "kvm_intel" ];
     kernelPackages = pkgs.linuxPackages_xanmod_lto_tigerlake;
   };
 
