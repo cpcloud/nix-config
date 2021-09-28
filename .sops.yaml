@@ -11,14 +11,7 @@ creation_rules:
           - *yubikey
           - *bluejay
           - *weebill
-  - path_regex: secrets/cargo.token.yaml
-    key_groups:
-      - pgp:
-          - *yubikey
-          - *albatross
-          - *bluejay
-          - *weebill
-  - path_regex: secrets/github.gh.token.yaml
+  - path_regex: secrets/github-gh-token.yaml
     key_groups:
       - pgp:
           - *yubikey
@@ -33,6 +26,13 @@ creation_rules:
           - *bluejay
           - *weebill
   - path_regex: secrets/ursalabs-zulip.yaml
+    key_groups:
+      - pgp:
+          - *yubikey
+          - *albatross
+          - *bluejay
+          - *weebill
+  - path_regex: secrets/apache-jira.yaml
     key_groups:
       - pgp:
           - *yubikey

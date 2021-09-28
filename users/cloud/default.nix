@@ -35,15 +35,22 @@ in
     ];
   };
 
-  sops.secrets.github_gh_token = {
-    sopsFile = ../../secrets/github.gh.token.yaml;
+  sops.secrets.github-gh-token = {
+    sopsFile = ../../secrets/github-gh-token.yaml;
     owner = "cloud";
+    key = "token";
   };
 
   sops.secrets.ursalabs-zulip = {
     sopsFile = ../../secrets/ursalabs-zulip.yaml;
     owner = "cloud";
     key = "config";
+  };
+
+  sops.secrets.apache-jira = {
+    sopsFile = ../../secrets/apache-jira.yaml;
+    owner = "cloud";
+    key = "password";
   };
 
   home-manager.users.cloud =
