@@ -57,6 +57,8 @@ let
       argsOverride.structuredExtraConfig = kernel.structuredExtraConfig // {
         LTO_CLANG_FULL = yes;
         LTO_NONE = no;
+        # causes OOM when LTO-ing
+        DEBUG_INFO = lib.mkForce no;
         # https://www.mail-archive.com/linux-kernel@vger.kernel.org/msg2519405.html
         DEBUG_INFO_BTF = lib.mkForce no;
       } // extraConfig;
