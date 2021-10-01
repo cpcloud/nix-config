@@ -23,8 +23,6 @@ let
       # INFO: https://gcc.gnu.org/ml/gcc/2017-09/msg00079.html
       "-fno-math-errno"
       "-fno-trapping-math"
-      # link tiem optimization
-      "-flto"
     ];
 
     NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + (toString _OPT_DRV_FLAGS);
