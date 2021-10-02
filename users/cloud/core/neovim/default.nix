@@ -154,7 +154,27 @@ in
           nvim-lspconfig
 
           # syntax
-          nvim-treesitter
+          (nvim-treesitter.withPlugins
+            (_:
+              with builtins;
+              filter
+                (drv:
+                  !elem
+                    drv.pname
+                    (map (v: "tree-sitter-${v}-grammar") [
+                      "agda"
+                      "c-sharp"
+                      "embedded-template"
+                      "fluent"
+                      "ocaml-interface"
+                      "svelte"
+                      "swift"
+                      "verilog"
+                    ])
+                )
+                pkgs.tree-sitter.allGrammars
+            )
+          )
           nvim-treesitter-context
           vim-polyglot
 
