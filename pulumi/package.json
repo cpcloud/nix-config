@@ -6,7 +6,7 @@
   "packageManager": "yarn@3.0.0",
   "dependencies": {
     "@pulumi/gcp": "5.21.0",
-    "@pulumi/pulumi": "3.13.2",
+    "@pulumi/pulumi": "3.14.0",
     "fast-glob": "3.2.7",
     "uuidv4": "6.2.12"
   },
