@@ -167,7 +167,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pulumi/pulumi@npm:3.14.0":
+"@pulumi/pulumi@npm:3.14.0, @pulumi/pulumi@npm:^3.0.0":
   version: 3.14.0
   resolution: "@pulumi/pulumi@npm:3.14.0"
   dependencies:
@@ -187,29 +187,6 @@ __metadata:
     typescript: ~3.7.3
     upath: ^1.1.0
   checksum: bdb7afbdf4fd60a521c4c64f5996a794e6f30412bf9df5fbf112185db5e90dc6a7ec07e85afad81d11d00359ae70feaaf9ecbd3a204a1a13a0adbdf5b7474673
-  languageName: node
-  linkType: hard
-
-"@pulumi/pulumi@npm:^3.0.0":
-  version: 3.13.2
-  resolution: "@pulumi/pulumi@npm:3.13.2"
-  dependencies:
-    "@grpc/grpc-js": ^1.2.7
-    "@logdna/tail-file": ^2.0.6
-    "@pulumi/query": ^0.3.0
-    google-protobuf: ^3.5.0
-    js-yaml: ^3.14.0
-    minimist: ^1.2.0
-    normalize-package-data: ^2.4.0
-    protobufjs: ^6.8.6
-    read-package-tree: ^5.3.1
-    require-from-string: ^2.0.1
-    semver: ^6.1.0
-    source-map-support: ^0.4.16
-    ts-node: ^7.0.1
-    typescript: ~3.7.3
-    upath: ^1.1.0
-  checksum: 336ee1552e63a85ebd141a06e45c68bf57cc867c99c0c78046b6243e1469106f9364909a78054479e0528e818f6e8780f531cfdbdc6f112ebb366acbcc8b215e
   languageName: node
   linkType: hard
 
@@ -308,9 +285,9 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0":
-  version: 16.10.2
-  resolution: "@types/node@npm:16.10.2"
-  checksum: 83c1c3c68e7500103908c3f16094e458879c840a719c15b6ea577f81fe1f24a1b3473bb6c8e8091fe79a82543ca7639c6b1088fcf80292ec091d1d1c9504a87e
+  version: 16.10.3
+  resolution: "@types/node@npm:16.10.3"
+  checksum: 3fd429bce8a4acb497dcc62b536782a5e87ccf7cd91d64a78b263ae5d66cb72bf84be9eeeff6f84ae0567b065a40b267caa66d311f9e094990a5847bbd168a29
   languageName: node
   linkType: hard
 
@@ -522,15 +499,15 @@ __metadata:
   linkType: hard
 
 "array-includes@npm:^3.1.3":
-  version: 3.1.3
-  resolution: "array-includes@npm:3.1.3"
+  version: 3.1.4
+  resolution: "array-includes@npm:3.1.4"
   dependencies:
     call-bind: ^1.0.2
     define-properties: ^1.1.3
-    es-abstract: ^1.18.0-next.2
+    es-abstract: ^1.19.1
     get-intrinsic: ^1.1.1
-    is-string: ^1.0.5
-  checksum: eaab8812412b5ec921c8fe678a9d61f501b12f6c72e271e0e8652fe7f4145276cc7ad79ff303ac4ed69cbf5135155bfb092b1b6d552e423e75106d1c887da150
+    is-string: ^1.0.7
+  checksum: 69967c38c52698f84b50a7aed5554aadc89c6ac6399b6d92ad061a5952f8423b4bba054c51d40963f791dfa294d7247cdd7988b6b1f2c5861477031c6386e1c0
   languageName: node
   linkType: hard
 
@@ -793,7 +770,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-abstract@npm:^1.18.0-next.2, es-abstract@npm:^1.18.2, es-abstract@npm:^1.19.0":
+"es-abstract@npm:^1.19.0, es-abstract@npm:^1.19.1":
   version: 1.19.1
   resolution: "es-abstract@npm:1.19.1"
   dependencies:
@@ -1335,9 +1312,9 @@ __metadata:
   linkType: hard
 
 "google-protobuf@npm:^3.5.0":
-  version: 3.18.0
-  resolution: "google-protobuf@npm:3.18.0"
-  checksum: 0838d000c4db38556ebd200378ff114afbb48c4536c6321cfe2dde1208798da93805ee25317f4518ad971191f01eae7432ae9e21b0fd8efaeb89d65728047368
+  version: 3.18.1
+  resolution: "google-protobuf@npm:3.18.1"
+  checksum: cf8415f6edb6bca27cf5fc068b2a9ec926d493aa915033f0a338fb961d9f6943c5294069b3cca9a3f44546355f4d24c559f5eb798cdfd123edec5a3ba0f65deb
   languageName: node
   linkType: hard
 
@@ -1864,24 +1841,24 @@ __metadata:
   linkType: hard
 
 "object.getownpropertydescriptors@npm:^2.0.3":
-  version: 2.1.2
-  resolution: "object.getownpropertydescriptors@npm:2.1.2"
+  version: 2.1.3
+  resolution: "object.getownpropertydescriptors@npm:2.1.3"
   dependencies:
     call-bind: ^1.0.2
     define-properties: ^1.1.3
-    es-abstract: ^1.18.0-next.2
-  checksum: 6c1c0162a2bea912f092dbf48699998d6f4b788a9884ee99ba41ddf25c3f0924ec56c6a55738c4ae3bd91d1203813a9a8e18e6fff1f477e2626cdbcd1a5f3ca8
+    es-abstract: ^1.19.1
+  checksum: 1467873456fd367a0eb91350caff359a8f05ceb069b4535a1846aa1f74f477a49ae704f6c89c0c14cc0ae1518ee3a0aa57c7f733a8e7b2b06b34a818e9593d2f
   languageName: node
   linkType: hard
 
 "object.values@npm:^1.1.4":
-  version: 1.1.4
-  resolution: "object.values@npm:1.1.4"
+  version: 1.1.5
+  resolution: "object.values@npm:1.1.5"
   dependencies:
     call-bind: ^1.0.2
     define-properties: ^1.1.3
-    es-abstract: ^1.18.2
-  checksum: 1a2f1e9d0bcfc299b8491170a50e6e7ca23392641d7781a8528e96c72f0013ba7ee731792ff8586c8eaec0328acda16c59622924c82c58bd0eb5c4ee67794856
+    es-abstract: ^1.19.1
+  checksum: 0f17e99741ebfbd0fa55ce942f6184743d3070c61bd39221afc929c8422c4907618c8da694c6915bc04a83ab3224260c779ba37fc07bb668bdc5f33b66a902a4
   languageName: node
   linkType: hard
 
