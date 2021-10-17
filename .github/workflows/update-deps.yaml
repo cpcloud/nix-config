@@ -13,8 +13,8 @@ jobs:
           - nixos-hardware
           - nixpkgs
           - nixus
-          - sops-nix
           - pre-commit-hooks
+          - sops-nix
     steps:
       - name: Checkout
         uses: actions/checkout@v2
