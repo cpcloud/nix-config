@@ -64,6 +64,8 @@
     };
   };
 
+  environment.systemPackages = [ (import ../nix/nixpkgs-steam.nix).steam ];
+
   services.resolved.enable = true;
 
   services.xserver.videoDrivers = [ "nvidia" ];
