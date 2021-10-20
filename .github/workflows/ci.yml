@@ -16,7 +16,6 @@ jobs:
         system:
           - albatross
           - bluejay
-          - pigeon
           - falcon
           - weebill
     runs-on: ubuntu-latest
