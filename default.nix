@@ -6,7 +6,6 @@ let
     "albatross"
     "bluejay"
     "falcon"
-    "pigeon"
     "plover"
     "weebill"
   ];
