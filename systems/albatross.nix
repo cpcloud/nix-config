@@ -1,4 +1,4 @@
-{ config, lib, ... }: {
+{ pkgs, config, lib, ... }: {
   imports = [
     ../core
 
@@ -64,7 +64,7 @@
     };
   };
 
-  environment.systemPackages = [ (import ../nix/nixpkgs-steam.nix).steam ];
+  environment.systemPackages = [ pkgs.steam ];
 
   services.resolved.enable = true;
 
