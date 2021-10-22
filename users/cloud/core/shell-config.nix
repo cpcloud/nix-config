@@ -33,6 +33,7 @@
     glst1 = "${glst} --max-count=1";
     gm = "git merge";
     gma = "git merge --abort";
+    gmain = "git symbolic-ref refs/remotes/upstream/HEAD | ${pkgs.sd}/bin/sd 'refs/remotes/upstream/' ''";
     gmc = "git merge --continue";
     gp = "git push";
     gpl = "git pull";
