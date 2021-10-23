@@ -131,7 +131,7 @@ in
           # various dev tools
           auto-pairs # auto paren/brackets/etc
           nerdcommenter # commenting
-          nerdtree # better directory exploration
+          nvim-tree-lua # better directory exploration
           nvim-lightbulb # code action indicator
           nvim-web-devicons # icons for various things in neovim
           telescope-nvim # sweet sweet telescoping
@@ -159,7 +159,8 @@ in
           # indicate current context (e.g., function, class, etc)
           nvim-treesitter-context
 
-          # a bunch of other langs that tree-sitter doesn't implement yet
+          # a bunch of other syntax for langs that tree-sitter doesn't
+          # implement yet
           vim-polyglot
 
           # debugging

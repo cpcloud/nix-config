@@ -158,6 +158,10 @@ map("", "<C-n>", "<Down>")
 map("c", "<C-b>", "<Left>")
 map("c", "<C-f>", "<Right>")
 
+map("n", "<C-n>", ":NvimTreeToggle<CR>")
+map("n", "<leader>r", ":NvimTreeRefresh<CR>")
+map("n", "<leader>f", ":NvimTreeFindFile<CR>")
+
 -- replace easily
 map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/]])
 
