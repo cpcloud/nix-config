@@ -154,28 +154,12 @@ in
           nvim-lspconfig
 
           # syntax
-          (nvim-treesitter.withPlugins
-            (_:
-              with builtins;
-              filter
-                (drv:
-                  !elem
-                    drv.pname
-                    (map (v: "tree-sitter-${v}-grammar") [
-                      "agda"
-                      "c-sharp"
-                      "embedded-template"
-                      "fluent"
-                      "ocaml-interface"
-                      "svelte"
-                      "swift"
-                      "verilog"
-                    ])
-                )
-                pkgs.tree-sitter.allGrammars
-            )
-          )
+          nvim-treesitter
+
+          # indicate current context (e.g., function, class, etc)
           nvim-treesitter-context
+
+          # a bunch of other langs that tree-sitter doesn't implement yet
           vim-polyglot
 
           # debugging
