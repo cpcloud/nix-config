@@ -1,7 +1,7 @@
 # Personal NixOS Configuration(s)
 
-This repository contains my personal NixOS configurations, heavily inspired by
-[lovesegfault/nix-config](https://github.com/lovesegfault/nix-config).
+This repository contains my personal NixOS configurations, heavily cribbed from
+and inspired by [lovesegfault/nix-config](https://github.com/lovesegfault/nix-config).
 
 - Deployment is done with [nixus](https://github.com/Infinisil/nixus).
 - Secrets are managed with [sops](https://github.com/mozilla/sops) and
