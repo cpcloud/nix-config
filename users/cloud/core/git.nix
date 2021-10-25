@@ -11,8 +11,8 @@
       userName = "Phillip Cloud";
       userEmail = "417981+cpcloud@users.noreply.github.com";
       extraConfig = {
-        ''difftool "nvr"''.cmd = "nvr -s -d $LOCAL $REMOTE";
-        ''mergetool "nvr"''.cmd = "nvr -s -d $LOCAL $BASE $REMOTE $MERGED -c 'wincmd J | wincmd ='";
+        "difftool \"nvr\"".cmd = "nvr -s -d $LOCAL $REMOTE";
+        "mergetool \"nvr\"".cmd = "nvr -s -d $LOCAL $BASE $REMOTE $MERGED -c 'wincmd J | wincmd ='";
         core = {
           editor = "nvr --remote-wait-silent";
           pager = "${pkgs.gitAndTools.delta}/bin/delta --dark";
