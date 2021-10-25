@@ -167,7 +167,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pulumi/pulumi@npm:3.16.0":
+"@pulumi/pulumi@npm:3.16.0, @pulumi/pulumi@npm:^3.0.0":
   version: 3.16.0
   resolution: "@pulumi/pulumi@npm:3.16.0"
   dependencies:
@@ -187,29 +187,6 @@ __metadata:
     typescript: ~3.7.3
     upath: ^1.1.0
   checksum: 5373cf3093f189ae5ac6bd5c442934233b1cf40b9690ea5f4c78aa92d7622607d4b4c76ba17227805682624c9ccc5fa0296ea915a4f288754a82a5de6a4b585e
-  languageName: node
-  linkType: hard
-
-"@pulumi/pulumi@npm:^3.0.0":
-  version: 3.15.0
-  resolution: "@pulumi/pulumi@npm:3.15.0"
-  dependencies:
-    "@grpc/grpc-js": ~1.3.8
-    "@logdna/tail-file": ^2.0.6
-    "@pulumi/query": ^0.3.0
-    google-protobuf: ^3.5.0
-    js-yaml: ^3.14.0
-    minimist: ^1.2.0
-    normalize-package-data: ^2.4.0
-    protobufjs: ^6.8.6
-    read-package-tree: ^5.3.1
-    require-from-string: ^2.0.1
-    semver: ^6.1.0
-    source-map-support: ^0.4.16
-    ts-node: ^7.0.1
-    typescript: ~3.7.3
-    upath: ^1.1.0
-  checksum: c589266eb02a0bd9f4a81c710f83cf706c04e0869246b90fc8314cd14dd0f25a723de593f73c1fc8de45a3ebc8248787ddc7876e47bfba0669999e087ee6ab1b
   languageName: node
   linkType: hard
 
@@ -308,9 +285,9 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0":
-  version: 16.11.1
-  resolution: "@types/node@npm:16.11.1"
-  checksum: 22cea470b89292810733b8b9fc1b6a1873bc3ed4d4cdf2f25e777dc607994bd7c12e64166d1a66dd5924734192b0a891b6aeb6813aa935f731345f4086234375
+  version: 16.11.4
+  resolution: "@types/node@npm:16.11.4"
+  checksum: 96e08c0f8bb17601c18640a8eac61e2f236fe0c8a6b01a9221c10749157358fb29fdef4b5e264f72559e72f9830e6093f3ab5fef2df90afdad562ffa45ac534c
   languageName: node
   linkType: hard
 
@@ -1425,9 +1402,9 @@ __metadata:
   linkType: hard
 
 "google-protobuf@npm:^3.5.0":
-  version: 3.18.1
-  resolution: "google-protobuf@npm:3.18.1"
-  checksum: cf8415f6edb6bca27cf5fc068b2a9ec926d493aa915033f0a338fb961d9f6943c5294069b3cca9a3f44546355f4d24c559f5eb798cdfd123edec5a3ba0f65deb
+  version: 3.19.0
+  resolution: "google-protobuf@npm:3.19.0"
+  checksum: bc9e2c0ae13f5cf7d6a3b4df94ef296493c35c6d87bc22ecc6e1bfede412c9a3b9f5c9491acd339f94c177594053e1a1533d55f7b27644e3376dba45f0f95734
   languageName: node
   linkType: hard
 
