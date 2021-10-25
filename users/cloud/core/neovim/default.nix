@@ -5,16 +5,16 @@ let
   # override the python-lsp-server package to remove a bunch of packages that i
   # don't like to use for formatting/linting
   # black e.g., won't work if autopep8 or yapf are in the buildInputs of python-lsp-server
-  pkgsToRemove = pkgs: with pkgs; [ autopep8 yapf ];
   python3 =
     let
-      packageOverrides = self: super: {
-        python-lsp-server = super.python-lsp-server.overridePythonAttrs (attrs:
+      pkgsToRemove = pkgs: with pkgs; [ autopep8 yapf ];
+      packageOverrides = pyself: pysuper: {
+        python-lsp-server = pysuper.python-lsp-server.overridePythonAttrs (attrs:
           {
             propagatedBuildInputs = builtins.filter
-              (pkg: !(builtins.elem pkg (pkgsToRemove self)))
+              (pkg: !(builtins.elem pkg (pkgsToRemove pyself)))
               (attrs.propagatedBuildInputs or [ ]);
-            checkInputs = (attrs.checkInputs or [ ]) ++ (pkgsToRemove self);
+            checkInputs = (attrs.checkInputs or [ ]) ++ (pkgsToRemove pyself);
           });
       };
     in
@@ -46,130 +46,115 @@ in
 {
   home = {
     packages = [ pkgs.neovim-remote ];
-    sessionVariables = {
+    sessionVariables = rec {
       EDITOR = "nvim";
-      VISUAL = "nvim";
+      VISUAL = EDITOR;
     };
   };
 
   programs = {
-    git.extraConfig = {
-      core.editor = "nvr --remote-wait-silent";
+    neovim = {
+      enable = true;
 
-      diff.tool = "nvr";
-      "difftool \"nvr\"" = {
-        cmd = "nvr -s -d $LOCAL $REMOTE";
-      };
+      vimAlias = true;
+      vimdiffAlias = true;
 
-      merge.tool = "nvr";
-      "mergetool \"nvr\"" = {
-        cmd = "nvr -s -d $LOCAL $BASE $REMOTE $MERGED -c 'wincmd J | wincmd ='";
-      };
+      withRuby = false;
+      withNodeJs = true;
+      withPython3 = true;
+
+      inherit extraPython3Packages;
+
+      extraPackages = (
+        with pkgs; [
+          bat
+          clang-tools
+          ctags
+          fd
+          gcc
+          go
+          gopls
+          jq
+          nix-linter
+          ripgrep
+          sumneko-lua-language-server
+          texlab
+          tree-sitter
+          yaml-language-server
+        ]
+      ) ++ [
+        (python3.withPackages extraPython3Packages)
+      ] ++ (
+        with pkgs.nodePackages; [
+          eslint
+          diagnostic-languageserver
+        ]
+      ) ++ [
+        (pkgs.writeSaneShellScriptBin {
+          name = "prettier";
+          src = ''
+            ${pkgs.nodePackages.prettier}/bin/prettier \
+            --plugin-search-dir "${pkgs.nodePackages.prettier-plugin-toml}/lib" \
+            "$@"
+          '';
+        })
+
+        styluaWithFormat
+      ];
+
+      plugins = with pkgs.vimPlugins; [
+        # ui/ux
+        indent-blankline-nvim-lua
+        lightline-vim
+        lightline-gruvbox-vim
+        lsp-colors-nvim
+        lsp_signature-nvim
+        bufferline-nvim
+        nvim-base16 # base16-gruvbox-dark-hard
+        gruvbox # for lightline
+
+        # various dev tools
+        auto-pairs # auto paren/brackets/etc
+        nerdcommenter # commenting
+        nvim-tree-lua # better directory exploration
+        nvim-lightbulb # code action indicator
+        nvim-web-devicons # icons for various things in neovim
+        telescope-nvim # sweet sweet telescoping
+        trouble-nvim # a better quickfix/loclist for LSPs
+        vim-better-whitespace # manage whitespace
+        vim-crates # show crates in Cargo.toml that can be updated
+        vim-fugitive # git stuff
+        vim-gitgutter # changes in the vim gutter
+        vim-sleuth # figure out whitespace
+        vim-surround # awesome paren/bracket generation/changing
+        vim-unimpaired
+        snippets-nvim
+        rust-tools-nvim # type inference indicators for rust
+
+        # lang/app/framework specific packages
+        vimtex # tex IDE
+
+        # completion
+        nvim-compe
+        nvim-lspconfig
+
+        # syntax
+        nvim-treesitter
+
+        # indicate current context (e.g., function, class, etc)
+        nvim-treesitter-context
+
+        # a bunch of other syntax for langs that tree-sitter doesn't
+        # implement yet
+        vim-polyglot
+
+        # debugging
+        nvim-dap
+        nvim-dap-ui
+      ];
+
+      extraConfig = "lua require('init')";
     };
-
-    neovim =
-      {
-        enable = true;
-
-        vimAlias = true;
-        vimdiffAlias = true;
-
-        withRuby = false;
-        withNodeJs = true;
-        withPython3 = true;
-
-        inherit extraPython3Packages;
-
-        extraPackages = (
-          with pkgs; [
-            bat
-            clang-tools
-            ctags
-            fd
-            gcc
-            go
-            gopls
-            jq
-            nix-linter
-            ripgrep
-            sumneko-lua-language-server
-            texlab
-            tree-sitter
-            yaml-language-server
-          ]
-        ) ++ [
-          (python3.withPackages extraPython3Packages)
-        ] ++ (
-          with pkgs.nodePackages; [
-            eslint
-            diagnostic-languageserver
-          ]
-        ) ++ [
-          (pkgs.writeSaneShellScriptBin {
-            name = "prettier";
-            src = ''
-              ${pkgs.nodePackages.prettier}/bin/prettier \
-              --plugin-search-dir "${pkgs.nodePackages.prettier-plugin-toml}/lib" \
-              "$@"
-            '';
-          })
-
-          styluaWithFormat
-        ];
-
-        plugins = with pkgs.vimPlugins; [
-          # ui/ux
-          indent-blankline-nvim-lua
-          lightline-vim
-          lightline-gruvbox-vim
-          lsp-colors-nvim
-          lsp_signature-nvim
-          bufferline-nvim
-          nvim-base16 # base16-gruvbox-dark-hard
-          gruvbox # for lightline
-
-          # various dev tools
-          auto-pairs # auto paren/brackets/etc
-          nerdcommenter # commenting
-          nvim-tree-lua # better directory exploration
-          nvim-lightbulb # code action indicator
-          nvim-web-devicons # icons for various things in neovim
-          telescope-nvim # sweet sweet telescoping
-          trouble-nvim # a better quickfix/loclist for LSPs
-          vim-better-whitespace # manage whitespace
-          vim-crates # show crates in Cargo.toml that can be updated
-          vim-fugitive # git stuff
-          vim-gitgutter # changes in the vim gutter
-          vim-sleuth # figure out whitespace
-          vim-surround # awesome paren/bracket generation/changing
-          vim-unimpaired
-          snippets-nvim
-          rust-tools-nvim # type inference indicators for rust
-
-          # lang/app/framework specific packages
-          vimtex # tex IDE
-
-          # completion
-          nvim-compe
-          nvim-lspconfig
-
-          # syntax
-          nvim-treesitter
-
-          # indicate current context (e.g., function, class, etc)
-          nvim-treesitter-context
-
-          # a bunch of other syntax for langs that tree-sitter doesn't
-          # implement yet
-          vim-polyglot
-
-          # debugging
-          nvim-dap
-          nvim-dap-ui
-        ];
-
-        extraConfig = "lua require('init')";
-      };
   };
 
   xdg.configFile."nvim/lua".source = ./lua;
