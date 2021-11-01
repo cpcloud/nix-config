@@ -16,7 +16,7 @@ self: _: {
           program="''${cmd[0]}"
           name="$(basename "$program")"
           uuid="$(uuidgen)"
-          exec systemd-run --user --scope --unit "run-$name-$uuid" "''${cmd[@]}"
+          exec systemd-run --user --scope --unit "run-''${name}-''${uuid}" "''${cmd[@]}"
         '';
       }
     )
