@@ -44,7 +44,8 @@
       terminal = "${config.programs.alacritty.package}/bin/alacritty";
       keybindings =
         let
-          execSpawn = cmd: "exec --no-startup-id ${pkgs.spawn}/bin/spawn ${cmd}";
+          execSpawn = cmd: "exec ${cmd}";
+          exec = cmd: "exec ${cmd}";
           terminal-with-tmux = "${terminal} -e tmux";
           screenshotWindowCmd = pkgs.writeShellScript "screenshot" ''
             set -euo pipefail
@@ -64,22 +65,22 @@
           nums = map toString (builtins.genList lib.id numWorkspaces);
         in
         lib.mkOptionDefault ({
-          "XF86MonBrightnessUp" = "exec brightnessctl set +10%";
-          "XF86MonBrightnessDown" = "exec brightnessctl set 10%-";
-          "XF86VolumeUp" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
-          "XF86VolumeDown" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
-          "XF86Mute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
-          "${modifier}+Shift+Return" = execSpawn "${terminal}";
-          "${modifier}+Return" = execSpawn "${terminal-with-tmux}";
+          "XF86MonBrightnessUp" = exec "brightnessctl set +10%";
+          "XF86MonBrightnessDown" = exec "brightnessctl set 10%-";
+          "XF86VolumeUp" = exec "pactl set-sink-volume @DEFAULT_SINK@ +5%";
+          "XF86VolumeDown" = exec "pactl set-sink-volume @DEFAULT_SINK@ -5%";
+          "XF86Mute" = exec "pactl set-sink-mute @DEFAULT_SINK@ toggle";
+          "${modifier}+Shift+Return" = execSpawn terminal;
+          "${modifier}+Return" = execSpawn terminal-with-tmux;
           "${modifier}+c" = execSpawn "brave";
           "${modifier}+Shift+c" = execSpawn "brave --incognito";
           "${modifier}+Shift+r" = "reload";
           "${modifier}+d" = execSpawn "${pkgs.drunmenu-x11}/bin/drunmenu";
           "${modifier}+m" = execSpawn "${pkgs.emojimenu-x11}/bin/emojimenu";
-          "${modifier}+Shift+i" = "exec i3lock";
+          "${modifier}+Shift+i" = exec "i3lock";
 
-          "${modifier}+x" = "exec ${screenshotWindowCmd}";
-          "${modifier}+Shift+x" = "exec ${screenshotAndClipCmd}";
+          "${modifier}+x" = exec screenshotWindowCmd;
+          "${modifier}+Shift+x" = exec screenshotAndClipCmd;
 
           "${modifier}+h" = "focus left";
           "${modifier}+j" = "focus down";
