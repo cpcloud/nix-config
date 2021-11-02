@@ -1,1 +1,1 @@
-users/cloud/core/voltrondata.nix
+voltrondata.nix
