@@ -2,7 +2,6 @@
   historySize = 100000000;
 
   shellAliases = rec {
-    ad = "arc diff";
     cb = "cargo build";
     cbr = "cargo build --release";
     cch = "cargo check";
