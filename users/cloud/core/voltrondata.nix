@@ -1,1 +1,5 @@
-users/cloud/core/current_employer.nix
+{ pkgs, ... }: {
+  home.packages = with pkgs; [
+    awscli2
+  ];
+}
