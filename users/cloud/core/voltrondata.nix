@@ -1,5 +1,1 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs; [
-    awscli
-  ];
-}
+users/cloud/core/current_employer.nix
