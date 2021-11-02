@@ -25,6 +25,7 @@
         mergetool.prompt = true;
         pull.rebase = true;
         rebase.autoSquash = true;
+        credential."https://github.com".helper = "${pkgs.gh}/bin/gh auth git-credential";
       };
     };
 
