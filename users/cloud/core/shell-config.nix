@@ -17,7 +17,7 @@
     gb = "git branch -vv";
     gcb = "git branch --show-current";
     gc = "git cz";
-    gck = "git commit --all --message Checkpoint";
+    gck = "git commit --all --message checkpoint";
     gcob = "git checkout -b";
     gcp = "git cherry-pick";
     gcpa = "git cherry-pick --abort";
