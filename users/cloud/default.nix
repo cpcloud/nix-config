@@ -19,12 +19,17 @@ in
     createHome = true;
     description = "Phillip Cloud";
 
-    extraGroups = [ "wheel" "dialout" "video" config.users.groups.keys.name ]
-      ++ lib.optionals config.networking.networkmanager.enable [ "networkmanager" ]
-      ++ lib.optionals config.programs.wireshark.enable [ "wireshark" ]
-      ++ lib.optionals config.virtualisation.docker.enable [ "docker" ]
-      ++ lib.optionals config.virtualisation.podman.enable [ "podman" ]
-      ++ lib.optionals config.virtualisation.virtualbox.host.enable [ "vboxsf" "vboxusers" ];
+    extraGroups = [
+      "wheel"
+      "dialout"
+      "video"
+      config.users.groups.keys.name
+    ]
+    ++ lib.optionals config.networking.networkmanager.enable [ "networkmanager" ]
+    ++ lib.optionals config.programs.wireshark.enable [ "wireshark" ]
+    ++ lib.optionals config.virtualisation.docker.enable [ "docker" ]
+    ++ lib.optionals config.virtualisation.podman.enable [ "podman" ]
+    ++ lib.optionals config.virtualisation.virtualbox.host.enable [ "vboxsf" "vboxusers" ];
 
     shell = lib.mkIf config.programs.zsh.enable pkgs.zsh;
     openssh.authorizedKeys.keys = [
@@ -53,31 +58,30 @@ in
     key = "password";
   };
 
-  home-manager.users.cloud =
-    { ... }: {
-      imports = [
-        ./core
-        ./dev
-      ] ++ lib.optionals config.services.xserver.enable [
-        ./headful
-      ];
+  home-manager.users.cloud = { ... }: {
+    imports = [
+      ./core
+      ./dev
+    ] ++ lib.optionals config.services.xserver.enable [
+      ./headful
+    ];
 
-      home.packages = lib.optionals config.virtualisation.docker.enable (with pkgs; [
-        docker-credential-helpers
-        docker-credential-gcr
-      ]);
+    home.packages = lib.optionals config.virtualisation.docker.enable (with pkgs; [
+      docker-credential-helpers
+      docker-credential-gcr
+    ]);
 
-      home.file.".ssh/id_rsa_yubikey_5_nano.pub".text = idRsaYubikey5Nano;
-      home.file.".ssh/id_rsa_yubikey_5_nfc.pub".text = idRsaYubikey5Nfc;
-      home.file.".ssh/id_rsa_yubikey_5c_nano.pub".text = idRsaYubikey5CNano;
+    home.file.".ssh/id_rsa_yubikey_5_nano.pub".text = idRsaYubikey5Nano;
+    home.file.".ssh/id_rsa_yubikey_5_nfc.pub".text = idRsaYubikey5Nfc;
+    home.file.".ssh/id_rsa_yubikey_5c_nano.pub".text = idRsaYubikey5CNano;
 
-      xdg.configFile =
-        let
-          podmanEnabled = config.virtualisation.podman.enable;
-          podmanNvidiaEnabled = podmanEnabled && config.virtualisation.podman.enableNvidia;
-        in
-        lib.optionalAttrs podmanNvidiaEnabled {
-          "nvidia-container-runtime/config.toml".source = "${pkgs.nvidia-podman}/etc/nvidia-container-runtime/config.toml";
-        };
-    };
+    xdg.configFile =
+      let
+        podmanEnabled = config.virtualisation.podman.enable;
+        podmanNvidiaEnabled = podmanEnabled && config.virtualisation.podman.enableNvidia;
+      in
+      lib.optionalAttrs podmanNvidiaEnabled {
+        "nvidia-container-runtime/config.toml".source = "${pkgs.nvidia-podman}/etc/nvidia-container-runtime/config.toml";
+      };
+  };
 }
