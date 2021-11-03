@@ -39,3 +39,17 @@ creation_rules:
           - *albatross
           - *bluejay
           - *weebill
+  - path_regex: secrets/signing-key.yaml
+    key_groups:
+      - pgp:
+          - *yubikey
+          - *albatross
+          - *bluejay
+          - *weebill
+  - path_groups: secrets/v-aws.yaml
+    key_groups:
+      - pgp:
+          - *yubikey
+          - *albatross
+          - *bluejay
+          - *weebill
