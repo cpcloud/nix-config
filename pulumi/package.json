@@ -3,7 +3,7 @@
   "description": "Pulumi provisioning code",
   "private": true,
   "license": "Apache-2.0",
-  "packageManager": "yarn@3.0.0",
+  "packageManager": "yarn@3.1.0",
   "dependencies": {
     "@pulumi/gcp": "5.25.0",
     "@pulumi/pulumi": "3.16.0",
