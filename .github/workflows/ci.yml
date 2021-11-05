@@ -30,4 +30,4 @@ jobs:
           name: cpcloud-nix-config
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           extraPullNames: nix-community
-      - run: nix build --keep-going --no-link -L --file . ${{ matrix.system }}
+      - run: nix build --keep-going --no-link -L '.#${{ matrix.system }}'
