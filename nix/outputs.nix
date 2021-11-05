@@ -22,7 +22,26 @@ let
     };
   };
 
-  inherit (pkgs.lib) joinHostDrvs mapAttrs mkForce;
+  inherit (pkgs.lib) joinHostDrvs mapAttrs mkForce concatStringsSep replaceStrings readFile mapAttrsToList;
+
+  styluaSettings = builtins.fromTOML (
+    replaceStrings [ "_" ] [ "-" ] (readFile ../stylua.toml)
+  );
+  styluaSettingsArgs = concatStringsSep
+    " "
+    (mapAttrsToList (name: value: "--${name}=${toString value}") styluaSettings);
+  styluaWithFormat = pkgs.writeShellScriptBin "stylua" ''
+    set -euo pipefail
+
+    ${pkgs.stylua}/bin/stylua ${styluaSettingsArgs} "$@"
+  '';
+  prettier = pkgs.writeShellScriptBin "prettier" ''
+    set -euo pipefail
+
+    ${pkgs.nodePackages.prettier}/bin/prettier \
+    --plugin-search-dir "${pkgs.nodePackages.prettier-plugin-toml}/lib" \
+    "$@"
+  '';
 in
 {
   defaultPackage.${system} = self.packages.${system}.hosts;
@@ -55,7 +74,7 @@ in
 
         prettier = {
           enable = true;
-          entry = mkForce "prettier --check";
+          entry = mkForce "${prettier}/bin/prettier --check";
           types_or = mkForce [ "toml" "yaml" "json" "markdown" ];
         };
 
@@ -80,7 +99,7 @@ in
 
         stylua = {
           enable = true;
-          entry = mkForce "stylua --check --verify";
+          entry = mkForce "${styluaWithFormat}/bin/stylua --check --verify";
           files = "\\.lua$";
         };
       };
