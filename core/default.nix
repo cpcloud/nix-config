@@ -39,6 +39,8 @@ in
       "nixpkgs=/run/current-system/nixpkgs"
       "nixos-hardware=/run/current-system/nixos-hardware"
     ];
+
+    package = pkgs.nix_2_4;
   };
 
   environment = {
