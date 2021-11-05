@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 let
   dummyConfig = pkgs.writeText "configuration.nix" ''
     assert builtins.trace "This is a dummy config, use nixus!" false;
@@ -32,7 +32,6 @@ in
       keep-outputs = true
       keep-derivations = true
       builders-use-substitutes = true
-      experimental-features = nix-command flakes
     '';
 
     nixPath = [
@@ -65,25 +64,6 @@ in
       # life is easier this way
       wheelNeedsPassword = false;
     };
-  };
-
-  nixpkgs = {
-    config.allowUnfree = true;
-
-    overlays = [
-      (import ../overlays/ayu-theme-gtk.nix)
-      (import ../overlays/drunmenu.nix)
-      (import ../overlays/emojimenu.nix)
-      (import ../overlays/exa.nix)
-      (import ../overlays/gh.nix { inherit config; })
-      (import ../overlays/linux-lto.nix)
-      (import ../overlays/optimized.nix)
-      (import ../overlays/spawn.nix)
-      (import ../overlays/v4l-utils.nix)
-      (import ../overlays/weechat.nix)
-      (import ../overlays/write-sane-shell-script-bin.nix)
-      (import ../overlays/zulip-term.nix { inherit config; })
-    ];
   };
 
   programs.ssh.startAgent = false;
