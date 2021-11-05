@@ -6,7 +6,7 @@
 }:
 let
   inherit (pkgs.lib) mapAttrs' nameValuePair;
-  inherit (inputs) sops-nix home-manager;
+  inherit (inputs) sops-nix home-manager nixos-hardware;
   inherit (inputs.nixpkgs.lib) nixosSystem;
 in
 nixosSystem {
@@ -43,7 +43,10 @@ nixosSystem {
     }
 
     (../hosts + "/${name}")
-  ] ++ extraModules;
+  ]
+  ++ extraModules
+  ++ (import (../hosts + "/${name}/hardware.nix") { inherit nixos-hardware; })
+  ;
 
   specialArgs.inputs = inputs;
 }

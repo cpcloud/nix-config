@@ -1,13 +1,13 @@
 { pkgs, ... }: {
   imports = [
-    ../core
+    ../../core
 
-    ../users/cloud
+    ../../users/cloud
 
-    ../dev
+    ../../dev
 
-    ../hardware/machines/rpi4.nix
-    ../hardware/tpu/coral.nix
+    ../../hardware/machines/rpi4.nix
+    ../../hardware/tpu/coral.nix
   ];
 
   console = {

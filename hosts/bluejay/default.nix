@@ -1,22 +1,22 @@
 { config, ... }: {
   imports = [
-    ../core
+    ../../core
 
-    ../dev
-    ../dev/docker.nix
-    ../dev/albatross-builder.nix
+    ../../dev
+    ../../dev/docker.nix
+    ../../dev/albatross-builder.nix
 
-    ../hardware/machines/asus-zenbook.nix
+    ../../hardware/machines/asus-zenbook.nix
 
-    ../hardware/yubikey.nix
+    ../../hardware/yubikey.nix
 
-    ../headful
+    ../../headful
 
-    ../users/cloud
+    ../../users/cloud
   ];
 
   home-manager.users.cloud = { ... }: {
-    imports = [ ((import ../users/cloud/trusted) config.networking.hostName) ];
+    imports = [ ((import ../../users/cloud/trusted) config.networking.hostName) ];
   };
 
   fileSystems = {
