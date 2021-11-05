@@ -1,6 +1,8 @@
-{ pkgs, lib, ... }: {
+{ pkgs
+, lib
+, ...
+}: {
   imports = [
-    "${(import ../../nix).nixos-hardware}/raspberry-pi/4"
     ../hardware.nix
   ];
 
@@ -37,7 +39,7 @@
     buildCores = 4;
   };
 
-  hardware.raspberry-pi."4".fkms-3d.enable = true;
+  # hardware.raspberry-pi."4".fkms-3d.enable = true;
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 }

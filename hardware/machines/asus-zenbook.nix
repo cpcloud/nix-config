@@ -1,9 +1,10 @@
-{ pkgs, lib, ... }: rec {
+{ pkgs
+, lib
+, ...
+}: rec {
   imports = [
     ../audio.nix
     ../bluetooth.nix
-    "${(import ../../nix).nixos-hardware}/common/cpu/intel"
-    "${(import ../../nix).nixos-hardware}/common/pc/laptop"
     ../efi.nix
     ../hardware.nix
     ../brightness.nix

@@ -1,21 +1,21 @@
 { config, ... }: {
   imports = [
-    ../core
+    ../../core
 
-    ../dev
-    ../dev/docker.nix
-    ../dev/albatross-builder.nix
+    ../../dev
+    ../../dev/docker.nix
+    ../../dev/albatross-builder.nix
 
-    ../hardware/machines/xps-9310.nix
-    ../hardware/yubikey.nix
+    ../../hardware/machines/xps-9310.nix
+    ../../hardware/yubikey.nix
 
-    ../headful
+    ../../headful
 
-    ../users/cloud
+    ../../users/cloud
   ];
 
   home-manager.users.cloud = { ... }: {
-    imports = [ ((import ../users/cloud/trusted) config.networking.hostName) ];
+    imports = [ ((import ../../users/cloud/trusted) config.networking.hostName) ];
     programs.alacritty.settings.font.size = 5.5;
   };
 

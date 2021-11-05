@@ -1,28 +1,28 @@
 { pkgs, config, lib, ... }: {
   imports = [
-    ../core
+    ../../core
 
-    ../dev
-    ../dev/docker.nix
-    ../dev/podman.nix
+    ../../dev
+    ../../dev/docker.nix
+    ../../dev/podman.nix
 
-    ../hardware/machines/thelio-r2.nix
+    ../../hardware/machines/thelio-r2.nix
 
-    ../hardware/gpu/nvidia/containers
-    ../hardware/gpu/nvidia/containers/docker.nix
-    ../hardware/gpu/nvidia/containers/podman.nix
+    ../../hardware/gpu/nvidia/containers
+    ../../hardware/gpu/nvidia/containers/docker.nix
+    ../../hardware/gpu/nvidia/containers/podman.nix
 
-    ../hardware/yubikey.nix
+    ../../hardware/yubikey.nix
 
-    ../hardware/tpu/coral.nix
+    ../../hardware/tpu/coral.nix
 
-    ../headful
+    ../../headful
 
-    ../users/cloud
+    ../../users/cloud
   ];
 
   home-manager.users.cloud = { ... }: {
-    imports = [ ((import ../users/cloud/trusted) config.networking.hostName) ];
+    imports = [ ((import ../../users/cloud/trusted) config.networking.hostName) ];
   };
 
   fileSystems = {

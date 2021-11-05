@@ -1,14 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 let
   dummyConfig = pkgs.writeText "configuration.nix" ''
     assert builtins.trace "This is a dummy config, use nixus!" false;
     {}
   '';
-  sources = import ../nix;
 in
 {
   imports = [
-    (import sources.home-manager)
     ./aspell.nix
     ./nix.nix
     ./openssh.nix
@@ -16,7 +14,6 @@ in
     ./zsh.nix
     ../dev/nix-community-substituters.nix
     ./tailscale.nix
-    "${sources.sops-nix}/modules/sops"
   ];
 
   nix = {
@@ -66,6 +63,11 @@ in
     };
   };
 
+  nixpkgs.overlays = [
+    (import ../nix/snowflake-overlays/gh.nix { inherit config; })
+    (import ../nix/snowflake-overlays/zulip-term.nix { inherit config; })
+  ];
+
   programs.ssh.startAgent = false;
 
   systemd = {
@@ -87,8 +89,7 @@ in
   system = {
     extraSystemBuilderCmds = ''
       ln -sv ${pkgs.path} $out/nixpkgs
-      ln -sv ${../overlays} $out/overlays
-      ln -sv ${sources.nixos-hardware} $out/nixos-hardware
+      ln -sv ${../nix/overlays} $out/overlays
     '';
 
     stateVersion = "21.11";

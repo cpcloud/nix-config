@@ -1,11 +1,9 @@
-{ pkgs, lib, ... }:
-let
-  sources = import ../../nix;
-in
+{ pkgs
+, lib
+, ...
+}:
 {
   imports = [
-    "${sources.nixos-hardware}/common/cpu/amd"
-    "${sources.nixos-hardware}/common/pc/ssd"
     ../audio.nix
     ../bluetooth.nix
     ../efi.nix

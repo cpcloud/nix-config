@@ -48,7 +48,7 @@ in
       let
         notThisSystem = builtins.filter
           (name: name != hostName)
-          (map (lib.removeSuffix ".nix") (lib.attrNames (builtins.readDir ../../../systems)));
+          (map (lib.removeSuffix ".nix") (lib.attrNames (builtins.readDir ../../../hosts)));
       in
       builtins.listToAttrs (
         map

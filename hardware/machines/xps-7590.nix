@@ -1,6 +1,8 @@
-{ pkgs, lib, ... }: rec {
+{ pkgs
+, lib
+, ...
+}: rec {
   imports = [
-    "${(import ../../nix).nixos-hardware}/dell/xps/15-7590"
     ../audio.nix
     ../bluetooth.nix
     ../efi.nix

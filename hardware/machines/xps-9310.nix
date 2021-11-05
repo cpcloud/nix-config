@@ -1,9 +1,10 @@
-{ pkgs, lib, ... }: rec {
+{ pkgs
+, lib
+, ...
+}: rec {
   imports = [
     # FIXME: this is broken upstream
     # "${(import ../../nix).nixos-hardware}/dell/xps/13-9310"
-    "${(import ../../nix).nixos-hardware}/common/cpu/intel"
-    "${(import ../../nix).nixos-hardware}/common/pc/laptop"
     ../audio.nix
     ../bluetooth.nix
     ../efi.nix
