@@ -23,17 +23,6 @@ let
       self = python3;
     };
 
-  styluaSettings = builtins.fromTOML (
-    lib.replaceStrings [ "_" ] [ "-" ] (lib.readFile ../../../../stylua.toml)
-  );
-  styluaSettingsArgs = lib.concatStringsSep
-    " "
-    (lib.mapAttrsToList (name: value: "--${name}=${toString value}") styluaSettings);
-  styluaWithFormat = pkgs.writeSaneShellScriptBin {
-    name = "stylua";
-    src = ''${pkgs.stylua}/bin/stylua ${styluaSettingsArgs} "$@"'';
-  };
-
   extraPython3Packages = p: with p; [
     pyls-flake8
     pyls-isort
@@ -89,15 +78,7 @@ in
           diagnostic-languageserver
         ]
       ) ++ [
-        (pkgs.writeSaneShellScriptBin {
-          name = "prettier";
-          src = ''
-            ${pkgs.nodePackages.prettier}/bin/prettier \
-            --plugin-search-dir "${pkgs.nodePackages.prettier-plugin-toml}/lib" \
-            "$@"
-          '';
-        })
-
+        prettierWithToml
         styluaWithFormat
       ];
 
