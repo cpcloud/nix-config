@@ -69,6 +69,8 @@ in
           texlab
           tree-sitter
           yaml-language-server
+          prettierWithToml
+          styluaWithFormat
         ]
       ) ++ [
         (python3.withPackages extraPython3Packages)
@@ -77,10 +79,7 @@ in
           eslint
           diagnostic-languageserver
         ]
-      ) ++ [
-        prettierWithToml
-        styluaWithFormat
-      ];
+      );
 
       plugins = with pkgs.vimPlugins; [
         # ui/ux
