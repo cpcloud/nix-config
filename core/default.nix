@@ -27,26 +27,26 @@ in
       dates = "weekly";
       options = "--delete-older-than 30d";
     };
+
+    extraOptions = ''
+      keep-outputs = true
+      keep-derivations = true
+      builders-use-substitutes = true
+      experimental-features = nix-command flakes
+      flake-registry = /etc/nix/registry.json
+    '';
+
+    nixPath = [
+      "nixos-config=${dummyConfig}"
+      "nixpkgs=/run/current-system/nixpkgs"
+      "nixos-hardware=/run/current-system/nixos-hardware"
+    ];
   };
 
-  nix.extraOptions = ''
-    keep-outputs = true
-    keep-derivations = true
-  '';
-
-  environment.systemPackages = with pkgs; [
-    (writeSaneShellScriptBin {
-      name = "nix-flakes";
-      src = ''
-        exec ${nixUnstable}/bin/nix --experimental-features "nix-command flakes" "$@"
-      '';
-    })
-    wireguard-tools
-    cachix
-    pinentry-curses
-  ];
-
-  environment.etc."nixos/configuration.nix".source = dummyConfig;
+  environment = {
+    systemPackages = [ pkgs.pinentry-curses ];
+    etc."nixos/configuration.nix".source = dummyConfig;
+  };
 
   home-manager.useGlobalPkgs = true;
 
@@ -65,12 +65,6 @@ in
       wheelNeedsPassword = false;
     };
   };
-
-  nix.nixPath = [
-    "nixos-config=${dummyConfig}"
-    "nixpkgs=/run/current-system/nixpkgs"
-    "nixos-hardware=/run/current-system/nixos-hardware"
-  ];
 
   nixpkgs = {
     config.allowUnfree = true;
