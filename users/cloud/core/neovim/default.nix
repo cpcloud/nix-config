@@ -40,8 +40,7 @@ let
     pylsp-mypy
     python-lsp-black
     python-lsp-server
-    debugpy
-  ];
+  ] ++ lib.optional (!pkgs.stdenv.isAarch64) debugpy;
 in
 {
   home = {

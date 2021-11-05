@@ -1,3 +1,4 @@
+{ ... }:
 self: _: {
   ayu-theme-gtk = self.callPackage
     (

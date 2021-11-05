@@ -1,4 +1,4 @@
-{ config }:
+{ config, ... }:
 self: super: {
   gh = self.writeSaneShellScriptBin {
     name = "gh";

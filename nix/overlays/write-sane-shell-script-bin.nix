@@ -1,4 +1,4 @@
-self: _: {
+{ ... }: self: _: {
   writeSaneShellScriptBin = self.callPackage
     (
       { stdenv

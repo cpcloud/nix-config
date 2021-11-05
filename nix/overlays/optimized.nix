@@ -1,4 +1,4 @@
-_: super:
+{ ... }: _: super:
 let
   optimizeDrv = drv: drv.overrideAttrs (old: rec {
     _OPT_DRV_FLAGS = [

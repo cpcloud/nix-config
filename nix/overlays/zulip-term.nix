@@ -1,4 +1,4 @@
-{ config }:
+{ config, ... }:
 self: super: {
   zulip-term = self.writeSaneShellScriptBin {
     name = "zterm";
