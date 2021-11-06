@@ -35,10 +35,6 @@ flake-utils.lib.eachSystem [ system ] (system:
     devShell = pkgs.callPackage ./shell.nix {
       inherit (sops-nix.packages.${system}) sops-import-keys-hook;
       inherit (deploy-rs.packages.${system}) deploy-rs;
-      inherit (self.checks.${system}) pre-commit-check;
-    };
-
-    checks = (deploy-rs.lib."${system}".deployChecks self.deploy.${system}) // {
       pre-commit-check = pre-commit-hooks.lib."${system}".run {
         src = ../.;
         tools = pkgs;
@@ -100,5 +96,7 @@ flake-utils.lib.eachSystem [ system ] (system:
         };
       };
     };
+
+    checks = deploy-rs.lib."${system}".deployChecks self.deploy.${system};
   } // (import ./deploy.nix pkgs system inputs)
 )
