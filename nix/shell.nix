@@ -13,8 +13,6 @@
 , pre-commit-check
 , prettierWithToml
 , pulumi-bin
-, shellcheck
-, shfmt
 , sops
 , sops-import-keys-hook
 , srm
@@ -53,8 +51,6 @@ mkShell {
     pre-commit
     prettierWithToml
     pulumi-bin
-    shellcheck
-    shfmt
     sops
     sops-import-keys-hook
     srm
