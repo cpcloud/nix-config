@@ -2,7 +2,6 @@
 , inputs
 , name
 , system
-, extraModules ? [ ]
 }:
 let
   inherit (pkgs.lib) mapAttrs' nameValuePair;
@@ -44,9 +43,7 @@ nixosSystem {
 
     (../hosts + "/${name}")
   ]
-  ++ extraModules
-  ++ (import (../hosts + "/${name}/hardware.nix") { inherit nixos-hardware; })
-  ;
+  ++ (import (../hosts + "/${name}/hardware.nix") { inherit nixos-hardware; });
 
   specialArgs.inputs = inputs;
 }
