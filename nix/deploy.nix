@@ -1,9 +1,8 @@
-pkgs:
-{ deploy-rs
-, ...
-}@inputs:
+pkgs: system:
+{ deploy-rs, ... }@inputs:
 let
   inherit (builtins) elemAt mapAttrs;
+  inherit (pkgs.lib) filterAttrs;
 
   mkHost = name: system: import ./mk-host.nix { inherit pkgs inputs name system; };
 
@@ -19,6 +18,6 @@ in
         inherit (v) hostname;
         profiles.system.path = mkPath n v.system;
       })
-      (import ./hosts.nix);
+      (filterAttrs (_: v: v.system == system) (import ./hosts.nix));
   };
 }

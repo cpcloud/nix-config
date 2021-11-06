@@ -39,10 +39,11 @@ in
   checks.${system} = (deploy-rs.lib."${system}".deployChecks self.deploy) // {
     pre-commit-check = pre-commit-hooks.lib."${system}".run {
       src = ../.;
+      tools = pkgs;
       hooks = {
         nix-linter = {
           enable = true;
-          entry = mkForce "nix-linter";
+          entry = mkForce "${pkgs.nix-linter}/bin/nix-linter";
           excludes = [
             "flake.nix"
           ];
@@ -50,7 +51,15 @@ in
 
         nixpkgs-fmt = {
           enable = true;
-          entry = mkForce "nixpkgs-fmt --check";
+          entry = mkForce "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt --check";
+        };
+
+        eslint = {
+          # TODO: this check requires node_modules, but the check runs out of
+          # the nix store and seems to ignore gitignore'd things
+          enable = false;
+          entry = pkgs.lib.mkForce "${pkgs.nodePackages.eslint}/bin/eslint";
+          files = "\\.ts$";
         };
 
         prettier = {
@@ -59,22 +68,16 @@ in
           types_or = mkForce [ "toml" "yaml" "json" "markdown" ];
         };
 
-        eslint = {
-          enable = true;
-          entry = mkForce "eslint --resolve-plugins-relative-to pulumi";
-          files = "\\.ts$";
-        };
-
         shellcheck = {
           enable = true;
-          entry = mkForce "shellcheck";
+          entry = mkForce "${pkgs.shellcheck}/bin/shellcheck";
           files = "\\.sh$";
           types_or = mkForce [ ];
         };
 
         shfmt = {
           enable = true;
-          entry = mkForce "shfmt -i 2 -sr -d -s -l";
+          entry = mkForce "${pkgs.shfmt}/bin/shfmt -i 2 -sr -d -s -l";
           files = "\\.sh$";
         };
 
@@ -86,4 +89,4 @@ in
       };
     };
   };
-} // (import ./deploy.nix pkgs inputs)
+} // (import ./deploy.nix pkgs system inputs)

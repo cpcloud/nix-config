@@ -1,14 +1,14 @@
-name: Update Niv Dependencies
+name: Update Flakes
 on:
   schedule:
     - cron: "10 */6 * * *"
   workflow_dispatch:
 jobs:
-  niv-update:
+  flake-update:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dep:
+        input:
           - home-manager
           - nixos-hardware
           - nixpkgs
@@ -24,7 +24,8 @@ jobs:
         with:
           nix_path: nixpkgs=channel:nixos-unstable-small
           extra_nix_config: |
-            experimental-features = nix-command
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Cachix
         uses: cachix/cachix-action@v10
@@ -34,20 +35,20 @@ jobs:
 
       - name: Get current commit
         id: get_current_commit
-        uses: cpcloud/niv-dep-info-action@v1.0.2
+        uses: cpcloud/flake-dep-info-action@v1.0.0
         with:
-          dependency: ${{ matrix.dep }}
+          input: ${{ matrix.input }}
 
-      - name: Update ${{ matrix.dep }}
-        run: nix shell -L -f '<nixpkgs>' niv -c niv update ${{ matrix.dep }}
+      - name: Update ${{ matrix.input }}
+        run: nix flake lock --update-input "${{ matrix.input }}"
 
       - name: Get new commit
         id: get_new_commit
-        uses: cpcloud/niv-dep-info-action@v1.0.2
+        uses: cpcloud/flake-dep-info-action@v1.0.0
         with:
-          dependency: ${{ matrix.dep }}
+          input: ${{ matrix.input }}
 
-      - name: Get commit details for ${{ matrix.dep }} changes
+      - name: Get commit details for ${{ matrix.input }} changes
         uses: cpcloud/compare-commits-action@v5.0.8
         id: compare_commits
         if: ${{ steps.get_current_commit.outputs.rev != steps.get_new_commit.outputs.rev }}
@@ -58,16 +59,16 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           include-merge-commits: false
 
-      - name: Create a pull request to update ${{ matrix.dep }}
+      - name: Create a pull request to update ${{ matrix.input }}
         if: ${{ steps.get_current_commit.outputs.rev != steps.get_new_commit.outputs.rev }}
         id: create_pr
         uses: peter-evans/create-pull-request@v3
         with:
-          commit-message: "chore(deps): update ${{ matrix.dep }}"
-          branch: "create-pull-request/update-${{ matrix.dep }}"
+          commit-message: "chore(deps): update ${{ matrix.input }}"
+          branch: "create-pull-request/update-${{ matrix.input }}"
           delete-branch: true
           author: "Phillip Ground <cpcloudbot@gmail.com>"
-          title: "chore(deps): update ${{ matrix.dep }}"
+          title: "chore(flake/inputs/${{ matrix.input }}): ${{ steps.get_current_commit.outputs.rev }} -> ${{ steps.get_new_commit.outputs.rev }}"
           token: ${{ secrets.PAT }}
           body: ${{ steps.compare_commits.outputs.differences }}
 

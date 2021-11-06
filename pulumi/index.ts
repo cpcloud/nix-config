@@ -3,7 +3,7 @@ import * as p from "@pulumi/pulumi";
 import { compute, projects, storage } from "@pulumi/gcp";
 
 interface Disk {
-  size_gb: number; // eslint-disable-line camelcase
+  size_gb: number;
   type: string;
 }
 
@@ -15,7 +15,7 @@ interface Gpu {
 interface Instance {
   name: string;
   disk: Disk;
-  machine_type: string; // eslint-disable-line camelcase
+  machine_type: string;
   gpu: Gpu;
 }
 
