@@ -1,19 +1,10 @@
-let
-  sources = import ../nix;
-  pkgs = import sources.nixpkgs { };
-in
-pkgs.mkShell {
-  name = "pulumi";
-  buildInputs = with pkgs; [
-    google-cloud-sdk
-    nodejs
-    pulumi-bin
-    yarn
-  ];
-
-  shellHook = ''
-    yarn install 1>&2
-  '';
-
-  PULUMI_SKIP_UPDATE_CHECK = "1";
-}
+(import
+  (
+    fetchTarball {
+      url = "https://github.com/edolstra/flake-compat/archive/99f1c2157fba4bfe6211a321fd0ee43199025dbf.tar.gz";
+      sha256 = "0x2jn3vrawwv9xp15674wjz9pixwjyj3j771izayl962zziivbx2";
+    }
+  )
+  {
+    src = ./.;
+  }).shellNix
