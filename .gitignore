@@ -1,7 +1,15 @@
 .direnv
 .mypy_cache
+.pnp.*
 .pre-commit-config.yaml
+.yarn/*
+debug.log
+node_modules
 result
 result-*
 tags
-debug.log
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

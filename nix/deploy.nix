@@ -7,6 +7,8 @@ let
   mkHost = name: system: import ./mk-host.nix { inherit pkgs inputs name system; };
 
   mkPath = name: system: deploy-rs.lib.${system}.activate.nixos (mkHost name system);
+
+  hosts = filterAttrs (_: v: v.system == system) (import ./hosts.nix);
 in
 {
   deploy = {
@@ -18,6 +20,10 @@ in
         inherit (v) hostname;
         profiles.system.path = mkPath n v.system;
       })
-      (filterAttrs (_: v: v.system == system) (import ./hosts.nix));
+      hosts;
   };
-}
+} // (
+  mapAttrs
+    (name: value: { nixosConfigurations.${name} = mkHost name value.system; })
+    hosts
+)

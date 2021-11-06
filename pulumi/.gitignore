@@ -1,9 +1,0 @@
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
-.pnp.*
-.pre-commit-config.yaml
-.yarn/*
-node_modules
