@@ -18,6 +18,8 @@
 , pre-commit-check
 , ssh-to-pgp
 , writeShellScriptBin
+, prettierWithToml
+, nodePackages
 }:
 let
   styluaSettings = builtins.fromTOML (
@@ -37,14 +39,15 @@ mkShell {
 
   nativeBuildInputs = [
     cachix
-    cryptsetup
     deploy-rs
     git
     gnupg
     jq
     nix-linter
     nixpkgs-fmt
+    nodePackages.eslint
     pre-commit
+    prettierWithToml
     shellcheck
     shfmt
     sops
