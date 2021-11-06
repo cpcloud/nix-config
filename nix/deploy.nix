@@ -22,8 +22,4 @@ in
       })
       hosts;
   };
-} // (
-  mapAttrs
-    (name: value: { nixosConfigurations.${name} = mkHost name value.system; })
-    hosts
-)
+}

@@ -63,9 +63,6 @@ export = async (): Promise<void> => {
     disk,
   } of instances) {
     const imageExpr = [
-      "outputs",
-      instanceName,
-      "x86_64-linux",
       "nixosConfigurations",
       instanceName,
       "config",

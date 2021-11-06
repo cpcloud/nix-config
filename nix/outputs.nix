@@ -23,11 +23,11 @@ let
     };
   };
 
-  inherit (pkgs.lib) joinHostDrvs mapAttrs mkForce;
+  inherit (pkgs.lib) joinHostDrvs mapAttrs mkForce filterAttrs;
 in
-flake-utils.lib.eachSystem [ system ] (system:
-  {
-    defaultPackage = self.packages.hosts;
+(flake-utils.lib.eachSystem [ system ] (system:
+  rec {
+    defaultPackage = packages.hosts;
 
     packages.hosts = joinHostDrvs "hosts"
       (mapAttrs (_: v: v.profiles.system.path) self.deploy.${system}.nodes);
@@ -99,4 +99,11 @@ flake-utils.lib.eachSystem [ system ] (system:
 
     checks = deploy-rs.lib."${system}".deployChecks self.deploy.${system};
   } // (import ./deploy.nix pkgs system inputs)
-)
+)) // {
+  nixosConfigurations = mapAttrs
+    (name: value: import ./mk-host.nix {
+      inherit pkgs inputs name;
+      inherit (value) system;
+    })
+    (filterAttrs (_: v: v.system == system) (import ./hosts.nix));
+}
