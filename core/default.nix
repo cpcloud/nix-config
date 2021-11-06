@@ -77,7 +77,6 @@ in
       (import ../overlays/exa.nix)
       (import ../overlays/gh.nix { inherit config; })
       (import ../overlays/linux-lto.nix)
-      (import ../overlays/nix-direnv.nix)
       (import ../overlays/optimized.nix)
       (import ../overlays/spawn.nix)
       (import ../overlays/v4l-utils.nix)
