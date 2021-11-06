@@ -79,7 +79,7 @@ in
           eslint
           diagnostic-languageserver
         ]
-      );
+      ) ++ lib.optional (!pkgs.stdenv.isAarch64) pkgs.shellcheck;
 
       plugins = with pkgs.vimPlugins; [
         # ui/ux
