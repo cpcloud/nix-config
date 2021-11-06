@@ -2,11 +2,6 @@
   description = "cpcloud's NixOS config";
 
   inputs = {
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs = {
@@ -22,6 +17,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
 
     pre-commit-hooks = {
@@ -30,8 +30,8 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    nixos-hardware = {
-      url = "github:NixOS/nixos-hardware";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

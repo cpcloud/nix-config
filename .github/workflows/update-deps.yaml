@@ -9,12 +9,14 @@ jobs:
     strategy:
       matrix:
         input:
+          - deploy-rs
+          - flake-utils
           - home-manager
           - nixos-hardware
           - nixpkgs
-          - nixus
           - pre-commit-hooks
           - sops-nix
+          - templates
     steps:
       - name: Checkout
         uses: actions/checkout@v2
