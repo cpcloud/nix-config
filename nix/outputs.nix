@@ -56,15 +56,27 @@ flake-utils.lib.eachSystem [ system ] (system:
             entry = mkForce "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt --check";
           };
 
+          eslint = {
+            enable = true;
+            entry = mkForce "${pkgs.nodePackages.eslint}/bin/eslint";
+            files = "\\.ts$";
+          };
+
           prettier = {
             enable = true;
-            entry = mkForce "${pkgs.prettierWithToml}/bin/prettier --check";
+            entry = mkForce "${pkgs.nodePackages.prettier}/bin/prettier --check";
             types_or = mkForce [
+              "javascript"
               "json"
               "markdown"
-              "toml"
               "yaml"
             ];
+          };
+
+          prettier-ts = {
+            enable = true;
+            entry = mkForce "${pkgs.nodePackages.prettier}/bin/prettier --check";
+            files = "\\.ts$";
           };
 
           shellcheck = {

@@ -4,6 +4,10 @@
 , git
 , gnupg
 , jq
+, google-cloud-sdk
+, nodejs
+, pulumi-bin
+, yarn
 , nix-linter
 , shellcheck
 , nixpkgs-fmt
@@ -19,7 +23,6 @@
 , ssh-to-pgp
 , writeShellScriptBin
 , prettierWithToml
-, nodePackages
 }:
 let
   styluaSettings = builtins.fromTOML (
@@ -42,12 +45,14 @@ mkShell {
     deploy-rs
     git
     gnupg
+    google-cloud-sdk
     jq
     nix-linter
     nixpkgs-fmt
-    nodePackages.eslint
+    nodejs
     pre-commit
     prettierWithToml
+    pulumi-bin
     shellcheck
     shfmt
     sops
@@ -55,6 +60,7 @@ mkShell {
     srm
     ssh-to-pgp
     styluaWithFormat
+    yarn
     yj
   ];
 
@@ -67,5 +73,8 @@ mkShell {
 
   shellHook = ''
     ${pre-commit-check.shellHook}
+    yarn install 1>&2
   '';
+
+  PULUMI_SKIP_UPDATE_CHECK = "1";
 }

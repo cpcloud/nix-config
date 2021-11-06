@@ -62,11 +62,21 @@ export = async (): Promise<void> => {
     gpu,
     disk,
   } of instances) {
-    const imageExpr = `config.nodes.${instanceName}.configuration.system.build.googleComputeImage`;
+    const imageExpr = [
+      "outputs",
+      instanceName,
+      "x86_64-linux",
+      "nixosConfigurations",
+      instanceName,
+      "config",
+      "system",
+      "build",
+      "googleComputeImage",
+    ].join(".");
     const nixosImage = new nixos.Image(
       instanceName,
       {
-        nixRootExpr: "..",
+        nixRootExpr: ".",
         family,
         imageExpr,
       },
