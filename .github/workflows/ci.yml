@@ -23,10 +23,6 @@ jobs:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           extraPullNames: nix-community
       - run: nix-shell --pure --run 'pre-commit run --all-files'
-      - run: |
-          set -euo pipefail
-          cd pulumi
-          nix-shell --pure --run 'pre-commit run --all-files'
   build:
     strategy:
       fail-fast: false
