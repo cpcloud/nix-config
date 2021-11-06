@@ -1,7 +1,6 @@
 { mkShell
 , lib
 , cachix
-, cryptsetup
 , git
 , gnupg
 , jq
