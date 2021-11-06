@@ -1,28 +1,28 @@
 { mkShell
 , lib
 , cachix
+, deploy-rs
 , git
 , gnupg
-, jq
 , google-cloud-sdk
-, nodejs
-, pulumi-bin
-, yarn
+, jq
 , nix-linter
-, shellcheck
 , nixpkgs-fmt
-, shfmt
+, nodejs
 , pre-commit
-, stylua
-, sops
-, srm
-, yj
-, sops-import-keys-hook
-, deploy-rs
 , pre-commit-check
-, ssh-to-pgp
-, writeShellScriptBin
 , prettierWithToml
+, pulumi-bin
+, shellcheck
+, shfmt
+, sops
+, sops-import-keys-hook
+, srm
+, ssh-to-pgp
+, stylua
+, writeShellScriptBin
+, yarn
+, yj
 }:
 let
   styluaSettings = builtins.fromTOML (
