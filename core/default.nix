@@ -29,6 +29,7 @@ in
       keep-outputs = true
       keep-derivations = true
       builders-use-substitutes = true
+      experimental-features = nix-command flakes
     '';
 
     nixPath = [
