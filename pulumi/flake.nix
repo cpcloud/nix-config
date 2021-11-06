@@ -15,8 +15,40 @@
     flake-utils.lib.eachSystem [ "x86_64-linux" ] (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+        inherit (pkgs.lib) mkForce;
       in
       {
+        checks = {
+          pre-commit-check = pre-commit-hooks.lib.${system}.run {
+            src = ./.;
+            tools = pkgs;
+            hooks = {
+              eslint = {
+                enable = true;
+                entry = mkForce "${pkgs.nodePackages.eslint}/bin/eslint";
+                files = "\\.ts$";
+              };
+
+              prettier = {
+                enable = true;
+                entry = mkForce "${pkgs.nodePackages.prettier}/bin/prettier --check";
+                types_or = mkForce [
+                  "javascript"
+                  "json"
+                  "markdown"
+                  "yaml"
+                ];
+              };
+
+              prettier-ts = {
+                enable = true;
+                entry = mkForce "${pkgs.nodePackages.prettier}/bin/prettier --check";
+                files = "\\.ts$";
+              };
+            };
+          };
+        };
+
         devShell = pkgs.mkShell {
           name = "pulumi";
           buildInputs = with pkgs; [
@@ -27,6 +59,7 @@
           ];
 
           shellHook = ''
+            ${self.checks.${system}.pre-commit-check.shellHook}
             yarn install 1>&2
           '';
 
