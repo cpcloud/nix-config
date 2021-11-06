@@ -22,7 +22,7 @@ jobs:
           name: cpcloud-nix-config
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           extraPullNames: nix-community
-      - run: nix flake check
+      - run: nix flake check -L
   build:
     strategy:
       fail-fast: false
