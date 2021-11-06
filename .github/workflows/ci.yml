@@ -22,7 +22,11 @@ jobs:
           name: cpcloud-nix-config
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           extraPullNames: nix-community
-      - run: nix flake check -L
+      - run: nix shell 'nixpkgs#pre-commit' -c pre-commit run --all-files
+      - run: |
+          set -euo pipefail
+          cd pulumi
+          nix shell 'nixpkgs#pre-commit' -c pre-commit run --all-files
   build:
     strategy:
       fail-fast: false
