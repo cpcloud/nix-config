@@ -102,7 +102,7 @@ export = async (): Promise<void> => {
       { parent: imageBucketObject, dependsOn: [computeService] }
     );
 
-    // construst a network specific to the instance
+    // construct a network specific to the instance
     const network = new compute.Network(
       instanceName,
       {},
