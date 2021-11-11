@@ -10,7 +10,7 @@
   ];
 
   home.packages = with pkgs; [
-    bpytop
+    btop
     diskonaut
     fd
     file
