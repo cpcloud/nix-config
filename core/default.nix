@@ -44,9 +44,6 @@ in
   environment = {
     systemPackages = [ pkgs.pinentry-curses ];
     etc."nixos/configuration.nix".source = dummyConfig;
-    variables = {
-      AWS_PROFILE = "vice";
-    };
   };
 
   home-manager.useGlobalPkgs = true;
