@@ -84,6 +84,7 @@ in
         LESSHISTFILE = "${config.xdg.dataHome}/less_history";
         CARGO_HOME = "${config.xdg.cacheHome}/cargo";
         XDG_BIN_DIR = "$HOME/bin";
+        AWS_PROFILE = "vice";
       };
 
       plugins = [
