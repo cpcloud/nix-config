@@ -1,5 +1,6 @@
 { mkShell
 , lib
+, awscli2
 , cachix
 , deploy-rs
 , git
@@ -17,6 +18,7 @@
 , sops-import-keys-hook
 , srm
 , ssh-to-pgp
+, ssm-session-manager-plugin
 , stylua
 , writeShellScriptBin
 , yarn
@@ -39,6 +41,7 @@ mkShell {
   name = "nix-config";
 
   nativeBuildInputs = [
+    awscli2
     cachix
     deploy-rs
     git
@@ -55,6 +58,7 @@ mkShell {
     sops-import-keys-hook
     srm
     ssh-to-pgp
+    ssm-session-manager-plugin
     styluaWithFormat
     yarn
     yj

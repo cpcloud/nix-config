@@ -23,4 +23,9 @@
     system = "x86_64-linux";
     hostname = "weebill";
   };
+
+  eagle = {
+    system = "x86_64-linux";
+    hostname = "eagle";
+  };
 }

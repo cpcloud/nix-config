@@ -1,5 +1,5 @@
 import * as childProcess from "child_process";
-import * as fg from "fast-glob";
+import * as fastGlob from "fast-glob";
 import * as p from "@pulumi/pulumi";
 import * as path from "path";
 import * as util from "util";
@@ -11,7 +11,9 @@ export interface ImageArgs {
   nixRootExpr: string;
   imageExpr: string;
   family: string;
+  extension: string;
   outHashLength?: number;
+  maxBuffer?: number;
 }
 
 interface ImageOutputs {
@@ -19,7 +21,6 @@ interface ImageOutputs {
   bucketObjectSource: string;
 }
 
-const GZIPPED_TARBALL_EXTENSION = "tar.gz";
 const NIX_BUILD = "nix-build";
 const NIX_INSTANTIATE = "nix-instantiate";
 
@@ -36,41 +37,42 @@ export class Image extends p.ComponentResource {
   ) {
     super(`nixos:${Image.name}`, name, args, opts);
 
-    const { nixRootExpr, imageExpr, outHashLength } = args;
-
     this.provisioner = new Provisioner(
       `${name}-provisioner`,
       {
         args,
         changeToken: execFile(NIX_INSTANTIATE, [
-          nixRootExpr,
+          args.nixRootExpr,
           "--attr",
-          imageExpr,
+          args.imageExpr,
         ]).then(({ stdout }: { stdout: string }): string => stdout.trim()), // eslint-disable-line max-len, github/no-then
         onCreate: async ({
+          nixRootExpr,
+          imageExpr,
           family,
+          extension,
+          outHashLength,
+          maxBuffer,
         }: p.Unwrap<ImageArgs>): Promise<ImageOutputs> => {
           const execFileLocal = util.promisify(childProcess.execFile);
           const { stdout: nixImageDirUntrimmed } = await execFileLocal(
             NIX_BUILD,
             [nixRootExpr, "--attr", imageExpr, "--no-out-link"],
-            { maxBuffer: 1024 * 1024 * 1024 }
+            { maxBuffer: maxBuffer || 1024 * 1024 * 1024 }
           );
 
-          const [bucketObjectSource] = await fg(
-            path.join(
-              nixImageDirUntrimmed.trim(),
-              `*.${GZIPPED_TARBALL_EXTENSION}`
-            )
+          const nixImageDir = nixImageDirUntrimmed.trim();
+          const [bucketObjectSource] = await fastGlob(
+            path.join(nixImageDir, `*.${extension}`)
           );
+
           const outHash = path
-            .basename(path.dirname(bucketObjectSource))
+            .basename(nixImageDir)
             .split("-")[0]
-            .slice(0, outHashLength ?? 12);
-          const bucketObjectName = `${family}-${outHash}.${GZIPPED_TARBALL_EXTENSION}`;
+            .slice(0, outHashLength || 12);
 
           return {
-            bucketObjectName,
+            bucketObjectName: `${family}-${outHash}.${extension}`,
             bucketObjectSource,
           };
         },

@@ -5,15 +5,16 @@
   "license": "Apache-2.0",
   "packageManager": "yarn@3.1.1",
   "dependencies": {
+    "@pulumi/aws": "^4.27.0",
     "@pulumi/gcp": "6.7.0",
     "@pulumi/pulumi": "3.22.1",
     "fast-glob": "3.2.11",
     "uuidv4": "6.2.12"
   },
   "scripts": {
-    "lint": "eslint .",
+    "format": "prettier --write .",
     "format-check": "prettier --check .",
-    "format": "prettier --write ."
+    "lint": "eslint ."
   },
   "devDependencies": {
     "@types/eslint": "8.2.2",

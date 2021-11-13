@@ -1,7 +1,10 @@
 .direnv
 .pre-commit-config.yaml
 .yarn
+Pulumi.*.yaml
+Pulumi.yaml
 pulumi/.yarn
 result
 result-*
 secrets/*.yaml
+node_modules
