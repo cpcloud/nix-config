@@ -1,13 +1,30 @@
 config:
-  dev:image:
-    bucket: nixos-images
-    family: nixos
-  dev:instances:
+  aws:region: us-east-1
+  dev:aws:
+    enable: true
+    image:
+      bucket: nixos-images
+      family: nixos
+    instances:
+    - disk:
+        size_gb: 64
+        type: gp3
+      machine_type: t3.small
+      name: eagle
+    nix_leaf: amazonImage
+  dev:gcp:
+    enable: false
+    image:
+      bucket: nixos-images
+      family: nixos
+      format: RAW
+    instances:
     - disk:
         size_gb: 64
         type: pd-standard
       machine_type: e2-standard-8
       name: falcon
+    nix_leaf: googleComputeImage
   gcp:project:
     secure: AAABANcD8hGbIjYOEgIgHOpjO+f5ngKT/TWv4yeeUGR1hMmSufAv8dzsbgeLGPL536KJ
   gcp:region:

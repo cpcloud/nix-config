@@ -18,19 +18,18 @@ export class Provisioner<T, U> extends p.dynamic.Resource {
         olds: State<T, U>,
         news: State<T, U>
       ): Promise<p.dynamic.DiffResult> => {
-        const replacementProperties = [];
+        const replaces = [];
         if (!util.isDeepStrictEqual(olds.args, news.args)) {
-          replacementProperties.push("args");
+          replaces.push("args");
         }
 
         if (olds.changeToken !== news?.changeToken) {
-          replacementProperties.push("changeToken");
+          replaces.push("changeToken");
         }
 
-        const replace = replacementProperties.length > 0;
         return {
-          changes: replace,
-          replaces: replace ? replacementProperties : undefined,
+          changes: replaces.length > 0,
+          replaces,
           deleteBeforeReplace: true,
         };
       },
