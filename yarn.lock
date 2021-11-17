@@ -669,6 +669,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"browserslist@npm:^4.12.0":
+  version: 4.18.1
+  resolution: "browserslist@npm:4.18.1"
+  dependencies:
+    caniuse-lite: ^1.0.30001280
+    electron-to-chromium: ^1.3.896
+    escalade: ^3.1.1
+    node-releases: ^2.0.1
+    picocolors: ^1.0.0
+  bin:
+    browserslist: cli.js
+  checksum: ae58322deef15960fc2e601d71bc081b571cfab6705999a3d24db5325b9cfadf5f676615f4460207a93e600549c33d60d37b4502007fe9e737b3cc19e20575d5
+  languageName: node
+  linkType: hard
+
 "buffer-from@npm:^1.0.0, buffer-from@npm:^1.1.0":
   version: 1.1.2
   resolution: "buffer-from@npm:1.1.2"
@@ -690,6 +705,13 @@ __metadata:
   version: 3.1.0
   resolution: "callsites@npm:3.1.0"
   checksum: 072d17b6abb459c2ba96598918b55868af677154bec7e73d222ef95a8fdb9bbf7dae96a8421085cdad8cd190d86653b5b6dc55a4484f2e5b2e27d5e0c3fc15b3
+  languageName: node
+  linkType: hard
+
+"caniuse-lite@npm:^1.0.30001280":
+  version: 1.0.30001280
+  resolution: "caniuse-lite@npm:1.0.30001280"
+  checksum: 5794b22f4254927f095e83c65e89ddfc63065c7ed16e6544555a3252ee3d16e48f8a7846713dc64869c52e1abe9a2a93161804b40c2097d1abc9aaa0155a0b65
   languageName: node
   linkType: hard
 
@@ -737,7 +759,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": 5.4.0
     "@typescript-eslint/parser": 5.4.0
     eslint: 8.2.0
-    eslint-plugin-github: 4.3.4
+    eslint-plugin-github: 4.3.5
     fast-glob: 3.2.7
     prettier: 2.4.1
     uuidv4: 6.2.12
@@ -852,6 +874,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"electron-to-chromium@npm:^1.3.896":
+  version: 1.3.899
+  resolution: "electron-to-chromium@npm:1.3.899"
+  checksum: 1c6e59fb618c48710bfc5cd731d0ccc8120dceac12535698a304351dceffab78d71c20f4ecd2bd1b3ce7612a4e78380f2450ae5f801f5a87d37253043c6cdc0b
+  languageName: node
+  linkType: hard
+
 "enquirer@npm:^2.3.5":
   version: 2.3.6
   resolution: "enquirer@npm:2.3.6"
@@ -897,6 +926,13 @@ __metadata:
     is-date-object: ^1.0.1
     is-symbol: ^1.0.2
   checksum: 4ead6671a2c1402619bdd77f3503991232ca15e17e46222b0a41a5d81aebc8740a77822f5b3c965008e631153e9ef0580540007744521e72de8e33599fca2eed
+  languageName: node
+  linkType: hard
+
+"escalade@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "escalade@npm:3.1.1"
+  checksum: a3e2a99f07acb74b3ad4989c48ca0c3140f69f923e56d0cba0526240ee470b91010f9d39001f2a4a313841d237ede70a729e92125191ba5d21e74b106800b133
   languageName: node
   linkType: hard
 
@@ -946,6 +982,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-plugin-escompat@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "eslint-plugin-escompat@npm:3.1.0"
+  dependencies:
+    browserslist: ^4.12.0
+  peerDependencies:
+    eslint: ">=5.14.1"
+  checksum: f331365f4711e71735ac98033d0f9683064673ebee77c208ea9bf1c73b877d983cc73783d2a073979fb1eaf612fbc8aacb8af609f564cf57143f3cdb2a7b83ed
+  languageName: node
+  linkType: hard
+
 "eslint-plugin-eslint-comments@npm:^3.2.0":
   version: 3.2.0
   resolution: "eslint-plugin-eslint-comments@npm:3.2.0"
@@ -972,13 +1019,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-github@npm:4.3.4":
-  version: 4.3.4
-  resolution: "eslint-plugin-github@npm:4.3.4"
+"eslint-plugin-github@npm:4.3.5":
+  version: 4.3.5
+  resolution: "eslint-plugin-github@npm:4.3.5"
   dependencies:
     "@typescript-eslint/eslint-plugin": ^5.1.0
     "@typescript-eslint/parser": ^5.1.0
     eslint-config-prettier: ">=8.0.0"
+    eslint-plugin-escompat: ^3.1.0
     eslint-plugin-eslint-comments: ^3.2.0
     eslint-plugin-filenames: ^1.3.2
     eslint-plugin-i18n-text: ^1.0.1
@@ -992,7 +1040,7 @@ __metadata:
     eslint: ^8.0.1
   bin:
     eslint-ignore-errors: bin/eslint-ignore-errors.js
-  checksum: b679e9fe31b9b6248ca11cae20b1eeb9ecbd473df0a629783a189b0b86bf6fef4a69bdf39ef6de8ecf48f3fec55eaeea7f69b62022e71cf0e88c290a11c147a8
+  checksum: be31e911d1db493c03a5907d51b4de0d64b4ceb89a72ac774a3b8a5f33fcadf08613720d6dfc82cc5181046fde15fd0cd4cd801194250735b48f4bbe61459815
   languageName: node
   linkType: hard
 
@@ -1859,6 +1907,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"node-releases@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "node-releases@npm:2.0.1"
+  checksum: b20dd8d4bced11f75060f0387e05e76b9dc4a0451f7bb3516eade6f50499ea7768ba95d8a60d520c193402df1e58cb3fe301510cc1c1ad68949c3d57b5149866
+  languageName: node
+  linkType: hard
+
 "normalize-package-data@npm:^2.0.0, normalize-package-data@npm:^2.4.0":
   version: 2.5.0
   resolution: "normalize-package-data@npm:2.5.0"
@@ -2015,6 +2070,13 @@ __metadata:
   version: 4.0.0
   resolution: "path-type@npm:4.0.0"
   checksum: 5b1e2daa247062061325b8fdbfd1fb56dde0a448fb1455453276ea18c60685bdad23a445dc148cf87bc216be1573357509b7d4060494a6fd768c7efad833ee45
+  languageName: node
+  linkType: hard
+
+"picocolors@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "picocolors@npm:1.0.0"
+  checksum: a2e8092dd86c8396bdba9f2b5481032848525b3dc295ce9b57896f931e63fc16f79805144321f72976383fc249584672a75cc18d6777c6b757603f372f745981
   languageName: node
   linkType: hard
 
