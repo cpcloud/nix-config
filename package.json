@@ -16,7 +16,7 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
-    "@types/eslint": "7.29.0",
+    "@types/eslint": "8.2.0",
     "@types/prettier": "2.4.2",
     "@typescript-eslint/eslint-plugin": "5.4.0",
     "@typescript-eslint/parser": "5.4.0",

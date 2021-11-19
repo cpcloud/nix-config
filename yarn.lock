@@ -239,13 +239,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:7.29.0":
-  version: 7.29.0
-  resolution: "@types/eslint@npm:7.29.0"
+"@types/eslint@npm:8.2.0":
+  version: 8.2.0
+  resolution: "@types/eslint@npm:8.2.0"
   dependencies:
     "@types/estree": "*"
     "@types/json-schema": "*"
-  checksum: df13991c554954353ce8f3bb03e19da6cc71916889443d68d178d4f858b561ba4cc4a4f291c6eb9eebb7f864b12b9b9313051b3a8dfea3e513dadf3188a77bdf
+  checksum: 18f37790afc57412c74c9a0ef9a8cc44c1237a3f3d70e3e4e3daad38ed501f1a70395ff3955d3e4b481a5d04e6819ad2c377cd287c7315b3b633f0f1bda7b4a2
   languageName: node
   linkType: hard
 
@@ -777,7 +777,7 @@ __metadata:
   dependencies:
     "@pulumi/gcp": 6.1.0
     "@pulumi/pulumi": 3.18.0
-    "@types/eslint": 7.29.0
+    "@types/eslint": 8.2.0
     "@types/prettier": 2.4.2
     "@typescript-eslint/eslint-plugin": 5.4.0
     "@typescript-eslint/parser": 5.4.0
