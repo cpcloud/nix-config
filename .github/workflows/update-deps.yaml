@@ -66,11 +66,11 @@ jobs:
         id: create_pr
         uses: peter-evans/create-pull-request@v3
         with:
-          commit-message: "chore(deps): update ${{ matrix.input }}"
+          commit-message: "chore(flake/${{ matrix.input }}): ${{ steps.get_current_commit.outputs.short-rev }} -> ${{ steps.get_new_commit.outputs.short-rev }}"
           branch: "create-pull-request/update-${{ matrix.input }}"
           delete-branch: true
           author: "Phillip Ground <cpcloudbot@gmail.com>"
-          title: "chore(flake/inputs/${{ matrix.input }}): `${{ steps.get_current_commit.outputs.short-rev }}` -> `${{ steps.get_new_commit.outputs.short-rev }}`"
+          title: "chore(flake/${{ matrix.input }}): `${{ steps.get_current_commit.outputs.short-rev }}` -> `${{ steps.get_new_commit.outputs.short-rev }}`"
           token: ${{ secrets.PAT }}
           body: ${{ steps.compare_commits.outputs.differences }}
 
