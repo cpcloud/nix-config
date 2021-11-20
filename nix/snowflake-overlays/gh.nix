@@ -1,9 +1,9 @@
 { config, ... }:
 self: super: {
-  gh = self.writeSaneShellScriptBin {
+  gh = self.writeShellApplication {
     name = "gh";
-    buildInputs = [ super.gh self.coreutils ];
-    src = ''
+    runtimeInputs = [ super.gh self.coreutils ];
+    text = ''
       GITHUB_TOKEN="$(cat ${config.sops.secrets.github-gh-token.path})" \
       ${super.gh}/bin/gh "$@"
     '';

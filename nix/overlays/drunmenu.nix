@@ -1,17 +1,14 @@
 let
   drunmenu =
     { spawn
-    , writeSaneShellScriptBin
-
+    , writeShellApplication
     , displayCmd
     , extraInputs ? [ ]
     }:
-    writeSaneShellScriptBin {
+    writeShellApplication {
       name = "drunmenu";
-
-      buildInputs = [ spawn ] ++ extraInputs;
-
-      src = ''
+      runtimeInputs = [ spawn ] ++ extraInputs;
+      text = ''
         program="$(${displayCmd})"
         exec spawn "$program"
       '';
