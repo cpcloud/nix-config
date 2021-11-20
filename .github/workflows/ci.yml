@@ -23,7 +23,7 @@ jobs:
           name: cpcloud-nix-config
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           extraPullNames: nix-community
-      - run: nix-shell --pure --run 'pre-commit run --all-files'
+      - run: nix --print-build-logs --keep-going develop --command pre-commit run --all-files
   build:
     strategy:
       fail-fast: false
@@ -46,4 +46,4 @@ jobs:
           name: cpcloud-nix-config
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           extraPullNames: nix-community
-      - run: nix build --keep-going --no-link -L '.#hosts.${{ matrix.system }}'
+      - run: nix --print-build-logs --keep-going build --no-link '.#hosts.${{ matrix.system }}'
