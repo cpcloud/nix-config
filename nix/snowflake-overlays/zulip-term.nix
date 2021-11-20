@@ -1,10 +1,10 @@
 { config, ... }:
 self: super: {
-  zulip-term = self.writeSaneShellScriptBin {
+  zulip-term = self.writeShellApplication {
     name = "zterm";
-    buildInputs = [ super.zulip-term ];
-    src = ''
-      ${super.zulip-term}/bin/zulip-term --config-file ${config.sops.secrets.ursalabs-zulip.path} "$@"
+    runtimeInputs = [ super.zulip-term ];
+    text = ''
+      zulip-term --config-file ${config.sops.secrets.ursalabs-zulip.path} "$@"
     '';
   };
 }

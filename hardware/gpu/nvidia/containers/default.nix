@@ -17,20 +17,20 @@ let
     print(\"\n\".join(map(repr, devices)))
   '';
 
-  testNVidiaContainerSimple = runtime: pkgs.writeSaneShellScriptBin {
+  testNVidiaContainerSimple = runtime: pkgs.writeShellApplication {
     name = "test_nvidia_${runtime}_simple";
-    buildInputs = [ pkgs.${runtime} ];
-    src = ''
+    runtimeInputs = [ pkgs.${runtime} ];
+    text = ''
       set -x
 
       "${runtime}" run --runtime nvidia --rm "${cudaImage}" nvidia-smi --list-gpus
     '';
   };
 
-  testNVidiaContainerTensorFlow = runtime: pkgs.writeSaneShellScriptBin {
+  testNVidiaContainerTensorFlow = runtime: pkgs.writeShellApplication {
     name = "test_nvidia_${runtime}_tensorflow";
-    buildInputs = [ pkgs.${runtime} ];
-    src = ''
+    runtimeInputs = [ pkgs.${runtime} ];
+    text = ''
       set -x
 
       ${runtime} \
