@@ -42,7 +42,7 @@ jobs:
           input: ${{ matrix.input }}
 
       - name: Update ${{ matrix.input }}
-        run: nix flake lock --update-input "${{ matrix.input }}"
+        run: nix --print-build-logs flake lock --update-input "${{ matrix.input }}"
 
       - name: Get new commit
         id: get_new_commit
