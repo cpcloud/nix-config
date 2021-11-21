@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }: {
+{ config, lib, ... }: {
   imports = [
     ../../core
 
@@ -63,8 +63,6 @@
       matchConfig.MACAddress = "08:d2:3e:a0:7f:a8";
     };
   };
-
-  environment.systemPackages = [ pkgs.steam ];
 
   services.resolved.enable = true;
 
