@@ -66,14 +66,18 @@ in
       ./headful
     ];
 
-    home.packages = lib.optionals config.virtualisation.docker.enable (with pkgs; [
-      docker-credential-helpers
-      docker-credential-gcr
-    ]);
+    home = {
+      enableNixpkgsReleaseCheck = false;
 
-    home.file.".ssh/id_rsa_yubikey_5_nano.pub".text = idRsaYubikey5Nano;
-    home.file.".ssh/id_rsa_yubikey_5_nfc.pub".text = idRsaYubikey5Nfc;
-    home.file.".ssh/id_rsa_yubikey_5c_nano.pub".text = idRsaYubikey5CNano;
+      packages = lib.optionals config.virtualisation.docker.enable (with pkgs; [
+        docker-credential-helpers
+        docker-credential-gcr
+      ]);
+
+      file.".ssh/id_rsa_yubikey_5_nano.pub".text = idRsaYubikey5Nano;
+      file.".ssh/id_rsa_yubikey_5_nfc.pub".text = idRsaYubikey5Nfc;
+      file.".ssh/id_rsa_yubikey_5c_nano.pub".text = idRsaYubikey5CNano;
+    };
 
     xdg.configFile =
       let
