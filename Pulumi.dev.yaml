@@ -4,8 +4,8 @@ config:
     family: nixos
   dev:instances:
     - disk:
-        size_gb: 250
-        type: pd-ssd
+        size_gb: 64
+        type: pd-standard
       machine_type: e2-standard-8
       name: falcon
   gcp:project:
