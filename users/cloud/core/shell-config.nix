@@ -16,8 +16,8 @@
     gbD = "git branch --delete --force";
     gb = "git branch -vv";
     gcb = "git branch --show-current";
-    gc = "git cz";
-    gck = "git commit --all --message checkpoint";
+    gc = "git commit";
+    gck = "git commit --all --message 'chore: checkpoint'";
     gcob = "git checkout -b";
     gcp = "git cherry-pick";
     gcpa = "git cherry-pick --abort";
