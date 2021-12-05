@@ -95,19 +95,33 @@ local lsps_settings = {
     },
   },
   diagnosticls = {
-    filetypes = { "sh", "nix", "lua", "json", "toml", "yaml", "typescript" },
+    filetypes = { "sh", "nix", "lua", "json", "proto", "toml", "typescript", "yaml" },
     init_options = {
       filetypes = {
         sh = "shellcheck",
         nix = "nix-linter",
         typescript = "eslint",
+        proto = "buf-lint",
       },
       linters = {
+        ["buf-lint"] = {
+          command = "buf lint",
+          debounce = 100,
+          sourceName = "buf-lint",
+          args = { "--error-format", "json" },
+          parseJson = {
+            line = "start_line",
+            column = "start_column",
+            endLine = "end_line",
+            endColumn = "end_column",
+            message = "${message} [${type}]",
+          },
+        },
         shellcheck = {
           command = "shellcheck",
           debounce = 100,
           args = { "--format", "json", "-" },
-          sourcName = "shellcheck",
+          sourceName = "shellcheck",
           parseJson = {
             line = "line",
             column = "column",

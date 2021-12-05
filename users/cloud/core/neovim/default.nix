@@ -56,6 +56,7 @@ in
       extraPackages = (
         with pkgs; [
           bat
+          buf
           clang-tools
           ctags
           fd
