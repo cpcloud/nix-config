@@ -105,17 +105,19 @@ local lsps_settings = {
       },
       linters = {
         ["buf-lint"] = {
-          command = "buf lint",
+          command = "buf",
           debounce = 100,
+          args = { "lint", "--error-format", "json" },
           sourceName = "buf-lint",
-          args = { "--error-format", "json" },
           parseJson = {
+            sourceName = "path",
             line = "start_line",
             column = "start_column",
             endLine = "end_line",
             endColumn = "end_column",
             message = "${message} [${type}]",
           },
+          securities = { undefined = "warning" },
         },
         shellcheck = {
           command = "shellcheck",
