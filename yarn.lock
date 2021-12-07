@@ -291,7 +291,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prettier@npm:^2":
+"@types/prettier@npm:2.4.2":
   version: 2.4.2
   resolution: "@types/prettier@npm:2.4.2"
   checksum: 76e230b2d11028af11fe12e09b2d5b10b03738e9abf819ae6ebb0f78cac13d39f860755ce05ac3855b608222518d956628f5d00322dc206cc6d1f2d8d1519f1e
@@ -655,14 +655,14 @@ __metadata:
     "@pulumi/gcp": 6.3.1
     "@pulumi/pulumi": 3.19.0
     "@types/eslint": 8.2.1
-    "@types/prettier": ^2
+    "@types/prettier": 2.4.2
     "@typescript-eslint/eslint-plugin": 5.5.0
     "@typescript-eslint/parser": 5.5.0
     eslint: 8.4.0
     eslint-plugin-github: 4.3.5
     eslint-plugin-prettier: 4.0.0
     fast-glob: 3.2.7
-    prettier: ^2.5.1
+    prettier: 2.5.1
     uuidv4: 6.2.12
   languageName: unknown
   linkType: soft
@@ -2028,7 +2028,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.2.1, prettier@npm:^2.5.1":
+"prettier@npm:2.5.1, prettier@npm:^2.2.1":
   version: 2.5.1
   resolution: "prettier@npm:2.5.1"
   bin:
