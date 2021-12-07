@@ -46,3 +46,10 @@ creation_rules:
           - *albatross
           - *bluejay
           - *weebill
+  - path_regex: secrets/flake-dep-info-action-github-app.yaml
+    key_groups:
+      - pgp:
+          - *yubikey
+          - *albatross
+          - *bluejay
+          - *weebill
