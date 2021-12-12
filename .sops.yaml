@@ -53,3 +53,10 @@ creation_rules:
           - *albatross
           - *bluejay
           - *weebill
+  - path_regex: secrets/ibis.yaml
+    key_groups:
+      - pgp:
+          - *yubikey
+          - *albatross
+          - *bluejay
+          - *weebill
