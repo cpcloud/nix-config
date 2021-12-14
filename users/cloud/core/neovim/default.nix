@@ -23,6 +23,16 @@ let
       self = python3;
     };
 
+  vim-xonsh = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-xonsh";
+    src = pkgs.fetchFromGitHub {
+      owner = "meatballs";
+      repo = "vim-xonsh";
+      rev = "2028aacfae3f5b54f8b07fb21fa729afdfac8050";
+      sha256 = "sha256-0+dqtlz8LeyOoSiS12rv8aLdzOMj31PuYAyDYWnpNzw=";
+    };
+  };
+
   extraPython3Packages = p: with p; [
     pyls-flake8
     pyls-isort
@@ -131,6 +141,9 @@ in
         # debugging
         nvim-dap
         nvim-dap-ui
+
+        # xonsh highlighting
+        vim-xonsh
       ];
 
       extraConfig = "lua require('init')";
