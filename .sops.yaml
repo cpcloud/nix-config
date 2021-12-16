@@ -40,7 +40,7 @@ creation_rules:
           - *yubikey
           - *albatross
           - *weebill
-  - path_regex: secrets/flake-dep-info-action-github-app.yaml
+  - path_regex: secrets/phillip-ground-bot-github-app.yaml
     key_groups:
       - pgp:
           - *yubikey
