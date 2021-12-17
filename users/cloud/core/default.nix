@@ -7,6 +7,7 @@
     ./xdg.nix
     ./zsh.nix
     ./current_employer.nix
+    ./docker.nix
   ];
 
   home.packages = with pkgs; [
