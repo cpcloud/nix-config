@@ -10,7 +10,10 @@
       };
     };
 
-    flake-utils.url = "github:numtide/flake-utils";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -35,7 +38,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    templates.url = "github:NixOS/templates";
+    templates = {
+      url = "github:NixOS/templates";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = args: import ./nix/outputs.nix args;
