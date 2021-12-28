@@ -1,3 +1,7 @@
+.direnv
 .pre-commit-config.yaml
-secrets/*.yaml
+.yarn
 pulumi/.yarn
+result
+result-*
+secrets/*.yaml
