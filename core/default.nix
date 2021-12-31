@@ -29,7 +29,7 @@ in
       keep-outputs = true
       keep-derivations = true
       builders-use-substitutes = true
-      experimental-features = nix-command flakes
+      experimental-features = ca-derivations nix-command flakes
     '';
 
     nixPath = [
@@ -64,10 +64,13 @@ in
     };
   };
 
-  nixpkgs.overlays = [
-    (import ../nix/snowflake-overlays/gh.nix { inherit config; })
-    (import ../nix/snowflake-overlays/zulip-term.nix { inherit config; })
-  ];
+  nixpkgs = {
+    config.contentAddressedByDefault = false;
+    overlays = [
+      (import ../nix/snowflake-overlays/gh.nix { inherit config; })
+      (import ../nix/snowflake-overlays/zulip-term.nix { inherit config; })
+    ];
+  };
 
   programs.ssh.startAgent = false;
 
