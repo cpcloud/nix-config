@@ -2,7 +2,6 @@
 
   home.packages = with pkgs.gitAndTools; [
     git-extras
-    commitizen
   ];
 
   programs = {
