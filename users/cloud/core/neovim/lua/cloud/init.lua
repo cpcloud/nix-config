@@ -184,6 +184,26 @@ cmd("autocmd BufRead,BufNewFile *.rkt setlocal filetype=racket")
 cmd("autocmd BufRead,BufNewFile *.avsc,*.json.tpl,*.ipynb setlocal filetype=json")
 cmd("autocmd BufRead,BufNewFile *.jsx setlocal filetype=javascript.jsx")
 
+map("n", "<F5>", " :lua require'dap'.continue()<CR>", { silent = true })
+map("n", "<F10>", ":lua require'dap'.step_over()<CR>", { silent = true })
+map("n", "<F11>", ":lua require'dap'.step_into()<CR>", { silent = true })
+map("n", "<F12>", ":lua require'dap'.step_out()<CR>", { silent = true })
+map("n", "<leader>b", ":lua require'dap'.toggle_breakpoint()<CR>", { silent = true })
+map(
+  "n",
+  "<leader>B",
+  ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
+  { silent = true }
+)
+map(
+  "n",
+  "<leader>lp",
+  ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>",
+  { silent = true }
+)
+map("n", "<leader>dr", ":lua require'dap'.repl.open()<CR>", { silent = true })
+map("n", "<leader>dl", ":lua require'dap'.run_last()<CR>", { silent = true })
+
 -- tab/spaces for specific file types
 cmd(
   "autocmd FileType html,sh,fbs,groovy,yaml,crystal,ruby,racket,markdown,json,hcl,typescript,javascript.jsx,c,cpp,javascript setlocal shiftwidth=2 tabstop=2"
