@@ -1,36 +1,35 @@
-{ config, pkgs, ... }: {
-  hardware.pulseaudio = {
-    enable = true;
-
-    daemon.config = {
-      alternate-sample-rate = 176400;
-      avoid-resampling = "yes";
-      default-fragment-size-msec = 125;
-      default-fragments = 2;
-      default-sample-channels = 2;
-      default-sample-format = "float32le";
-      default-sample-rate = 192000;
-      enable-lfe-remixing = "no";
-      high-priority = "yes";
-      nice-level = -20;
-      realtime-priority = 5;
-      realtime-scheduling = "yes";
-      resample-method = "soxr-vhq";
-      rlimit-rtprio = 5;
-    };
-
-    configFile = pkgs.runCommand "default.pa" { } ''
-      cp ${config.hardware.pulseaudio.package}/etc/pulse/default.pa $out
-      # esound creates garbage in $HOME
-      sed -i "/load-module module-esound/d" $out
-      # we load these manually in hardware/bluetooth.nix
-      sed -i "/load-module module-bluetooth/d" $out
-      sed -i "s/load-module module-udev-detect/load-module module-udev-detect tsched=0/" $out
-    '';
-    zeroconf.discovery.enable = false;
-    zeroconf.publish.enable = false;
-  };
+{ lib, ... }: {
+  hardware.pulseaudio.enable = lib.mkForce false;
 
   security.rtkit.enable = true;
+
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    jack.enable = true;
+    pulse.enable = true;
+    config = {
+      pipewire."context.properties"."default.clock.allowed-rates" = [
+        44100
+        48000
+        88200
+        96000
+        176400
+        192000
+        358000
+        384000
+        716000
+        768000
+      ];
+      pipewire-pulse."stream.properties"."resample.quality" = 15;
+      client."stream.properties"."resample.quality" = 15;
+      client-rt."stream.properties"."resample.quality" = 15;
+    };
+    media-session.config.bluez-monitor.properties = {
+      "bluez5.headset-roles" = [ "hsp_hs" "hsp_ag" ];
+      "bluez5.codecs" = [ "aac" "ldac" "aptx_hd" ];
+    };
+  };
+
   sound.enable = true;
 }

@@ -1,4 +1,4 @@
-{ pkgs, ... }: rec {
+{ pkgs, config, ... }: {
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
@@ -22,15 +22,5 @@
   # one. The empty one is a signal to systemd, to ignore the original copy
   # will cause it to have 3 entries, the original, an empty, and the new
   systemd.services.bluetooth.serviceConfig.ExecStart =
-    [ "" "${hardware.bluetooth.package}/libexec/bluetooth/bluetoothd --noplugin=sap" ];
-
-  hardware.pulseaudio = {
-    package = pkgs.pulseaudio.override { bluetoothSupport = true; };
-    extraConfig = ''
-      load-module module-bluetooth-discover
-      load-module module-bluetooth-policy
-      load-module module-switch-on-connect
-    '';
-    extraModules = [ pkgs.pulseaudio-modules-bt ];
-  };
+    [ "" "${config.hardware.bluetooth.package}/libexec/bluetooth/bluetoothd --noplugin=sap" ];
 }
