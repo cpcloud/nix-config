@@ -184,6 +184,7 @@ cmd("autocmd BufRead,BufNewFile *.rkt setlocal filetype=racket")
 cmd("autocmd BufRead,BufNewFile *.avsc,*.json.tpl,*.ipynb setlocal filetype=json")
 cmd("autocmd BufRead,BufNewFile *.jsx setlocal filetype=javascript.jsx")
 
+map("n", "<F4>", " :lua require'dapui'.toggle()<CR>", { silent = true })
 map("n", "<F5>", " :lua require'dap'.continue()<CR>", { silent = true })
 map("n", "<F10>", ":lua require'dap'.step_over()<CR>", { silent = true })
 map("n", "<F11>", ":lua require'dap'.step_into()<CR>", { silent = true })
