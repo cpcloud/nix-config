@@ -12,6 +12,7 @@
       # Enable touchpad support.
       libinput = {
         enable = true;
+        # disable tap to click
         touchpad.tapping = false;
       };
     };
