@@ -53,7 +53,7 @@ in
     defaultLocale = "en_US.UTF-8";
   };
 
-  console.keyMap = "us";
+  console = if config.services.xserver.enable then { useXkbConfig = true; } else { keyMap = "us"; };
 
   security = {
     sudo = {

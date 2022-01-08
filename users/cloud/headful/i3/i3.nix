@@ -34,11 +34,6 @@
           always = true;
           notification = false;
         }
-        {
-          command = "${pkgs.xorg.setxkbmap}/bin/setxkbmap -option ctrl:nocaps -option altwin:swap_lalt_lwin";
-          always = true;
-          notification = false;
-        }
       ];
       modifier = "Mod4";
       terminal = "${config.programs.alacritty.package}/bin/alacritty";
