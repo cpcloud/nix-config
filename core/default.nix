@@ -55,6 +55,21 @@ in
 
   console = if config.services.xserver.enable then { useXkbConfig = true; } else { keyMap = "us"; };
 
+  services.tlp = {
+    enable = true;
+    settings = {
+      USB_AUTOSUSPEND = 0;
+      USB_DENYLIST = "05a7:4040";
+      USB_EXCLUDE_BTUSB = 1;
+      USB_EXCLUDE_AUDIO = 1;
+      USB_EXCLUDE_WWAN = 1;
+      RUNTIME_PM_DRIVER_DENYLIST = "nvidia";
+      SOUND_POWER_SAVE_ON_AC = 0;
+      SOUND_POWER_SAVE_ON_BAT = 0;
+      SOUND_POWER_SAVE_CONTROLLER = "N";
+    };
+  };
+
   security = {
     sudo = {
       enable = true;
