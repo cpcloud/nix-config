@@ -7,7 +7,7 @@
   "dependencies": {
     "@pulumi/gcp": "6.6.0",
     "@pulumi/pulumi": "3.21.1",
-    "fast-glob": "3.2.9",
+    "fast-glob": "3.2.10",
     "uuidv4": "6.2.12"
   },
   "scripts": {
