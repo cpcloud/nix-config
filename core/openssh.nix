@@ -1,7 +1,7 @@
 { lib, ... }: {
   services.openssh = {
     enable = true;
-    challengeResponseAuthentication = false;
+    kbdInteractiveAuthentication = false;
     passwordAuthentication = false;
     permitRootLogin = lib.mkDefault "no";
     extraConfig = ''
