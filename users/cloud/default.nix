@@ -10,7 +10,7 @@ in
   users.groups.plugdev.members = [ "cloud" ];
 
   services.openssh.knownHosts.albatross-builder = {
-    hostNames = [ "albatross" ];
+    extraHostNames = [ "albatross" ];
     publicKey = albatrossBuilderPubKey;
   };
 
