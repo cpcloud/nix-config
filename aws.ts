@@ -443,6 +443,11 @@ function attachSsmToInstance(
                 BoolIfExists: {
                   "ssm:SessionDocumentAccessCheck": "true",
                 },
+                StringLike: {
+                  "ssm:resourceTag/aws:ssmmessages:session-id": [
+                    "${aws:userid}",
+                  ],
+                },
               },
             },
             {
@@ -458,7 +463,14 @@ function attachSsmToInstance(
             {
               Effect: "Allow",
               Action: ["ssm:TerminateSession", "ssm:ResumeSession"],
-              Resource: ["arn:aws:ssm:*:*:session/${aws:username}-*"],
+              Resource: "*",
+              Condition: {
+                StringLike: {
+                  "ssm:resourceTag/aws:ssmmessages:session-id": [
+                    "${aws:userid}",
+                  ],
+                },
+              },
             },
             {
               Effect: "Allow",
@@ -467,6 +479,13 @@ function attachSsmToInstance(
                 instanceArn,
                 "arn:aws:ssm:*:*:document/AWS-StartSSHSession",
               ],
+              Condition: {
+                StringLike: {
+                  "ssm:resourceTag/aws:ssmmessages:session-id": [
+                    "${aws:userid}",
+                  ],
+                },
+              },
             },
           ],
         };
