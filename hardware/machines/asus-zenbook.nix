@@ -27,7 +27,9 @@
 
   nix = {
     nrBuildUsers = 4;
-    maxJobs = 4;
-    buildCores = 4;
+    settings = {
+      max-jobs = 4;
+      cores = 4;
+    };
   };
 }

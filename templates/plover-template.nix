@@ -61,8 +61,10 @@ in
   };
 
   nix = {
-    trustedUsers = [ "@wheel" ];
-    autoOptimiseStore = true;
+    settings = {
+      trusted-users = [ "@wheel" ];
+      auto-optimise-store = true;
+    };
     gc = {
       automatic = true;
       dates = "weekly";

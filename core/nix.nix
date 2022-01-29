@@ -1,6 +1,6 @@
 { ... }: {
   nix = {
-    trustedUsers = [ "root" "@wheel" ];
+    settings.trusted-users = [ "root" "@wheel" ];
     optimise = {
       automatic = true;
       dates = [ "01:10" "12:10" ];
