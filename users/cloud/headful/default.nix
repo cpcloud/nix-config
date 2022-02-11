@@ -11,9 +11,10 @@
     autorandr
     pavucontrol
     signal-desktop
-    zoom-us
+    vivaldi
     xclip
     xsel
+    zoom-us
     zulip-term
   ];
 
