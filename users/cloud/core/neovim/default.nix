@@ -36,7 +36,7 @@ let
   extraPython3Packages = p: with p; [
     pyls-flake8
     pyls-isort
-    pylsp-mypy
+    # pylsp-mypy  # TODO: broken?
     python-lsp-black
     python-lsp-server
   ] ++ lib.optional (!pkgs.stdenv.isAarch64) debugpy;
