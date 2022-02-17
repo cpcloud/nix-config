@@ -26,6 +26,7 @@
     overlays = [
       (_: super: {
         google-cloud-sdk = super.google-cloud-sdk.override {
+          python = super.python38;
           with-gce = true;
         };
       })
