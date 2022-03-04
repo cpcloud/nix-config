@@ -52,7 +52,7 @@ local on_attach = function(_, bufnr)
   require("lsp_signature").on_attach()
 end
 
-local prettier_config_files = {
+local prettier_root_patterns = {
   ".prettierrc",
   ".prettierrc.json",
   ".prettierrc.toml",
@@ -70,7 +70,7 @@ local prettier_config_files = {
 -- Enable the following language servers
 local servers = {
   "clangd",
-  "pylsp",
+  "pyright",
   "texlab",
   "gopls",
   "yamlls",
@@ -94,43 +94,72 @@ local lsps_settings = {
       },
     },
   },
+  pyright = {
+    settings = {
+      python = {
+        analysis = {
+          autoSearchPaths = true,
+          diagnosticMode = "openFilesOnly",
+          typeCheckingMode = "off",
+          useLibraryCodeForTypes = true,
+        },
+      },
+    },
+  },
   diagnosticls = {
-    filetypes = { "sh", "nix", "lua", "json", "proto", "toml", "typescript", "yaml" },
+    filetypes = {
+      "json",
+      "lua",
+      "nix",
+      "proto",
+      "python",
+      "sh",
+      "toml",
+      "typescript",
+      "yaml",
+    },
     init_options = {
       filetypes = {
         sh = "shellcheck",
         nix = "nix-linter",
         typescript = "eslint",
-        proto = "buf-lint",
+        python = "flake8",
       },
       linters = {
-        ["buf-lint"] = {
-          command = "buf",
+        flake8 = {
+          sourceName = "flake8",
+          command = "flake8",
+          args = { [[--format=%(row)d,%(col)d,%(code).1s,%(code)s: %(text)s]], "-" },
           debounce = 100,
-          args = { "lint", "--error-format", "json" },
-          sourceName = "buf-lint",
-          parseJson = {
-            sourceName = "path",
-            line = "start_line",
-            column = "start_column",
-            endLine = "end_line",
-            endColumn = "end_column",
-            message = "${message} [${type}]",
+          offsetLine = 0,
+          offsetColumn = 0,
+          formatLines = 1,
+          formatPattern = {
+            [[(\d+),(\d+),([A-Z]),(.*)(\r|\n)*$]],
+            { line = 1, column = 2, security = 3, message = { "[flake8] ", 4 } },
           },
-          securities = { undefined = "warning" },
+          securities = {
+            W = "warning",
+            E = "error",
+            F = "error",
+            C = "error",
+            N = "error",
+          },
         },
         shellcheck = {
+          sourceName = "shellcheck",
           command = "shellcheck",
           debounce = 100,
-          args = { "--format", "json", "-" },
-          sourceName = "shellcheck",
+          args = { "--format", "json1", "-" },
           parseJson = {
+            errorsRoot = "comments",
+            sourceName = "file",
             line = "line",
             column = "column",
             endLine = "endLine",
             endColumn = "endColumn",
-            message = "${message} [${code}]",
             security = "level",
+            message = "[shellcheck] ${message} [SC${code}]",
           },
           securities = {
             error = "error",
@@ -153,40 +182,51 @@ local lsps_settings = {
           securities = { undefined = "warning" },
         },
         eslint = {
-          command = "eslint",
-          rootPatterns = { ".git" },
-          debounce = 100,
-          args = {
-            "--stdin",
-            "--stdin-filename",
-            "%filepath",
-            "--format",
-            "json",
-          },
           sourceName = "eslint",
+          command = "eslint",
+          debounce = 100,
+          args = { "--stdin", "--stdin-filename", "%filepath", "--format", "json" },
           parseJson = {
             errorsRoot = "[0].messages",
             line = "line",
             column = "column",
             endLine = "endLine",
             endColumn = "endColumn",
-            message = "${message} [${ruleId}]",
+            message = "[eslint] ${message} [${ruleId}]",
             security = "severity",
           },
-          securities = { ["2"] = "error", ["1"] = "warning" },
+          securities = { ["1"] = "warning", ["2"] = "error" },
+          rootPatterns = {
+            ".eslintrc",
+            ".eslintrc.cjs",
+            ".eslintrc.js",
+            ".eslintrc.json",
+            ".eslintrc.yaml",
+            ".eslintrc.yml",
+          },
         },
       },
       formatters = {
+        black = {
+          command = "black",
+          args = { "--quiet", "-" },
+          rootPatterns = { ".git", "pyproject.toml", "setup.py" },
+        },
+        isort = {
+          command = "isort",
+          args = { "--quiet", "--stdout", "-" },
+          rootPatterns = { ".isort.cfg", "pyproject.toml", ".git" },
+        },
+        prettier = {
+          command = "prettier",
+          args = { "--stdin", "--stdin-filepath", "%filepath" },
+          rootPatterns = prettier_root_patterns,
+        },
         stylua = { command = "stylua", args = { "-", "--stdin-filepath", "%filepath" } },
         ["nixpkgs-fmt"] = { command = "nixpkgs-fmt" },
         shfmt = {
           command = "shfmt",
           args = { "-i", "2", "-s", "-sr", "-filename", "%filepath" },
-        },
-        prettier = {
-          command = "prettier",
-          args = { "--stdin", "--stdin-filepath", "%filepath" },
-          rootPatterns = prettier_config_files,
         },
       },
       formatFiletypes = {
@@ -197,6 +237,7 @@ local lsps_settings = {
         yaml = "prettier",
         typescript = "prettier",
         json = "prettier",
+        python = { "black", "isort" },
       },
     },
   },
