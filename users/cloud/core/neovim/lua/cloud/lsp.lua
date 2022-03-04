@@ -111,7 +111,6 @@ local lsps_settings = {
       "json",
       "lua",
       "nix",
-      "proto",
       "python",
       "sh",
       "toml",
