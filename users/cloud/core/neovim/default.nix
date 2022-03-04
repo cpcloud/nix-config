@@ -34,11 +34,9 @@ let
   };
 
   extraPython3Packages = p: with p; [
-    pyls-flake8
-    pyls-isort
-    # pylsp-mypy  # TODO: broken?
-    python-lsp-black
-    python-lsp-server
+    black
+    isort
+    flake8
   ] ++ lib.optional (!pkgs.stdenv.isAarch64) debugpy;
 in
 {
@@ -66,7 +64,6 @@ in
       extraPackages = (
         with pkgs; [
           bat
-          buf
           clang-tools
           ctags
           fd
@@ -75,6 +72,7 @@ in
           gopls
           jq
           nix-linter
+          pyright
           ripgrep
           sumneko-lua-language-server
           texlab
