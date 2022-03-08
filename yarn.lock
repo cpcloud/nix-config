@@ -156,7 +156,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pulumi/aws@npm:^4.27.0":
+"@pulumi/aws@npm:4.34.0":
   version: 4.34.0
   resolution: "@pulumi/aws@npm:4.34.0"
   dependencies:
@@ -835,7 +835,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "cpcloud-dev-pulumi@workspace:."
   dependencies:
-    "@pulumi/aws": ^4.27.0
+    "@pulumi/aws": 4.34.0
     "@pulumi/gcp": 6.7.0
     "@pulumi/pulumi": 3.22.1
     "@types/eslint": 8.2.2
