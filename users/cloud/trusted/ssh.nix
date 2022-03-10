@@ -30,6 +30,8 @@ in
       StrictHostKeyChecking ask
       VerifyHostKeyDNS yes
       StreamLocalBindUnlink yes
+      HostKeyAlgorithms=+ssh-rsa
+      PubkeyAcceptedKeyTypes=+ssh-rsa
       ${identityFileConfigLines}
     '';
 
