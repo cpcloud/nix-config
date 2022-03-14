@@ -170,14 +170,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pulumi/gcp@npm:6.7.0":
-  version: 6.7.0
-  resolution: "@pulumi/gcp@npm:6.7.0"
+"@pulumi/gcp@npm:6.15.1":
+  version: 6.15.1
+  resolution: "@pulumi/gcp@npm:6.15.1"
   dependencies:
     "@pulumi/pulumi": ^3.0.0
     "@types/express": ^4.16.0
     read-package-json: ^2.0.13
-  checksum: 999ad7b50b2c6b9cf09e8bbf71640bbe96d01bc1f192b95c642f8d907f49d3924a2d202aaafadab72c58f8c1406641b850bfcacbc6174b23882b6d5ad9cac6df
+  checksum: 4a8c1afca96370f832e233bc33f021f12758f10191a3cbef4a4767d7619b224c08268bf1df03fede1df86e135dc471b2e1b13315074259d177a33e030cac88b0
   languageName: node
   linkType: hard
 
@@ -836,7 +836,7 @@ __metadata:
   resolution: "cpcloud-dev-pulumi@workspace:."
   dependencies:
     "@pulumi/aws": 4.38.1
-    "@pulumi/gcp": 6.7.0
+    "@pulumi/gcp": 6.15.1
     "@pulumi/pulumi": 3.22.1
     "@types/eslint": 8.4.1
     "@types/prettier": 2.4.4
