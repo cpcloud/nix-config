@@ -11,7 +11,7 @@
     autorandr
     pavucontrol
     signal-desktop
-    vivaldi
+    steam
     xclip
     xsel
     zoom-us
