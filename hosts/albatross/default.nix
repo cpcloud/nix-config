@@ -1,4 +1,4 @@
-{ config, lib, ... }: {
+{ config, lib, pkgs, ... }: {
   imports = [
     ../../core
 
@@ -23,6 +23,7 @@
 
   home-manager.users.cloud = { ... }: {
     imports = [ ((import ../../users/cloud/trusted) config.networking.hostName) ];
+    home.packages = with pkgs; [ steam ];
   };
 
   fileSystems = {

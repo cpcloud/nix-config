@@ -11,7 +11,6 @@
     autorandr
     pavucontrol
     signal-desktop
-    steam
     xclip
     xsel
     zoom-us
