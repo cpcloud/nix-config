@@ -18,9 +18,7 @@
 
   gtk.enable = true;
 
-  programs = {
-    brave.enable = true;
-  };
+  programs.brave.enable = true;
 
   xsession = {
     enable = true;
