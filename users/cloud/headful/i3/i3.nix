@@ -13,7 +13,6 @@
           always = false;
           notification = false;
         }
-        { command = "${pkgs.autorandr}/bin/autorandr --load desktop"; }
         {
           command = "${pkgs.systemd}/bin/systemctl --user restart polybar";
           always = true;

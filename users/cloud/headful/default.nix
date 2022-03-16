@@ -8,7 +8,6 @@
 
   home.packages = with pkgs; [
     arandr
-    autorandr
     pavucontrol
     signal-desktop
     xclip
