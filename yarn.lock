@@ -729,7 +729,7 @@ __metadata:
     eslint-plugin-github: 4.3.5
     eslint-plugin-prettier: 4.0.0
     fast-glob: 3.2.11
-    prettier: 2.5.1
+    prettier: 2.6.0
     uuidv4: 6.2.12
   languageName: unknown
   linkType: soft
@@ -2110,7 +2110,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.5.1, prettier@npm:^2.2.1":
+"prettier@npm:2.6.0":
+  version: 2.6.0
+  resolution: "prettier@npm:2.6.0"
+  bin:
+    prettier: bin-prettier.js
+  checksum: 3e527ad62279676778a8404d18174d7ca2365ada4caba6eebbcdd9907d1187afd3bc6ade5b4e5f5d4549bb9fb71e45ca8930d71500017635524f8fc05bc52e93
+  languageName: node
+  linkType: hard
+
+"prettier@npm:^2.2.1":
   version: 2.5.1
   resolution: "prettier@npm:2.5.1"
   bin:
