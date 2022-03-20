@@ -19,8 +19,8 @@
   "devDependencies": {
     "@types/eslint": "8.4.1",
     "@types/prettier": "2.4.4",
-    "@typescript-eslint/eslint-plugin": "5.14.0",
-    "@typescript-eslint/parser": "5.14.0",
+    "@typescript-eslint/eslint-plugin": "5.15.0",
+    "@typescript-eslint/parser": "5.15.0",
     "eslint": "8.11.0",
     "eslint-plugin-github": "4.3.5",
     "eslint-plugin-prettier": "4.0.0",
