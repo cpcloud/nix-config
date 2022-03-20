@@ -844,6 +844,7 @@ __metadata:
     "@typescript-eslint/parser": 5.15.0
     eslint: 8.11.0
     eslint-plugin-github: 4.3.5
+    eslint-plugin-import: ^2.25.4
     eslint-plugin-prettier: 4.0.0
     fast-glob: 3.2.11
     prettier: 2.6.0
@@ -1128,7 +1129,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-import@npm:^2.25.2":
+"eslint-plugin-import@npm:^2.25.2, eslint-plugin-import@npm:^2.25.4":
   version: 2.25.4
   resolution: "eslint-plugin-import@npm:2.25.4"
   dependencies:
