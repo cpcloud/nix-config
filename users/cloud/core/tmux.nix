@@ -11,7 +11,6 @@
     keyMode = "vi";
     shortcut = "g";
     terminal = "screen-256color";
-    sensibleOnTop = false;
     extraConfig = ''
       set -g status-bg black
       set -g status-fg white
