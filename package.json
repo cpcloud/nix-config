@@ -6,7 +6,7 @@
   "packageManager": "yarn@3.2.0",
   "dependencies": {
     "@pulumi/aws": "4.38.1",
-    "@pulumi/gcp": "6.16.0",
+    "@pulumi/gcp": "6.17.0",
     "@pulumi/pulumi": "3.26.1",
     "fast-glob": "3.2.11",
     "uuidv4": "6.2.12"
