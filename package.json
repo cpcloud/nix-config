@@ -9,7 +9,7 @@
     "@pulumi/gcp": "6.17.0",
     "@pulumi/pulumi": "3.26.1",
     "fast-glob": "3.2.11",
-    "uuidv4": "6.2.12"
+    "uuidv4": "6.2.13"
   },
   "scripts": {
     "format": "prettier --write .",

@@ -336,10 +336,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/uuid@npm:8.3.1":
-  version: 8.3.1
-  resolution: "@types/uuid@npm:8.3.1"
-  checksum: b41bdc5e86c6f0f1899306be10455636da0f2168c9489b869edd6837ddeb7c0e501b1ff7d857402462986bada2a379125743dd895fa801d03437cd632116a373
+"@types/uuid@npm:8.3.4":
+  version: 8.3.4
+  resolution: "@types/uuid@npm:8.3.4"
+  checksum: 6f11f3ff70f30210edaa8071422d405e9c1d4e53abbe50fdce365150d3c698fe7bbff65c1e71ae080cbfb8fded860dbb5e174da96fdbbdfcaa3fb3daa474d20f
   languageName: node
   linkType: hard
 
@@ -848,7 +848,7 @@ __metadata:
     eslint-plugin-prettier: 4.0.0
     fast-glob: 3.2.11
     prettier: 2.6.1
-    uuidv4: 6.2.12
+    uuidv4: 6.2.13
   languageName: unknown
   linkType: soft
 
@@ -2774,13 +2774,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uuidv4@npm:6.2.12":
-  version: 6.2.12
-  resolution: "uuidv4@npm:6.2.12"
+"uuidv4@npm:6.2.13":
+  version: 6.2.13
+  resolution: "uuidv4@npm:6.2.13"
   dependencies:
-    "@types/uuid": 8.3.1
+    "@types/uuid": 8.3.4
     uuid: 8.3.2
-  checksum: 0fc9e05a93cb66248341ea13696d052bd4d109cf3d332c54cc94025ab98f34576e910584b949e48735b1d170b8fddd39b8438cbeec4a582366c2160916f481d5
+  checksum: 25b3ce1d5860c7fb2232270f20d36c320e52817356cc0dfc88610965e6faced3e7050b3628be08ed08092dffc099288ed24ac0404a2869d59963a2be1939f476
   languageName: node
   linkType: hard
 
