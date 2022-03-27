@@ -13,3 +13,4 @@ tags
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+.gdb_history
