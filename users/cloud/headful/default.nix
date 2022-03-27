@@ -19,6 +19,7 @@
   gtk.enable = true;
 
   programs.brave.enable = true;
+  programs.google-chrome.enable = true;
 
   xsession = {
     enable = true;
