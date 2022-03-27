@@ -25,12 +25,13 @@ let
   inherit (pkgs.lib) joinHostDrvs mapAttrs mkForce filterAttrs;
 in
 {
-  defaultPackage.${system} = self.packages.${system}.hosts;
+  packages.${system} = {
+    default = self.packages.${system}.hosts;
+    hosts = joinHostDrvs "hosts"
+      (mapAttrs (_: v: v.profiles.system.path) self.deploy.nodes);
+  };
 
-  packages.${system}.hosts = joinHostDrvs "hosts"
-    (mapAttrs (_: v: v.profiles.system.path) self.deploy.nodes);
-
-  devShell.${system} = pkgs.callPackage ./shell.nix {
+  devShells.${system}.default = pkgs.callPackage ./shell.nix {
     inherit (sops-nix.packages.${system}) sops-import-keys-hook;
     inherit (deploy-rs.packages.${system}) deploy-rs;
     pre-commit-check = pre-commit-hooks.lib."${system}".run {
