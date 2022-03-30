@@ -7,7 +7,7 @@
   "dependencies": {
     "@pulumi/aws": "5.1.0",
     "@pulumi/gcp": "6.17.0",
-    "@pulumi/pulumi": "3.26.1",
+    "@pulumi/pulumi": "3.27.0",
     "fast-glob": "3.2.11",
     "uuidv4": "6.2.13"
   },
