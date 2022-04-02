@@ -1,4 +1,13 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+let
+  km = pkgs.writeShellApplication {
+    name = "km";
+    text = ''
+      ${pkgs.xorg.setxkbmap}/bin/setxkbmap -option ctrl:nocaps -option altwin:swap_lalt_lwin
+    '';
+  };
+in
+{
   imports = [
     ./alacritty.nix
     ./i3/i3.nix
@@ -14,6 +23,7 @@
     xsel
     zoom-us
     zulip-term
+    km
   ];
 
   gtk.enable = true;
