@@ -1,4 +1,4 @@
-{ config, lib, ... }: {
+{ config, lib, pkgs, ... }: {
   imports = [
     ../../core
 
@@ -22,6 +22,7 @@
   ];
 
   programs.steam.enable = true;
+  environment.systemPackages = [ pkgs.xboxdrv ];
 
   home-manager.users.cloud = { ... }: {
     imports = [ ((import ../../users/cloud/trusted) config.networking.hostName) ];
