@@ -51,3 +51,9 @@ creation_rules:
           - *yubikey
           - *albatross
           - *weebill
+  - path_regex: secrets/substrait.yaml
+    key_groups:
+      - pgp:
+          - *yubikey
+          - *albatross
+          - *weebill
