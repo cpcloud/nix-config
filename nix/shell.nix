@@ -51,6 +51,7 @@ mkShell {
     nix-linter
     nixpkgs-fmt
     nodejs
+    pulumi-bin
     pre-commit
     prettierWithToml
     sops
@@ -74,4 +75,5 @@ mkShell {
     ${pre-commit-check.shellHook}
     yarn install 1>&2
   '';
+  PULUMI_SKIP_UPDATE_CHECK = "1";
 }
