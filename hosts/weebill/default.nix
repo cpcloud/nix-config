@@ -37,8 +37,8 @@
 
   networking = {
     hostName = "weebill";
-    nameservers = [ "8.8.8.8" "8.8.4.4" ];
     networkmanager.enable = true;
+    networkmanager.insertNameservers = [ "8.8.8.8" "8.8.4.4" ];
   };
 
   programs.nm-applet.enable = true;

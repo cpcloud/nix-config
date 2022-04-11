@@ -53,7 +53,6 @@ mkShell {
     nodejs
     pre-commit
     prettierWithToml
-    pulumi-bin
     sops
     sops-import-keys-hook
     srm
@@ -75,6 +74,4 @@ mkShell {
     ${pre-commit-check.shellHook}
     yarn install 1>&2
   '';
-
-  PULUMI_SKIP_UPDATE_CHECK = "1";
 }
