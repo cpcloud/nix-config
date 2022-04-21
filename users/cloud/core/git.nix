@@ -10,6 +10,7 @@
       userName = "Phillip Cloud";
       userEmail = "417981+cpcloud@users.noreply.github.com";
       extraConfig = {
+        advice.skippedCherryPicks = false;
         "difftool \"nvr\"".cmd = "nvr -s -d $LOCAL $REMOTE";
         "mergetool \"nvr\"".cmd = "nvr -s -d $LOCAL $BASE $REMOTE $MERGED -c 'wincmd J | wincmd ='";
         core = {
