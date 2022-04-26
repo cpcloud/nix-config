@@ -92,17 +92,18 @@ in
 
       plugins = with pkgs.vimPlugins; [
         # ui/ux
+        neovim-ayu
         indent-blankline-nvim-lua
-        lightline-vim
-        lightline-gruvbox-vim
         lsp-colors-nvim
         lsp_signature-nvim
         bufferline-nvim
-        nvim-base16 # base16-gruvbox-dark-hard
-        gruvbox # for lightline
+        telescope-frecency-nvim
 
         # various dev tools
-        auto-pairs # auto paren/brackets/etc
+        nvim-gps # gps
+        feline-nvim # line thing
+        nvim-autopairs # auto paren/brackets/etc
+        nvim-bufdel # better buffer deletion
         nerdcommenter # commenting
         nvim-tree-lua # better directory exploration
         nvim-lightbulb # code action indicator
@@ -127,7 +128,27 @@ in
         nvim-lspconfig
 
         # syntax
-        nvim-treesitter
+        (nvim-treesitter.withPlugins
+          (_:
+            with builtins;
+            filter
+              (drv:
+                !elem
+                  drv.pname
+                  (map (v: "tree-sitter-${v}-grammar") [
+                    "agda"
+                    "fluent"
+                    "kotlin"
+                    "markdown"
+                    "supercollider"
+                    "swift"
+                    "verilog"
+                  ])
+              )
+              pkgs.tree-sitter.allGrammars
+          )
+        )
+        nvim-treesitter-textobjects
 
         # indicate current context (e.g., function, class, etc)
         nvim-treesitter-context
