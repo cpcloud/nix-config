@@ -2,10 +2,9 @@
 let
   size = lib.mkDefault 8;
   family = "monospace";
-  theme = "gruvbox_dark.yaml";
   themeSettingsFile = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/eendroroy/alacritty-theme/master/themes/${theme}";
-    sha256 = "0fk59sk9nhlpjbs1h8symmjs247vv6lpic7xjr8r2d5aixh62mq3";
+    url = "https://raw.githubusercontent.com/jesse-c/ayu-alacritty/master/alacritty-ayu-dark.yml";
+    sha256 = "sha256-6t52q6LB0Kj+6RuX1PgwtD8DvxVnCkC8NLU/TZo6BOo=";
   };
 in
 {
