@@ -97,7 +97,6 @@ in
         lsp-colors-nvim
         lsp_signature-nvim
         bufferline-nvim
-        telescope-frecency-nvim
 
         # various dev tools
         nvim-gps # gps
