@@ -7,4 +7,4 @@ vim.opt.termguicolors = true
 vim.cmd("let $NVIM_TUI_ENABLE_TRUE_COLOR = 1")
 
 -- set the color scheme
-vim.cmd("colorscheme ayu-mirage")
+vim.cmd("colorscheme ayu-dark")
