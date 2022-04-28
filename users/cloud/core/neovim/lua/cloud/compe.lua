@@ -22,6 +22,7 @@ require("compe").setup({
     spell = true,
     nvim_lsp = true,
     snippets_nvim = true,
+    orgmode = true,
   },
 })
 
