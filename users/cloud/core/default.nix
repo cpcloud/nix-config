@@ -26,6 +26,7 @@
     sd
     speedtest-cli
     tldr
+    unzip
     usbutils
   ];
 
