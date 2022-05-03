@@ -15,6 +15,7 @@
     diskonaut
     fd
     file
+    gping
     hyperfine
     lshw
     nix-index
