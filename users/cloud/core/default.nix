@@ -29,6 +29,7 @@
     tldr
     unzip
     usbutils
+    taskwarrior-tui
   ];
 
   xdg.configFile."nixpkgs/config.nix".text = "{ allowUnfree = true; }";
@@ -51,5 +52,9 @@
     info.enable = true;
     zoxide.enable = true;
     gpg.enable = true;
+    taskwarrior = {
+      enable = true;
+      colorTheme = "dark-256";
+    };
   };
 }
