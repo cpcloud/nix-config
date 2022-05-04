@@ -128,25 +128,7 @@ in
 
         # syntax
         (nvim-treesitter.withPlugins
-          (_:
-            with builtins;
-            filter
-              (drv:
-                !elem
-                  drv.pname
-                  (map (v: "tree-sitter-${v}-grammar") [
-                    "agda"
-                    "fluent"
-                    "kotlin"
-                    "markdown"
-                    "supercollider"
-                    "swift"
-                    "verilog"
-                  ])
-              )
-              pkgs.tree-sitter.allGrammars
-          )
-        )
+          (_: pkgs.tree-sitter.allGrammars))
         nvim-treesitter-textobjects
 
         # indicate current context (e.g., function, class, etc)

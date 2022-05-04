@@ -2,7 +2,7 @@
 require("orgmode").setup_ts_grammar()
 
 require("nvim-treesitter.configs").setup({
-  ensure_installed = "maintained",
+  ensure_installed = "all",
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = { "nix", "org" },
