@@ -9,9 +9,9 @@ let
     "https://poetry2nix.cachix.org" = "poetry2nix.cachix.org-1:2EWcWDlH12X9H76hfi5KlVtHgOtLa1Xeb7KjTjaV/R8=";
     "https://protoletariat.cachix.org" = "protoletariat.cachix.org-1:YGBjQ/CTTxKjuPOYG/bON4vj6EWycyJQlY0CJBkcbcw=";
     "https://stupidb.cachix.org" = "stupidb.cachix.org-1:iJ5Je/opEa7W23qm2CWj2s0XHK2sb8Cb8INKASK0lbY=";
-    "s3://compute-sdk-nixcache?region=us-east-2" = "compute-sdk-nix-cache:zHWclDC0BAIuBM98fI6jRhWZYst//PNe53Q/khhYdyc=";
     "https://minesweep.cachix.org" = "minesweep.cachix.org-1:8ldlvDtrH4acflgG2B7t3RunnRpF1VYa10nl4XlbKmc=";
     "https://ibis-substrait.cachix.org" = "ibis-substrait.cachix.org-1:9QMhfByEHEl46s4tqVcRiyiOct2bnmZ23BJk4NTgGGI=";
+    "https://compute-sdk-python.cachix.org" = "compute-sdk-python.cachix.org-1:tWlqcqZkzPjdpewNfwfubw2EYNT7s9+seLBtFnKjOAg=";
   };
 in
 {
