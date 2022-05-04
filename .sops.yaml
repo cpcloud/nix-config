@@ -57,3 +57,9 @@ creation_rules:
           - *yubikey
           - *albatross
           - *weebill
+  - path_regex: secrets/cachix.yaml
+    key_groups:
+      - pgp:
+          - *yubikey
+          - *albatross
+          - *weebill
