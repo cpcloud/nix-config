@@ -17,7 +17,7 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@types/eslint": "8.4.1",
+    "@types/eslint": "8.4.2",
     "@types/prettier": "2.6.0",
     "@typescript-eslint/eslint-plugin": "5.21.0",
     "@typescript-eslint/parser": "5.21.0",
