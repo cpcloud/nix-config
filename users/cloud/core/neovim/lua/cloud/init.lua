@@ -178,8 +178,9 @@ cmd("autocmd BufRead,BufNewFile *.ll setlocal filetype=llvm")
 cmd("autocmd BufRead,BufNewFile *.pxi,*.pyx,*.pxd setlocal filetype=cython")
 cmd("autocmd BufRead,BufNewFile berglas-*,*.toml.tpl setlocal filetype=toml")
 cmd(
-  "autocmd BufRead,BufNewFile .condarc,*condarc,*.yaml.tpl,*.yml.tpl,*.yml.j2,*.yaml.j2 setlocal filetype=yaml"
+  "autocmd BufRead,BufNewFile *.yaml.tmpl,*.yml.tmpl,*.yaml.tpl,*.yml.tpl,*.yaml.j2,*.yml.j2 setlocal filetype=yaml.jinja2"
 )
+cmd("autocmd BufRead,BufNewFile .condarc,*condarc setlocal filetype=yaml")
 cmd("autocmd BufRead,BufNewFile *.rkt setlocal filetype=racket")
 cmd("autocmd BufRead,BufNewFile *.avsc,*.json.tpl,*.ipynb setlocal filetype=json")
 cmd("autocmd BufRead,BufNewFile *.jsx setlocal filetype=javascript.jsx")
