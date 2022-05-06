@@ -6,6 +6,8 @@
     permitRootLogin = lib.mkDefault "no";
     extraConfig = ''
       StreamLocalBindUnlink yes
+      PubkeyAcceptedKeyTypes +ssh-rsa
+      HostKeyAlgorithms +ssh-rsa
     '';
   };
 }
