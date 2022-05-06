@@ -74,4 +74,4 @@ jobs:
         run: |
           set -euo pipefail
 
-          nix --print-build-logs path-info --closure-size --human-readable --recursive --size '.#hosts.${{ matrix.system }}' | sort -h -k3 | tail -50
+          nix --print-build-logs path-info --closure-size --human-readable --recursive --size '.#hosts.${{ matrix.system }}' | sort -hr -k2 | head -50
