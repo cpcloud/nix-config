@@ -31,8 +31,6 @@ in
       VerifyHostKeyDNS yes
       StreamLocalBindUnlink yes
       Compression yes
-      HostKeyAlgorithms +ssh-rsa
-      PubkeyAcceptedKeyTypes +ssh-rsa
       ${identityFileConfigLines}
     '';
 
@@ -43,6 +41,12 @@ in
     };
 
     matchBlocks = {
+      "uptermd.upterm.dev" = {
+        extraOptions = {
+          PubkeyAcceptedAlgorithms = "+ssh-rsa";
+          HostkeyAlgorithms = "+ssh-rsa";
+        };
+      };
       "github.com" = {
         identityFile = map genYubikeyPubKeyPath yubikeyModels;
         user = "git";
