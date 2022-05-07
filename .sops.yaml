@@ -33,12 +33,6 @@ creation_rules:
           - *yubikey
           - *albatross
           - *weebill
-  - path_regex: secrets/signing-key.yaml
-    key_groups:
-      - pgp:
-          - *yubikey
-          - *albatross
-          - *weebill
   - path_regex: secrets/phillip-ground-bot-github-app.yaml
     key_groups:
       - pgp:
