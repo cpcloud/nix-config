@@ -28,8 +28,6 @@
 
   home-manager.users.cloud = { ... }: {
     imports = [ ((import ../../users/cloud/trusted) config.networking.hostName) ];
-    # amazon prime video doesn't seem to work on brave, so include chrome
-    programs.google-chrome.enable = true;
   };
 
   fileSystems = {
