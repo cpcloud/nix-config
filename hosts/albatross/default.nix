@@ -21,7 +21,9 @@
     ../../users/cloud
   ];
 
+  # gaming
   programs.steam.enable = true;
+  # xbox controller driver
   environment.systemPackages = [ pkgs.xboxdrv ];
 
   home-manager.users.cloud = { ... }: {
