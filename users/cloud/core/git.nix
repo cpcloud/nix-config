@@ -1,7 +1,7 @@
 { pkgs, ... }: {
 
-  home.packages = with pkgs.gitAndTools; [
-    git-extras
+  home.packages = [
+    pkgs.gitAndTools.git-extras
   ];
 
   programs = {
@@ -31,9 +31,7 @@
 
     gh = {
       enable = true;
-      settings = {
-        git_protocol = "https";
-      };
+      settings.git_protocol = "https";
     };
   };
 }
