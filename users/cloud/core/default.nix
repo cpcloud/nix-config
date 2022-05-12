@@ -26,10 +26,17 @@
     ripgrep
     sd
     speedtest-cli
+    taskwarrior-tui
     tldr
     unzip
     usbutils
-    taskwarrior-tui
+    (pkgs.writeShellApplication {
+      name = "pyver";
+      runtimeInputs = [ ];
+      text = ''
+        python -c "import ''${1}; print(''${1}.__version__)"
+      '';
+    })
   ];
 
   xdg.configFile."nixpkgs/config.nix".text = "{ allowUnfree = true; }";
