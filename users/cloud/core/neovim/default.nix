@@ -145,9 +145,6 @@ in
 
         # xonsh highlighting
         vim-xonsh
-
-        # emacs orgmode
-        orgmode
       ];
 
       extraConfig = "lua require('init')";
