@@ -68,6 +68,7 @@ in
           ctags
           fd
           gcc
+          gnumake
           go
           gopls
           jq
