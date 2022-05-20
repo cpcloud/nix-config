@@ -181,7 +181,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pulumi/pulumi@npm:3.32.1, @pulumi/pulumi@npm:^3.0.0":
+"@pulumi/pulumi@npm:3.33.1":
+  version: 3.33.1
+  resolution: "@pulumi/pulumi@npm:3.33.1"
+  dependencies:
+    "@grpc/grpc-js": ~1.3.8
+    "@logdna/tail-file": ^2.0.6
+    "@pulumi/query": ^0.3.0
+    google-protobuf: ^3.5.0
+    ini: ^2.0.0
+    js-yaml: ^3.14.0
+    minimist: ^1.2.6
+    normalize-package-data: ^2.4.0
+    protobufjs: ^6.8.6
+    read-package-tree: ^5.3.1
+    require-from-string: ^2.0.1
+    semver: ^6.1.0
+    source-map-support: ^0.4.16
+    ts-node: ^7.0.1
+    typescript: ~3.7.3
+    upath: ^1.1.0
+  checksum: 52363de941e85b0c1f178e24421ca1bd474bb6102cc7d3eb022e8a396119e1f5d8390912d4e08111557f13af4b13c6e8093f8a91e91e08c4beb91f2bb3a11662
+  languageName: node
+  linkType: hard
+
+"@pulumi/pulumi@npm:^3.0.0":
   version: 3.32.1
   resolution: "@pulumi/pulumi@npm:3.32.1"
   dependencies:
@@ -839,7 +863,7 @@ __metadata:
   dependencies:
     "@pulumi/aws": 5.4.0
     "@pulumi/gcp": 6.24.0
-    "@pulumi/pulumi": 3.32.1
+    "@pulumi/pulumi": 3.33.1
     "@types/eslint": 8.4.2
     "@types/prettier": 2.6.1
     "@typescript-eslint/eslint-plugin": 5.25.0
