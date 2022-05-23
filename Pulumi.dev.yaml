@@ -1,7 +1,7 @@
 config:
   aws:region: us-east-1
   dev:aws:
-    enable: true
+    enable: false
     image:
       bucket: nixos-images
       family: nixos
@@ -13,7 +13,7 @@ config:
       name: eagle
     nix_leaf: amazonImage
   dev:gcp:
-    enable: false
+    enable: true
     image:
       bucket: nixos-images
       family: nixos
@@ -22,12 +22,12 @@ config:
     - disk:
         size_gb: 64
         type: pd-standard
-      machine_type: e2-standard-8
+      machine_type: e2-standard-32
       name: falcon
     nix_leaf: googleComputeImage
   gcp:project:
-    secure: AAABANcD8hGbIjYOEgIgHOpjO+f5ngKT/TWv4yeeUGR1hMmSufAv8dzsbgeLGPL536KJ
+    secure: AAABADyu1CU43VmzFHtz1Dyx4LaGEV9tXVIrnKd1AGUefkSbfTVnfBLRqA==
   gcp:region:
-    secure: AAABAIj48mtiPeFCVjaL/YVCp4BF3r0IyaGfYrhftQLKbdOwvViMHA==
+    secure: AAABAMJSrFIDkf4l43L/LgMq8xAekDNg7Wvk3Z0RFwLyC4GTQJ/ceA==
   gcp:zone:
-    secure: AAABAPh5ssE26VX5MEBMWV0sIQ8SrC/xcxvpQYE2PNKJW5kjhwVpnwuL
+    secure: AAABAEcKa+VeuvxxmA3F0bRZCTg2qmMsT8YVsBGgdm4FfyvE8Efc6SHk
