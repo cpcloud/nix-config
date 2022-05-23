@@ -26,7 +26,7 @@ config:
       name: falcon
     nix_leaf: googleComputeImage
   gcp:project:
-    secure: AAABADyu1CU43VmzFHtz1Dyx4LaGEV9tXVIrnKd1AGUefkSbfTVnfBLRqA==
+    secure: AAABAFBxpwHgvyx5ktqxXvmDaPu4ERDzOF7E3BXoZv/zx6RoksuEsZgwdw==
   gcp:region:
     secure: AAABAMJSrFIDkf4l43L/LgMq8xAekDNg7Wvk3Z0RFwLyC4GTQJ/ceA==
   gcp:zone:
