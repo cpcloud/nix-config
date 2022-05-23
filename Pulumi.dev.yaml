@@ -20,8 +20,8 @@ config:
       format: RAW
     instances:
     - disk:
-        size_gb: 64
-        type: pd-standard
+        size_gb: 256
+        type: pd-ssd
       machine_type: e2-standard-32
       name: falcon
     nix_leaf: googleComputeImage
