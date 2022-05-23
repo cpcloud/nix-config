@@ -3,24 +3,28 @@ keys:
   - &bluejay 3eb1bbbf97b5decbda204191aa47717d882fb914
   - &weebill 76e0e477d660fc9a2d3c51be85a9500e177b53d3
   - &yubikey ed835ed426ccbad217134bf2898ea27607d72cce
+  - &falcon d48fd419a74b7f8cae6f7212e94c7a26906f7a68
 creation_rules:
   - path_regex: secrets/albatross-builder.yaml
     key_groups:
       - pgp:
           - *yubikey
           - *weebill
+          - *falcon
   - path_regex: secrets/github-gh-token.yaml
     key_groups:
       - pgp:
           - *yubikey
           - *albatross
           - *weebill
+          - *falcon
   - path_regex: secrets/tailscale.yaml
     key_groups:
       - pgp:
           - *yubikey
           - *albatross
           - *weebill
+          - *falcon
   - path_regex: secrets/ursalabs-zulip.yaml
     key_groups:
       - pgp:
@@ -57,3 +61,4 @@ creation_rules:
           - *yubikey
           - *albatross
           - *weebill
+          - *falcon
