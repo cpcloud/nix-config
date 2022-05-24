@@ -43,6 +43,7 @@ in
       idRsaYubikey5Nfc
       idRsaYubikey5CNano
       albatrossBuilderPubKey
+      falconBuilderPubKey
     ];
   };
 
