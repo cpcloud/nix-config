@@ -6,6 +6,7 @@
     permitRootLogin = lib.mkDefault "no";
     extraConfig = ''
       StreamLocalBindUnlink yes
+      ConnectTimeout 15
     '';
   };
 }

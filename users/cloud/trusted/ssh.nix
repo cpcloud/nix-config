@@ -70,6 +70,7 @@ in
                 }
               ];
               extraOptions = {
+                ConnectTimeout = "15";
                 StreamLocalBindUnlink = "yes";
               };
             };
