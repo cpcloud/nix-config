@@ -52,6 +52,12 @@ in
     key = "config";
   };
 
+  sops.secrets.apache-jira = {
+    sopsFile = ../../secrets/apache-jira.yaml;
+    owner = "cloud";
+    key = "password";
+  };
+
   home-manager.users.cloud = { ... }: {
     imports = [
       ./core
