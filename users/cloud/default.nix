@@ -10,14 +10,13 @@ in
   # for coral edgetpus
   users.groups.plugdev.members = [ "cloud" ];
 
-  services.openssh.knownHosts.albatross-builder = {
-    extraHostNames = [ "albatross" ];
-    publicKey = albatrossBuilderPubKey;
-  };
-
-  services.openssh.knownHosts.falcon-builder = {
-    extraHostNames = [ "falcon" ];
-    publicKey = falconBuilderPubKey;
+  services.openssh.knownHosts = {
+    albatross-builder = {
+      publicKey = albatrossBuilderPubKey;
+    };
+    falcon-builder = {
+      publicKey = falconBuilderPubKey;
+    };
   };
 
   users.users.cloud = {
