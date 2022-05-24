@@ -11,12 +11,8 @@ in
   users.groups.plugdev.members = [ "cloud" ];
 
   services.openssh.knownHosts = {
-    albatross-builder = {
-      publicKey = albatrossBuilderPubKey;
-    };
-    falcon-builder = {
-      publicKey = falconBuilderPubKey;
-    };
+    albatross-builder.publicKey = albatrossBuilderPubKey;
+    falcon-builder.publicKey = falconBuilderPubKey;
   };
 
   users.users.cloud = {
