@@ -11,6 +11,12 @@ creation_rules:
           - *yubikey
           - *weebill
           - *falcon
+  - path_regex: secrets/falcon-builder.yaml
+    key_groups:
+      - pgp:
+          - *yubikey
+          - *weebill
+          - *albatross
   - path_regex: secrets/github-gh-token.yaml
     key_groups:
       - pgp:
