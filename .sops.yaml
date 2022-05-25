@@ -35,35 +35,30 @@ creation_rules:
           - *yubikey
           - *albatross
           - *weebill
-          - *falcon
   - path_regex: secrets/apache-jira.yaml
     key_groups:
       - pgp:
           - *yubikey
           - *albatross
           - *weebill
-          - *falcon
   - path_regex: secrets/phillip-ground-bot-github-app.yaml
     key_groups:
       - pgp:
           - *yubikey
           - *albatross
           - *weebill
-          - *falcon
   - path_regex: secrets/ibis.yaml
     key_groups:
       - pgp:
           - *yubikey
           - *albatross
           - *weebill
-          - *falcon
   - path_regex: secrets/substrait.yaml
     key_groups:
       - pgp:
           - *yubikey
           - *albatross
           - *weebill
-          - *falcon
   - path_regex: secrets/cachix.yaml
     key_groups:
       - pgp:
