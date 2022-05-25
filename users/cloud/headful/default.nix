@@ -22,7 +22,6 @@ in
     xclip
     xsel
     zoom-us
-    zulip-term
     km
   ];
 
