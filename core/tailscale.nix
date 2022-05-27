@@ -20,7 +20,6 @@
     firewall = {
       trustedInterfaces = [ "tailscale0" ];
       allowedUDPPorts = [ config.services.tailscale.port ];
-      checkReversePath = "loose";
     };
     wireguard.enable = true;
   };
