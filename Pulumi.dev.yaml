@@ -22,7 +22,7 @@ config:
     - disk:
         size_gb: 256
         type: pd-ssd
-      machine_type: e2-standard-32
+      machine_type: e2-custom-32-49152
       name: falcon
     nix_leaf: googleComputeImage
   gcp:project:
