@@ -13,11 +13,16 @@ interface Image {
   family: string;
 }
 
+interface Logging {
+  enable: boolean;
+}
+
 export interface Instance {
   name: string;
   disk: Disk;
   machine_type: string;
   gpu: Gpu;
+  logging: Logging;
 }
 
 export interface Stack {

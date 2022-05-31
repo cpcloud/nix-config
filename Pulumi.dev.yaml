@@ -24,6 +24,8 @@ config:
         type: pd-ssd
       machine_type: e2-custom-32-49152
       name: falcon
+      logging:
+        enable: true
     nix_leaf: googleComputeImage
   gcp:project:
     secure: AAABAFBxpwHgvyx5ktqxXvmDaPu4ERDzOF7E3BXoZv/zx6RoksuEsZgwdw==

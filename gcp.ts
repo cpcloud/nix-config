@@ -40,6 +40,7 @@ export function handle(
     machine_type: machineType,
     gpu,
     disk,
+    logging,
   } of instances) {
     const imageExpr = `nixosConfigurations.${instanceName}.config.system.build.${nixLeaf}`;
     const nixosImage = new nixos.Image(
@@ -114,7 +115,7 @@ export function handle(
         router: router.name,
         natIpAllocateOption: "AUTO_ONLY",
         sourceSubnetworkIpRangesToNat: "ALL_SUBNETWORKS_ALL_IP_RANGES",
-        logConfig: { enable: true, filter: "ALL" },
+        logConfig: { enable: logging.enable, filter: "ALL" },
       },
       { parent: router, dependsOn: [computeService] }
     );
@@ -127,7 +128,9 @@ export function handle(
         network: network.selfLink,
         sourceRanges: [GCP_IAP_INGRESS_ADDRESS],
         targetTags: ["dev"],
-        logConfig: { metadata: "INCLUDE_ALL_METADATA" },
+        logConfig: {
+          metadata: `${logging.enable ? "IN" : "EX"}CLUDE_ALL_METADATA`,
+        },
         allows: [
           {
             protocol: "tcp",
