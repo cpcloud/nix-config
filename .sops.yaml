@@ -9,7 +9,6 @@ creation_rules:
     key_groups:
       - pgp:
           - *yubikey
-          - *weebill
   - path_regex: secrets/falcon-builder.yaml
     key_groups:
       - pgp:
