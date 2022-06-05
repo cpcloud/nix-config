@@ -101,7 +101,10 @@ export function handle(
         licenses: [GCP_NESTED_VIRTUALIZATION_LICENSE],
         rawDisk: { source: imageBucketObject.selfLink },
       },
-      { parent: imageBucketObject, dependsOn: [computeService] }
+      {
+        parent: imageBucketObject,
+        dependsOn: [computeService],
+      }
     );
 
     // construct a network specific to the instance
@@ -126,7 +129,10 @@ export function handle(
     const router = new compute.Router(
       instanceName,
       { network: network.selfLink },
-      { parent: network, dependsOn: [computeService] }
+      {
+        parent: network,
+        dependsOn: [computeService],
+      }
     );
 
     // the second step is to construct NAT for the router
@@ -138,7 +144,10 @@ export function handle(
         sourceSubnetworkIpRangesToNat: "ALL_SUBNETWORKS_ALL_IP_RANGES",
         logConfig: { enable: logging.enable, filter: "ALL" },
       },
-      { parent: router, dependsOn: [computeService] }
+      {
+        parent: router,
+        dependsOn: [computeService],
+      }
     );
 
     // enable in bound SSH traffic for the instance, but limit
