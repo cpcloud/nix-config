@@ -35,6 +35,27 @@ export function handle(
 
   const computeInstances: Record<string, p.Output<string>> = {};
 
+  const dailyPolicy = new compute.ResourcePolicy(
+    "daily",
+    {
+      description: "Start and stop instances",
+      instanceSchedulePolicy: {
+        timeZone: "America/New_York",
+        vmStartSchedule: {
+          schedule: "0 9 * * *",
+        },
+        vmStopSchedule: {
+          schedule: "0 21 * * *",
+        },
+      },
+      region,
+    },
+    {
+      parent: computeService,
+      dependsOn: [computeService],
+    }
+  );
+
   for (const {
     name: instanceName,
     machine_type: machineType,
@@ -160,6 +181,7 @@ export function handle(
             type: disk.type,
           },
         },
+        resourcePolicies: dailyPolicy.selfLink,
         allowStoppingForUpdate: !!gpu,
       },
       {
