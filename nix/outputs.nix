@@ -1,6 +1,7 @@
 { self
 , sops-nix
 , deploy-rs
+, nixos-shell
 , nixpkgs
 , pre-commit-hooks
 , ...
@@ -34,6 +35,7 @@ in
   devShells.${system}.default = pkgs.callPackage ./shell.nix {
     inherit (sops-nix.packages.${system}) sops-import-keys-hook;
     inherit (deploy-rs.packages.${system}) deploy-rs;
+    inherit (nixos-shell.packages.${system}) nixos-shell;
     pre-commit-check = pre-commit-hooks.lib."${system}".run {
       src = ../.;
       tools = pkgs;

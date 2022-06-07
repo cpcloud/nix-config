@@ -3,11 +3,13 @@
 , awscli2
 , cachix
 , deploy-rs
+, findutils
 , git
 , gnupg
 , google-cloud-sdk
 , jq
 , nix-linter
+, nixos-shell
 , nixpkgs-fmt
 , nodejs
 , pre-commit
@@ -20,7 +22,7 @@
 , ssh-to-pgp
 , ssm-session-manager-plugin
 , stylua
-, writeShellScriptBin
+, writeShellApplication
 , yarn
 , yj
 }:
@@ -31,11 +33,20 @@ let
   styluaSettingsArgs = lib.concatStringsSep
     " "
     (lib.mapAttrsToList (name: value: "--${name}=${toString value}") styluaSettings);
-  styluaWithFormat = writeShellScriptBin "stylua" ''
-    set -euo pipefail
-
-    ${stylua}/bin/stylua ${styluaSettingsArgs} "$@"
-  '';
+  styluaWithFormat = writeShellApplication {
+    name = "stylua";
+    runtimeInputs = [ ];
+    text = ''
+      ${stylua}/bin/stylua ${styluaSettingsArgs} "$@"
+    '';
+  };
+  sops-rekey = writeShellApplication {
+    name = "sops-rekey";
+    runtimeInputs = [ findutils sops ];
+    text = ''
+      find secrets -name '*.yaml' -exec sops updatekeys -y {} +
+    '';
+  };
 in
 mkShell {
   name = "nix-config";
@@ -49,6 +60,7 @@ mkShell {
     google-cloud-sdk
     jq
     nix-linter
+    nixos-shell
     nixpkgs-fmt
     nodejs
     pulumi-bin
@@ -62,6 +74,7 @@ mkShell {
     styluaWithFormat
     yarn
     yj
+    sops-rekey
   ];
 
   sopsPGPKeyDirs = [

@@ -8,7 +8,7 @@ let
   inherit (inputs) sops-nix home-manager nixos-hardware;
   inherit (inputs.nixpkgs.lib) nixosSystem;
 in
-nixosSystem {
+pkgs.lib.makeOverridable nixosSystem {
   inherit system;
 
   modules = [
