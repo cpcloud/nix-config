@@ -18,6 +18,8 @@
     programs.alacritty.settings.font.size = 5.5;
   };
 
+  boot.tmpOnTmpfsSize = "75%";
+
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-uuid/f8190e62-431f-4500-b728-4b8a8fff4895";
