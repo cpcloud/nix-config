@@ -18,7 +18,7 @@
     programs.alacritty.settings.font.size = 5.5;
   };
 
-  boot.tmpOnTmpfsSize = "75%";
+  boot.tmpOnTmpfsSize = "100%";
 
   fileSystems = {
     "/" = {
