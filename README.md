@@ -31,6 +31,7 @@ rm ~/.ssh/google_compute_engine*
 ssh "$HOST" 'nix-shell -p ssh-to-pgp --run "sudo ssh-to-pgp -i /etc/ssh/ssh_host_rsa_key 2> /dev/null"' | xsel -ib
 
 # paste the result to the right place in `.sops.yaml`
+# TODO: this is a manual step, how should it be automated?
 
 # rekey
 sops-rekey
@@ -38,7 +39,7 @@ sops-rekey
 
 ## TODO
 
-1. The [`xps-9310` kernel
-   patch](https://github.com/NixOS/nixos-hardware/blob/master/dell/xps/13-9310/default.nix#L9-L20)
-   added in [`nixos-hardware`](https://github.com/NixOS/nixos-hardware) seems
-   to prevent some part of systemd from starting and thus prevent deployment.
+- The [`xps-9310` kernel
+  patch](https://github.com/NixOS/nixos-hardware/blob/master/dell/xps/13-9310/default.nix#L9-L20)
+  added in [`nixos-hardware`](https://github.com/NixOS/nixos-hardware) seems to
+  prevent some part of systemd from starting and thus prevent deployment.
