@@ -85,6 +85,8 @@ export function handle(
         bucket: machineImageBucket.name,
         name: nixosImage.bucketObjectName,
         contentType: GCP_IMAGE_CONTENT_TYPE,
+        // we don't need multi-regional storage, this image isn't used that often
+        storageClass: "REGIONAL",
       },
       {
         deleteBeforeReplace: true,
