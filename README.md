@@ -22,7 +22,7 @@ INSTANCE="$(gcloud compute instances list --filter "name:$HOST*" --format 'value
 TS_AUTH_KEY="$(sops -d secrets/tailscale.yaml | yj -yj | jq -rcM '.[$host]' --arg host $HOST)"
 
 # start tailscale to allow SSH without gcp, invalidate the key after 1 second
-gcloud compute ssh "$INSTANCE" --tunnel-through-iap --zone=us-east4-b --command="sudo tailscale up --auth-key=$TS_AUTH_KEY" --ssh-key-expire-after=1s
+gcloud compute ssh "$INSTANCE" --tunnel-through-iap --zone=us-east4-b --command="sudo tailscale up --auth-key=$TS_AUTH_KEY" --ssh-key-expire-after=30s
 
 # remove useless google cloud key
 rm ~/.ssh/google_compute_engine*
