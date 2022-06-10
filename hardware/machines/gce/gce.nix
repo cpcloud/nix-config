@@ -9,7 +9,7 @@
     ../../hardware.nix
   ];
 
-  virtualisation.googleComputeImage.diskSize = 32 * 1024;
+  virtualisation.googleComputeImage.diskSize = 48 * 1024;
 
   networking = {
     useNetworkd = lib.mkForce false;
