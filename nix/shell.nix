@@ -5,6 +5,7 @@
 , deploy-rs
 , findutils
 , git
+, glow
 , gnupg
 , google-cloud-sdk
 , jq
@@ -56,6 +57,7 @@ mkShell {
     cachix
     deploy-rs
     git
+    glow
     gnupg
     google-cloud-sdk
     jq
