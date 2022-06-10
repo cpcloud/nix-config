@@ -45,7 +45,14 @@ let
     name = "sops-rekey";
     runtimeInputs = [ findutils sops ];
     text = ''
-      find secrets -name '*.yaml' -exec sops updatekeys -y {} +
+      find secrets -name '*.yaml' -exec sops updatekeys -y {} \;
+    '';
+  };
+  sops-rotate = writeShellApplication {
+    name = "sops-rotate";
+    runtimeInputs = [ findutils sops ];
+    text = ''
+      find secrets -name '*.yaml' -exec sops -r -i {} \;
     '';
   };
 in
@@ -77,6 +84,7 @@ mkShell {
     yarn
     yj
     sops-rekey
+    sops-rotate
   ];
 
   sopsPGPKeyDirs = [
