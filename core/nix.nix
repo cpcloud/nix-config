@@ -7,4 +7,9 @@
     };
     distributedBuilds = true;
   };
+
+  sops.secrets.cachix = {
+    sopsFile = ../secrets/cachix.yaml;
+    key = "pat";
+  };
 }
