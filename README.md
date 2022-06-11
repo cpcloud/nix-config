@@ -9,41 +9,45 @@ and inspired by [lovesegfault/nix-config](https://github.com/lovesegfault/nix-co
 
 ## Cloud Machine Deployment
 
-For a given `$HOST`:
+For a given `$CLOUD_HOST`:
 
 ```sh
-# log out of tailscale on existing machine to prevent hostname collision
-sudo tailscale down
+# disable remote builders on machines that use $CLOUD_HOST, e.g., weebill uses falcon
+# TODO: automate
+
+# on the remote machine, log out of tailscale on existing machine to prevent
+# hostname collision
 sudo tailscale logout
 
 # deploy to the cloud
 pulumi up
 
 # get the raw instance name for the host you've just deployed
-INSTANCE="$(pulumi stack output $HOST)"
+INSTANCE="$(pulumi stack output $CLOUD_HOST)"
 
 # get tailscale auth-key
-TS_AUTH_KEY="$(sops -d secrets/tailscale.yaml | yj -yj | jq -rcM '.[$host]' --arg host $HOST)"
+TS_AUTH_KEY="$(sops -d secrets/tailscale.yaml | yj -yj | jq -rcM '.[$host]' --arg host "$CLOUD_HOST")"
 
-# start tailscale to allow SSH without gcp, invalidate the key after 1 second
-gcloud compute ssh "$INSTANCE" --tunnel-through-iap --zone=us-east4-b --command="sudo tailscale up --auth-key=$TS_AUTH_KEY" --ssh-key-expire-after=30s
+# auth to tailscale, invalidate the Google ssh key after 30 seconds
+gcloud compute ssh "$INSTANCE" --tunnel-through-iap --command="sudo tailscale up --auth-key=$TS_AUTH_KEY" --ssh-key-expire-after=30s
 
 # remove previous known host key from `~/.ssh/known_hosts`
-# TODO: this is a manual step
+# TODO: automate
 
-# remove useless google cloud key
+# remove unnecessary google cloud key and known_hosts file
 srm ~/.ssh/google_compute_*
 
 # get the host pubkey
-ssh "$HOST" 'nix-shell -p ssh-to-pgp --run "sudo ssh-to-pgp -i /etc/ssh/ssh_host_rsa_key"' 1> keys/hosts/$HOST.asc
+ssh "$CLOUD_HOST" 'nix-shell -p ssh-to-pgp --run "sudo ssh-to-pgp -i /etc/ssh/ssh_host_rsa_key"' 1> "keys/hosts/$CLOUD_HOST.asc"
 
-# paste the output to the right place in `.sops.yaml`
-# TODO: this is a manual step, how should it be automated?
+# add the stderr output from the previous command to the key list in .sops.yaml
+# TODO: automate
 
-# rekey
+# rekey based on new pubkeys
 sops-rekey
 
 # re-enable any disabled builders, e.g., falcon on weebill
+# TODO: automate
 ```
 
 ## TODO
