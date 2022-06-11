@@ -22,14 +22,8 @@ sudo tailscale logout
 # deploy to the cloud
 pulumi up
 
-# get the raw instance name for the host you've just deployed
-INSTANCE="$(pulumi stack output $CLOUD_HOST)"
-
-# get tailscale auth-key
-TS_AUTH_KEY="$(sops -d secrets/tailscale.yaml | yj -yj | jq -rcM '.[$host]' --arg host "$CLOUD_HOST")"
-
-# auth to tailscale, invalidate the Google ssh key after 30 seconds
-gcloud compute ssh "$INSTANCE" --tunnel-through-iap --command="sudo tailscale up --auth-key=$TS_AUTH_KEY" --ssh-key-expire-after=30s
+# run the post-deploy script
+post-deploy
 
 # remove previous known host key from `~/.ssh/known_hosts` for my user and root
 # TODO: automate

@@ -55,6 +55,28 @@ let
       find secrets -name '*.yaml' -exec sops -r -i {} \;
     '';
   };
+  post-deploy = writeShellApplication {
+    name = "post-deploy";
+    runtimeInputs = [
+      google-cloud-sdk
+      jq
+      pulumi-bin
+      sops
+      yj
+    ];
+    text = ''
+      CLOUD_HOST="$1"
+
+      # get the raw instance name for the host you've just deployed
+      INSTANCE="$(pulumi stack output "$CLOUD_HOST")"
+
+      # get tailscale auth-key
+      TS_AUTH_KEY="$(sops -d "${../secrets/tailscale.yaml}" | yj -yj | jq -rcM '.[$host]' --arg host "$CLOUD_HOST")"
+
+      # auth to tailscale
+      gcloud compute ssh "$INSTANCE" --tunnel-through-iap --command="sudo tailscale up --auth-key=$TS_AUTH_KEY" --ssh-key-expire-after=30s
+    '';
+  };
 in
 mkShell {
   name = "nix-config";
@@ -72,6 +94,7 @@ mkShell {
     nixos-shell
     nixpkgs-fmt
     nodejs
+    post-deploy
     pulumi-bin
     pre-commit
     prettierWithToml
