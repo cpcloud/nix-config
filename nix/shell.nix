@@ -2,6 +2,7 @@
 , lib
 , awscli2
 , cachix
+, curl
 , deploy-rs
 , findutils
 , git
@@ -62,6 +63,7 @@ let
       jq
       pulumi-bin
       sops
+      srm
       yj
     ];
     text = ''
@@ -71,11 +73,35 @@ let
       INSTANCE="$(pulumi stack output "$CLOUD_HOST")"
 
       # get tailscale auth-key
-      TS_AUTH_KEY="$(sops -d "${../secrets/tailscale.yaml}" | yj -yj | jq -rcM '.[$host]' --arg host "$CLOUD_HOST")"
+      TS_AUTH_KEY="$(sops -d secrets/tailscale.yaml | yj -yj | jq -rcM '.[$host]' --arg host "$CLOUD_HOST")"
 
       # auth to tailscale
       gcloud compute ssh "$INSTANCE" --tunnel-through-iap --command="sudo tailscale up --auth-key=$TS_AUTH_KEY" --ssh-key-expire-after=30s
+
+      # remove now-useless keys
+      srm ~/.ssh/google_compute*
     '';
+  };
+
+  remove-tailscale-device = writeShellApplication {
+    name = "remove-tailscale-device";
+    runtimeInputs = [
+      curl
+      sops
+      jq
+      yj
+    ];
+    text =
+      let
+        api = "https://api.tailscale.com/api/v2";
+      in
+      ''
+        DEVICE_NAME="$1"
+        API_KEY="$(sops -d secrets/tailscale.yaml | yj -yj | jq -rcM '.api')"
+        DEVICE_ID="$(curl -sSL -X GET "${api}/tailnet/cpcloud.github/devices" -u "''${API_KEY}:" | \
+          jq -rcM '.devices[] | select(.hostname == $host) | .id' --arg host "$DEVICE_NAME")"
+        curl -X DELETE "${api}/device/''${DEVICE_ID}" -u "''${API_KEY}:" -v
+      '';
   };
 in
 mkShell {
@@ -98,6 +124,7 @@ mkShell {
     pulumi-bin
     pre-commit
     prettierWithToml
+    remove-tailscale-device
     sops
     sops-import-keys-hook
     srm
