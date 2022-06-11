@@ -10,6 +10,15 @@
     ../../users/cloud
   ];
 
+  virtualisation.docker.daemon.settings = {
+    default-address-pools = [
+      {
+        base = "172.31.0.0/16";
+        size = 24;
+      }
+    ];
+  };
+
   home-manager.users.cloud = { ... }: {
     imports = [ ((import ../../users/cloud/trusted) config.networking.hostName) ];
   };
