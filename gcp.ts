@@ -26,7 +26,11 @@ export function handle(
 
   const machineImageBucket = new storage.Bucket(
     bucket,
-    { location: region.toUpperCase() },
+    {
+      location: region.toUpperCase(),
+      // delete the bucket even if it contains objects
+      forceDestroy: true,
+    },
     {
       parent: storageService,
       dependsOn: [storageService],
@@ -140,13 +144,19 @@ export function handle(
     );
 
     // the second step is to construct NAT for the router
-    new compute.RouterNat(
+    const routerNat = new compute.RouterNat(
       instanceName,
       {
         router: router.name,
         region,
         natIpAllocateOption: "AUTO_ONLY",
-        sourceSubnetworkIpRangesToNat: "ALL_SUBNETWORKS_ALL_IP_RANGES",
+        sourceSubnetworkIpRangesToNat: "LIST_OF_SUBNETWORKS",
+        subnetworks: [
+          {
+            name: subnet.id,
+            sourceIpRangesToNats: ["ALL_IP_RANGES"],
+          },
+        ],
         logConfig: { enable: logging.enable, filter: "ERRORS_ONLY" },
       },
       {
@@ -210,7 +220,7 @@ export function handle(
       },
       {
         parent: computeImage,
-        dependsOn: [iapSshFirewall, computeService],
+        dependsOn: [iapSshFirewall, computeService, routerNat],
       }
     );
     computeInstances[instanceName] = instance.name;
