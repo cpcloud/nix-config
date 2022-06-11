@@ -119,22 +119,24 @@ export function handle(
       }
     );
 
-    // if instance has a GPU then the only valid host maintenance action is
-    // to terminate the running instance
-    const onHostMaintenance = gpu ? "TERMINATE" : "MIGRATE";
-    const guestAccelerators = gpu ? [{ count: gpu.count, type: gpu.type }] : [];
+    // subnet
+    const subnet = new compute.Subnetwork(instanceName, {
+      network: network.id,
+      ipCidrRange: "10.0.0.0/16",
+      region,
+    });
 
-    // the instance has a completely private IP, which means we do not
+    // the instance has a private IP, which means we do not
     // have external access without NAT, so set up NAT
     //
     // the first step is to construct a router
     const router = new compute.Router(
       instanceName,
-      { network: network.selfLink },
       {
-        parent: network,
-        dependsOn: [computeService],
-      }
+        region,
+        network: network.selfLink,
+      },
+      { dependsOn: [computeService] }
     );
 
     // the second step is to construct NAT for the router
@@ -142,9 +144,10 @@ export function handle(
       instanceName,
       {
         router: router.name,
+        region,
         natIpAllocateOption: "AUTO_ONLY",
         sourceSubnetworkIpRangesToNat: "ALL_SUBNETWORKS_ALL_IP_RANGES",
-        logConfig: { enable: logging.enable, filter: "ALL" },
+        logConfig: { enable: logging.enable, filter: "ERRORS_ONLY" },
       },
       {
         parent: router,
@@ -176,6 +179,11 @@ export function handle(
       }
     );
 
+    // if instance has a GPU then the only valid host maintenance action is
+    // to terminate the running instance
+    const onHostMaintenance = gpu ? "TERMINATE" : "MIGRATE";
+    const guestAccelerators = gpu ? [{ count: gpu.count, type: gpu.type }] : [];
+
     // finally, construct the instance
     const instance = new compute.Instance(
       instanceName,
@@ -184,7 +192,12 @@ export function handle(
         guestAccelerators,
         tags: ["dev"],
         scheduling: { onHostMaintenance },
-        networkInterfaces: [{ network: network.selfLink }],
+        networkInterfaces: [
+          {
+            network: network.selfLink,
+            subnetwork: subnet.selfLink,
+          },
+        ],
         bootDisk: {
           initializeParams: {
             image: computeImage.selfLink,
