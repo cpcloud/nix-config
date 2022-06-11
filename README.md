@@ -15,9 +15,8 @@ For a given `$CLOUD_HOST`:
 # disable remote builders on machines that use $CLOUD_HOST, e.g., weebill uses falcon
 # TODO: automate
 
-# on the remote machine, log out of tailscale on existing machine to prevent
-# hostname collision
-sudo tailscale logout
+# remove the host from the tailnet
+remove-tailscale-device "$CLOUD_HOST"
 
 # deploy to the cloud
 pulumi up
@@ -27,9 +26,6 @@ post-deploy
 
 # remove previous known host key from `~/.ssh/known_hosts` for my user and root
 # TODO: automate
-
-# remove unnecessary google cloud key and known_hosts file
-srm ~/.ssh/google_compute_*
 
 # get the host pubkey
 ssh "$CLOUD_HOST" 'nix-shell -p ssh-to-pgp --run "sudo ssh-to-pgp -i /etc/ssh/ssh_host_rsa_key"' 1> "keys/hosts/$CLOUD_HOST.asc"
@@ -42,6 +38,9 @@ sops-rekey
 
 # re-enable any disabled builders, e.g., falcon on weebill
 # TODO: automate
+
+# deploy $CLOUD_HOST
+deploy ".#${CLOUD_HOST}"
 ```
 
 ## TODO
