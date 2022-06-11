@@ -3,7 +3,7 @@ keys:
   - &bluejay 3eb1bbbf97b5decbda204191aa47717d882fb914
   - &weebill 76e0e477d660fc9a2d3c51be85a9500e177b53d3
   - &yubikey ed835ed426ccbad217134bf2898ea27607d72cce
-  - &falcon d58baabae5b87df6f16df45de9566e13ec80d880
+  - &falcon 349c63c0381298d3a5dd0c6dbc763099cf9d4f6c
 creation_rules:
   - path_regex: secrets/albatross-builder.yaml
     key_groups:
