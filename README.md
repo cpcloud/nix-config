@@ -31,7 +31,7 @@ TS_AUTH_KEY="$(sops -d secrets/tailscale.yaml | yj -yj | jq -rcM '.[$host]' --ar
 # auth to tailscale, invalidate the Google ssh key after 30 seconds
 gcloud compute ssh "$INSTANCE" --tunnel-through-iap --command="sudo tailscale up --auth-key=$TS_AUTH_KEY" --ssh-key-expire-after=30s
 
-# remove previous known host key from `~/.ssh/known_hosts`
+# remove previous known host key from `~/.ssh/known_hosts` for my user and root
 # TODO: automate
 
 # remove unnecessary google cloud key and known_hosts file
