@@ -44,11 +44,6 @@
       no-symkey-cache = "";
       # Enable smartcard
       use-agent = "";
-
-      # Debugging
-      debug-level = "9";
-      verbose = "";
-      log-file = "/var/log/gpg-agent.log";
     };
   };
 
@@ -62,6 +57,9 @@
     pinentryFlavor = "curses";
     extraConfig = ''
       extra-socket /run/user/1000/gnupg/S.gpg-agent.extra
+      debug-level 9
+      verbose
+      log-file /var/log/gpg-agent.log
     '';
 
   };
