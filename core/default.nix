@@ -46,7 +46,10 @@ in
     etc."nixos/configuration.nix".source = dummyConfig;
   };
 
-  home-manager.useGlobalPkgs = true;
+  home-manager = {
+    useGlobalPkgs = true;
+    verbose = true;
+  };
 
   i18n = {
     supportedLocales = [ "en_US.UTF-8/UTF-8" ];
