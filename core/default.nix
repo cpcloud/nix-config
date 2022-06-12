@@ -56,6 +56,14 @@ in
     defaultLocale = "en_US.UTF-8";
   };
 
+  systemd = {
+    enableUnifiedCgroupHierarchy = true;
+    # wait for any interface to be online instead of all
+    network.wait-online.anyInterface = config.networking.useNetworkd;
+  };
+
+  networking.wireguard.enable = true;
+
   console = if config.services.xserver.enable then { useXkbConfig = true; } else { keyMap = "us"; };
 
   services.tlp = {
