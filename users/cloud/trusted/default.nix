@@ -10,9 +10,12 @@ hostName:
     signByDefault = true;
   };
 
-  programs.gpg.settings = {
-    default-key = "0x898EA27607D72CCE";
-    trusted-key = "0x898EA27607D72CCE";
+  programs.gpg = {
+    enable = true;
+    settings = {
+      default-key = "0x898EA27607D72CCE";
+      trusted-key = "0x898EA27607D72CCE";
+    };
   };
 
   services.gpg-agent = {
