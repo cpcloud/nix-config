@@ -44,6 +44,9 @@ in
       "github.com" = {
         identityFile = map genYubikeyPubKeyPath yubikeyModels;
         user = "git";
+        extraOptions = {
+          ControlMaster = "no";
+        };
       };
     } // (
       let
