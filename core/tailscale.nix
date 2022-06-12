@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
   imports = [ ./tailscale-up.nix ];
 
@@ -6,6 +6,9 @@
     sopsFile = ../secrets/tailscale.yaml;
     key = config.networking.hostName;
   };
+
+  systemd.services.tailscaled.after = [ "network-online.target" ]
+    ++ lib.optionals config.services.resolved.enable [ "systemd-resolved.service" ];
 
   services = {
     tailscale.enable = true;
@@ -16,11 +19,9 @@
     fail2ban.enable = config.networking.firewall.enable;
   };
 
-  networking = {
-    firewall = {
-      trustedInterfaces = [ "tailscale0" ];
-      allowedUDPPorts = [ config.services.tailscale.port ];
-    };
-    wireguard.enable = true;
+  networking.firewall = lib.optionalAttrs config.services.tailscale.enable {
+    trustedInterfaces = [ "tailscale0" ];
+    allowedUDPPorts = [ config.services.tailscale.port ];
+    checkReversePath = "loose";
   };
 }
