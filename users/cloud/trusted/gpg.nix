@@ -45,6 +45,14 @@
       # Enable smartcard
       use-agent = "";
     };
+
+    publicKeys = [
+      { source = ../../../keys/hosts/albatross.asc; }
+      { source = ../../../keys/hosts/bluejay.asc; }
+      { source = ../../../keys/hosts/falcon.asc; }
+      { source = ../../../keys/hosts/weebill.asc; }
+      { source = ../../../keys/users/yubikey.asc; }
+    ];
   };
 
   services.gpg-agent = {
