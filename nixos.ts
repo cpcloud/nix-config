@@ -21,6 +21,8 @@ interface ImageOutputs {
   bucketObjectSource: p.asset.Asset;
 }
 
+const DEFAULT_OUT_HASH_LENGTH = 10;
+const DEFAULT_MAX_BUFFER = 1024 * 1024 * 1024;
 const NIX_BUILD = "nix-build";
 const NIX_INSTANTIATE = "nix-instantiate";
 
@@ -58,7 +60,7 @@ export class Image extends p.ComponentResource {
           const { stdout: nixImageDirUntrimmed } = await execFileLocal(
             NIX_BUILD,
             [nixRootExpr, "--attr", imageExpr, "--no-out-link"],
-            { maxBuffer: maxBuffer || 1024 * 1024 * 1024 }
+            { maxBuffer: maxBuffer || DEFAULT_MAX_BUFFER }
           );
 
           const nixImageDir = nixImageDirUntrimmed.trim();
@@ -69,7 +71,7 @@ export class Image extends p.ComponentResource {
           const outHash = path
             .basename(nixImageDir)
             .split("-")[0]
-            .slice(0, outHashLength || 12);
+            .slice(0, outHashLength || DEFAULT_OUT_HASH_LENGTH);
 
           return {
             bucketObjectName: `${family}-${outHash}.${extension}`,
