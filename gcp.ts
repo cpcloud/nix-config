@@ -83,9 +83,7 @@ export function handle(
     const imageBucketObject = new storage.BucketObject(
       `${family}-${instanceName}`,
       {
-        source: nixosImage.bucketObjectSource.apply(
-          imagePath => new p.asset.FileAsset(imagePath)
-        ),
+        source: nixosImage.bucketObjectSource,
         bucket: machineImageBucket.name,
         name: nixosImage.bucketObjectName,
         contentType: GCP_IMAGE_CONTENT_TYPE,

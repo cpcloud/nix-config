@@ -18,7 +18,7 @@ export interface ImageArgs {
 
 interface ImageOutputs {
   bucketObjectName: string;
-  bucketObjectSource: string;
+  bucketObjectSource: p.asset.Asset;
 }
 
 const NIX_BUILD = "nix-build";
@@ -28,7 +28,7 @@ export class Image extends p.ComponentResource {
   private readonly provisioner: Provisioner<ImageArgs, ImageOutputs>;
 
   public readonly bucketObjectName: p.Output<string>; // eslint-disable-line max-len, @typescript-eslint/explicit-member-accessibility
-  public readonly bucketObjectSource: p.Output<string>; // eslint-disable-line max-len, @typescript-eslint/explicit-member-accessibility
+  public readonly bucketObjectSource: p.Output<p.asset.Asset>; // eslint-disable-line max-len, @typescript-eslint/explicit-member-accessibility
 
   constructor(
     name: string,
@@ -73,7 +73,7 @@ export class Image extends p.ComponentResource {
 
           return {
             bucketObjectName: `${family}-${outHash}.${extension}`,
-            bucketObjectSource,
+            bucketObjectSource: new p.asset.FileAsset(bucketObjectSource),
           };
         },
       },

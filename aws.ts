@@ -325,9 +325,7 @@ export function handle(
       {
         acl: "private",
         key: nixosImage.bucketObjectName,
-        source: nixosImage.bucketObjectSource.apply(
-          imagePath => new p.asset.FileAsset(imagePath)
-        ),
+        source: nixosImage.bucketObjectSource,
         bucket: machineImageBucket,
         contentType: "application/x-vhd",
       },
