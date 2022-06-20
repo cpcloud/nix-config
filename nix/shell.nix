@@ -1,6 +1,5 @@
 { mkShell
 , lib
-, awscli2
 , cachix
 , curl
 , deploy-rs
@@ -108,7 +107,6 @@ mkShell {
   name = "nix-config";
 
   nativeBuildInputs = [
-    awscli2
     cachix
     deploy-rs
     git
