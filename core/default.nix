@@ -121,6 +121,6 @@ in
       ln -sv ${../nix/overlays} $out/overlays
     '';
 
-    stateVersion = "21.11";
+    stateVersion = import ../nix/state-version.nix;
   };
 }
