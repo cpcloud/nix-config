@@ -39,6 +39,8 @@
     })
   ];
 
+  home.stateVersion = import ../../../nix/state-version.nix;
+
   xdg.configFile."nixpkgs/config.nix".text = "{ allowUnfree = true; }";
 
   programs = {

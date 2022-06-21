@@ -89,5 +89,5 @@ in
 
   hardware.raspberry-pi."4".fkms-3d.enable = true;
 
-  system.stateVersion = "21.11";
+  system.stateVersion = import ../nix/state-version.nix;
 }
