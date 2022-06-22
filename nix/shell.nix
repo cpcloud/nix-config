@@ -36,7 +36,6 @@ let
     (lib.mapAttrsToList (name: value: "--${name}=${toString value}") styluaSettings);
   styluaWithFormat = writeShellApplication {
     name = "stylua";
-    runtimeInputs = [ ];
     text = ''
       ${stylua}/bin/stylua ${styluaSettingsArgs} "$@"
     '';
