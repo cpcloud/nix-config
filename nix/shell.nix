@@ -4,9 +4,8 @@
 , cachix
 , curl
 , deploy-rs
-, findutils
+, fd
 , git
-, glow
 , gnupg
 , google-cloud-sdk
 , jq
@@ -44,16 +43,16 @@ let
   };
   sops-rekey = writeShellApplication {
     name = "sops-rekey";
-    runtimeInputs = [ findutils sops ];
+    runtimeInputs = [ fd sops ];
     text = ''
-      find secrets -name '*.yaml' -exec sops updatekeys -y {} \;
+      fd '\.yaml' "$PWD/secrets" --exec sops updatekeys --yes
     '';
   };
   sops-rotate = writeShellApplication {
     name = "sops-rotate";
-    runtimeInputs = [ findutils sops ];
+    runtimeInputs = [ fd sops ];
     text = ''
-      find secrets -name '*.yaml' -exec sops -r -i {} \;
+      fd '\.yaml' "$PWD/secrets" --exec sops --rotate --in-place
     '';
   };
   post-deploy = writeShellApplication {
@@ -73,7 +72,7 @@ let
       INSTANCE="$(pulumi stack output "$CLOUD_HOST")"
 
       # get tailscale auth-key
-      TS_AUTH_KEY="$(sops -d secrets/tailscale.yaml | yj -yj | jq -rcM '.[$host]' --arg host "$CLOUD_HOST")"
+      TS_AUTH_KEY="$(sops -d "$PWD/secrets/tailscale.yaml" | yj -yj | jq -rcM '.[$host]' --arg host "$CLOUD_HOST")"
 
       # auth to tailscale
       gcloud compute ssh "$INSTANCE" --tunnel-through-iap --command="sudo tailscale up --auth-key=$TS_AUTH_KEY" --ssh-key-expire-after=30s
@@ -87,8 +86,8 @@ let
     name = "remove-tailscale-device";
     runtimeInputs = [
       curl
-      sops
       jq
+      sops
       yj
     ];
     text =
@@ -97,7 +96,7 @@ let
       in
       ''
         DEVICE_NAME="$1"
-        API_KEY="$(sops -d secrets/tailscale.yaml | yj -yj | jq -rcM '.api')"
+        API_KEY="$(sops -d "$PWD/secrets/tailscale.yaml" | yj -yj | jq -rcM '.api')"
         DEVICE_ID="$(curl -sSL -X GET "${api}/tailnet/cpcloud.github/devices" -u "''${API_KEY}:" | \
           jq -rcM '.devices[] | select(.hostname == $host) | .id' --arg host "$DEVICE_NAME")"
         curl -X DELETE "${api}/device/''${DEVICE_ID}" -u "''${API_KEY}:" -v
@@ -112,7 +111,6 @@ mkShell {
     cachix
     deploy-rs
     git
-    glow
     gnupg
     google-cloud-sdk
     jq
@@ -121,20 +119,20 @@ mkShell {
     nixpkgs-fmt
     nodejs
     post-deploy
-    pulumi-bin
     pre-commit
     prettierWithToml
+    pulumi-bin
     remove-tailscale-device
     sops
     sops-import-keys-hook
+    sops-rekey
+    sops-rotate
     srm
     ssh-to-pgp
     ssm-session-manager-plugin
     styluaWithFormat
     yarn
     yj
-    sops-rekey
-    sops-rotate
   ];
 
   sopsPGPKeyDirs = [
@@ -148,5 +146,6 @@ mkShell {
     ${pre-commit-check.shellHook}
     yarn install 1>&2
   '';
+
   PULUMI_SKIP_UPDATE_CHECK = "1";
 }
