@@ -57,7 +57,7 @@ in
           enable = true;
           entry = mkForce "${pkgs.nodePackages.eslint}/bin/eslint";
           types = [ "file" ];
-          files = "\\.ts$";
+          files = mkForce "\\.ts$";
         };
 
         prettier = {
