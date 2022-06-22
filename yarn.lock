@@ -83,9 +83,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pulumi/aws@npm:5.9.0":
-  version: 5.9.0
-  resolution: "@pulumi/aws@npm:5.9.0"
+"@pulumi/aws@npm:5.9.1":
+  version: 5.9.1
+  resolution: "@pulumi/aws@npm:5.9.1"
   dependencies:
     "@pulumi/pulumi": ^3.0.0
     aws-sdk: ^2.0.0
@@ -93,7 +93,7 @@ __metadata:
     mime: ^2.0.0
     read-package-tree: ^5.2.1
     resolve: ^1.7.1
-  checksum: caa8ac071770e3198fc9a8c3e724b245aab63bfb0b10e5f34777406b1c19f5d2a9571a36c3383d8d8b18fa1d2e29722cfa94d0060dcdee69b4432c7841378f6b
+  checksum: 6bb9a2cd1583c538f4efd10b78c8c779703c9f39c47520dd5b9b25323f8ba7910c189d3bf483fcef9e2c33b1df9dd963d51992fbc3d240a17c9557373df94068
   languageName: node
   linkType: hard
 
@@ -769,7 +769,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "cpcloud-dev-pulumi@workspace:."
   dependencies:
-    "@pulumi/aws": 5.9.0
+    "@pulumi/aws": 5.9.1
     "@pulumi/gcp": 6.28.0
     "@pulumi/pulumi": 3.34.1
     "@types/eslint": 8.4.3
