@@ -215,6 +215,9 @@ export function handle(
         },
         resourcePolicies: dailyPolicy.selfLink,
         allowStoppingForUpdate: !!gpu,
+        metadata: {
+          ["block-project-ssh-keys"]: "true",
+        },
       },
       {
         parent: computeImage,
