@@ -5,7 +5,7 @@
   "license": "Apache-2.0",
   "packageManager": "yarn@3.2.1",
   "dependencies": {
-    "@pulumi/aws": "5.9.0",
+    "@pulumi/aws": "5.9.1",
     "@pulumi/gcp": "6.28.0",
     "@pulumi/pulumi": "3.34.1",
     "fast-glob": "3.2.11",
