@@ -94,6 +94,7 @@ in
     config.contentAddressedByDefault = false;
     overlays = [
       (import ../nix/snowflake-overlays/gh.nix { inherit config; })
+      (import ../nix/snowflake-overlays/fail2ban.nix)
     ];
   };
 
