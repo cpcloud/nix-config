@@ -1,31 +1,65 @@
-{
-  albatross = {
-    system = "x86_64-linux";
-    hostname = "albatross";
+let
+  hosts = {
+    albatross = {
+      localSystem = "x86_64-linux";
+      type = "nixos";
+    };
+
+    bluejay = {
+      localSystem = "x86_64-linux";
+      type = "nixos";
+    };
+
+    falcon = {
+      localSystem = "x86_64-linux";
+      type = "nixos";
+    };
+
+    plover = {
+      localSystem = "aarch64-linux";
+      type = "nixos";
+    };
+
+    weebill = {
+      localSystem = "x86_64-linux";
+      type = "nixos";
+    };
+
+    eagle = {
+      localSystem = "x86_64-linux";
+      type = "nixos";
+    };
   };
 
-  bluejay = {
-    system = "x86_64-linux";
-    hostname = "bluejay";
-  };
+  inherit (builtins) attrNames concatMap listToAttrs;
 
-  falcon = {
-    system = "x86_64-linux";
-    hostname = "falcon";
-  };
+  filterAttrs = pred: set:
+    listToAttrs (concatMap
+      (name:
+        let
+          value = set.${name};
+        in
+        if pred name value then
+          [{ inherit name value; }]
+        else
+          [ ])
+      (attrNames set));
 
-  plover = {
-    system = "aarch64-linux";
-    hostname = "plover";
-  };
+  systemPred = system: (_: v: builtins.match ".*${system}.*" v.localSystem != null);
 
-  weebill = {
-    system = "x86_64-linux";
-    hostname = "weebill";
-  };
+  genFamily = filter: hosts: rec {
+    all = filterAttrs filter hosts;
 
-  eagle = {
-    system = "x86_64-linux";
-    hostname = "eagle";
+    nixos = genFamily (_: v: v.type == "nixos") all;
+    homeManager = genFamily (_: v: v.type == "home-manager") all;
+
+    darwin = genFamily (systemPred "-darwin") all;
+    linux = genFamily (systemPred "-linux") all;
+
+    aarch64-darwin = genFamily (systemPred "aarch64-darwin") all;
+    aarch64-linux = genFamily (systemPred "aarch64-linux") all;
+    x86_64-darwin = genFamily (systemPred "x86_64-darwin") all;
+    x86_64-linux = genFamily (systemPred "x86_64-linux") all;
   };
-}
+in
+genFamily (_: _: true) hosts

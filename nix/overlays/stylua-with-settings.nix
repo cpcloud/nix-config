@@ -1,4 +1,4 @@
-{ ... }: self: _: {
+self: _: {
   styluaWithFormat =
     let
       styluaSettings = builtins.fromTOML (

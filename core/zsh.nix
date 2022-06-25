@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   environment.pathsToLink = [ "/share/zsh" ];
 
   programs.zsh = {

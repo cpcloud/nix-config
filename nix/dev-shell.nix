@@ -1,32 +1,9 @@
-{ mkShell
-, lib
-, awscli2
-, cachix
-, curl
-, deploy-rs
-, fd
-, git
-, gnupg
-, google-cloud-sdk
-, jq
-, nix-linter
-, nixos-shell
-, nixpkgs-fmt
-, nodejs
-, pre-commit
-, pre-commit-check
-, prettierWithToml
-, pulumi-bin
-, sops
-, sops-import-keys-hook
-, srm
-, ssh-to-pgp
-, ssm-session-manager-plugin
-, stylua
-, writeShellApplication
-, yarn
-, yj
-}:
+{ self, ... }:
+
+system:
+
+with self.nixpkgs.${system};
+
 let
   styluaSettings = builtins.fromTOML (
     lib.replaceStrings [ "_" ] [ "-" ] (lib.readFile ../stylua.toml)
@@ -108,7 +85,7 @@ mkShell {
   nativeBuildInputs = [
     awscli2
     cachix
-    deploy-rs
+    deploy-rs.deploy-rs
     git
     gnupg
     google-cloud-sdk
@@ -128,21 +105,20 @@ mkShell {
     sops-rotate
     srm
     ssh-to-pgp
-    ssm-session-manager-plugin
     styluaWithFormat
     yarn
     yj
-  ];
+  ] ++ lib.optionals (!stdenv.isAarch64) [ ssm-session-manager-plugin ];
 
   sopsPGPKeyDirs = [
-    "${../keys/hosts}"
-    "${../keys/users}"
+    ../keys/hosts
+    ../keys/users
   ];
 
   SOPS_GPG_KEYSERVER = "https://keys.openpgp.org";
 
   shellHook = ''
-    ${pre-commit-check.shellHook}
+    ${self.checks.${system}.pre-commit-check.shellHook}
     yarn install 1>&2
   '';
 

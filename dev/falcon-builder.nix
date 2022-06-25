@@ -5,7 +5,7 @@
 
   nix = {
     buildMachines = [
-      (rec {
+      rec {
         hostName = "falcon";
         system = "x86_64-linux";
         maxJobs = 32;
@@ -13,7 +13,7 @@
         sshKey = config.sops.secrets.falcon_builder.path;
         sshUser = "cloud";
         supportedFeatures = [ "big-parallel" "kvm" ];
-      })
+      }
     ];
     extraOptions = ''
       builders-use-substitutes = true

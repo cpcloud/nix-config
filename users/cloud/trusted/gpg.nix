@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   programs.gpg = {
     enable = true;
     settings = {

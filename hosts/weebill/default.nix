@@ -19,7 +19,10 @@
     programs.alacritty.settings.font.size = 5.5;
   };
 
-  boot.tmpOnTmpfsSize = "100%";
+  boot = {
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
+    tmpOnTmpfsSize = "95%";
+  };
 
   fileSystems = {
     "/" = {

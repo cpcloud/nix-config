@@ -1,25 +1,25 @@
-pkgs: system:
-{ deploy-rs, ... }@inputs:
+{ self
+, deploy-rs
+, nixpkgs
+, ...
+}:
 let
-  inherit (builtins) elemAt mapAttrs;
-  inherit (pkgs.lib) filterAttrs;
+  inherit (nixpkgs) lib;
+  hosts = (import ./hosts.nix).all;
 
-  mkHost = name: system: import ./mk-host.nix { inherit pkgs inputs name system; };
-
-  mkPath = name: system: deploy-rs.lib.${system}.activate.nixos (mkHost name system);
-
-  hosts = filterAttrs (_: v: v.system == system) (import ./hosts.nix);
+  genNode = hostname: nixosCfg:
+    let
+      inherit (hosts.${hostname}) localSystem;
+      inherit (deploy-rs.lib.${localSystem}) activate;
+    in
+    {
+      inherit hostname;
+      profiles.system.path = activate.nixos nixosCfg;
+    };
 in
 {
-  deploy = {
-    autoRollback = true;
-    magicRollback = true;
-    user = "root";
-    nodes = mapAttrs
-      (n: v: {
-        inherit (v) hostname;
-        profiles.system.path = mkPath n v.system;
-      })
-      hosts;
-  };
+  autoRollback = true;
+  magicRollback = true;
+  user = "root";
+  nodes = lib.mapAttrs genNode self.nixosConfigurations;
 }
