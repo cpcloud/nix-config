@@ -1,4 +1,4 @@
-{ ... }: self: _: {
+self: _: {
   spawn = self.callPackage
     (
       { writeShellApplication

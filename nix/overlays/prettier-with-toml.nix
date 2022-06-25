@@ -1,4 +1,3 @@
-{ ... }:
 self: _: {
   prettierWithToml = self.writeShellScriptBin "prettier" ''
     set -euo pipefail

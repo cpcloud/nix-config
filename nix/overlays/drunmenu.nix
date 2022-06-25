@@ -14,7 +14,7 @@ let
       '';
     };
 in
-{ ... }: self: _: {
+self: _: {
   drunmenu-x11 = self.callPackage drunmenu {
     displayCmd = ''
       rofi \

@@ -29,7 +29,7 @@ let
       '';
     };
 in
-{ ... }: self: _: {
+self: _: {
   emojimenu-x11 = self.callPackage emojimenu {
     displayCmd = ''rofi -cache-dir "$XDG_CACHE_HOME/rofi/emojimenu" -p emoji -dmenu'';
     yankCmd = "xclip -in -rmlastnl -selection clipboard";

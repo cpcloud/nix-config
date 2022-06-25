@@ -1,5 +1,4 @@
-{ config, ... }:
-self: super: {
+config: self: super: {
   gh = self.writeShellApplication {
     name = "gh";
     runtimeInputs = [ super.gh self.coreutils ];

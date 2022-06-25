@@ -30,6 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.get-hosts.outputs.matrix }}
+      system: ${{ steps.get-system.outputs.system }}
     steps:
       - uses: actions/checkout@v3
       - uses: cachix/install-nix-action@v17
@@ -47,10 +48,10 @@ jobs:
         run: |
           set -euo pipefail
 
-          expr='builtins.toJSON (import ./nix/hosts.nix)'
+          expr='builtins.toJSON (import ./nix/hosts.nix).all'
           system=${{ steps.get-system.outputs.system }}
           # get hosts ignoring plover
-          hosts="$(nix eval --impure --raw --expr "$expr" | jq -rcM --arg system "$system" '{system: [.[] | select(.system == $system).hostname]}')"
+          hosts="$(nix eval --impure --raw --expr "$expr" | jq -rcM --arg system "$system" '{system: [to_entries | .[] | select(.value.localSystem == $system).key]}')"
           echo "::set-output name=matrix::$hosts"
   build:
     runs-on: ubuntu-latest
@@ -69,4 +70,4 @@ jobs:
           name: cpcloud-nix-config
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           extraPullNames: nix-community
-      - run: nix --print-build-logs --keep-going build --no-link '.#hosts.${{ matrix.system }}'
+      - run: nix --print-build-logs --keep-going build --no-link '.#packages.${{ needs.get-hosts.outputs.system }}.all.${{ matrix.system }}'

@@ -1,4 +1,4 @@
-{ ... }: _: prev:
+_: prev:
 let
   optimizedFlags = [
     # Enable all safe optimizations

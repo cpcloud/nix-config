@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   console.earlySetup = true;
   boot = {
     # Use the systemd-boot EFI boot loader.

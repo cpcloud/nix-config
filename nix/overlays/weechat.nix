@@ -1,4 +1,4 @@
-{ ... }: self: super: {
+self: super: {
   weechat = super.weechat.override {
     configure = { availablePlugins, ... }: {
       plugins = [
