@@ -42,7 +42,7 @@ jobs:
 
           system="$(nix eval --raw 'nixpkgs#stdenv.system')"
           expr="builtins.toJSON (import ./nix/hosts.nix).${system}.all"
-          hosts="$(nix eval --impure --raw --expr "$expr" | jq -rcM 'to_entries | map({host: .key, system: .value.localSystem})')"
+          hosts="$(nix eval --impure --raw --expr "$expr" | jq -rcM '{host: [to_entries | map({name: .key, system: .value.localSystem})')]}"
           echo "::set-output name=matrix::$hosts"
   build:
     runs-on: ubuntu-latest
@@ -62,4 +62,4 @@ jobs:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           extraPullNames: nix-community
       - name: build ${{ matrix.system }}.all.${{ matrix.host }}
-        run: nix --print-build-logs --keep-going build --no-link '.#packages.${{ matrix.system }}.all.${{ matrix.host }}'
+        run: nix --print-build-logs --keep-going build --no-link '.#packages.${{ matrix.host.system }}.all.${{ matrix.host.name }}'
