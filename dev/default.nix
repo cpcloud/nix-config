@@ -1,4 +1,4 @@
-{ ... }: {
+{
   imports = [
     ./cachix.nix
     ./doc.nix
