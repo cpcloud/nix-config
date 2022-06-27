@@ -50,8 +50,7 @@ jobs:
 
           expr='builtins.toJSON (import ./nix/hosts.nix).all'
           system=${{ steps.get-system.outputs.system }}
-          # get hosts ignoring plover
-          hosts="$(nix eval --impure --raw --expr "$expr" | jq -rcM --arg system "$system" '{system: [to_entries | .[] | select(.value.localSystem == $system).key]}')"
+          hosts="$(nix eval --impure --raw --expr "$expr" | jq -rcM --arg system "$system" '{system: [to_entries[] | select(.value.localSystem == $system).key]}')"
           echo "::set-output name=matrix::$hosts"
   build:
     runs-on: ubuntu-latest
