@@ -20,7 +20,7 @@
         version = 4;
       };
       grub.enable = false;
-      generic-extlinux-compatible.enable = true;
+      generic-extlinux-compatible.enable = false;
     };
   };
 
