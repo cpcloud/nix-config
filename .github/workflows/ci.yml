@@ -30,27 +30,19 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.get-hosts.outputs.matrix }}
-      system: ${{ steps.get-system.outputs.system }}
     steps:
       - uses: actions/checkout@v3
       - uses: cachix/install-nix-action@v17
         with:
           nix_path: nixpkgs=channel:nixos-unstable-small
-      - name: get the current system
-        id: get-system
-        run: |
-          set -euo pipefail
-
-          system="$(nix eval --raw 'nixpkgs#stdenv.system')"
-          echo "::set-output name=system::$system"
       - name: generate host list
         id: get-hosts
         run: |
           set -euo pipefail
 
-          expr='builtins.toJSON (import ./nix/hosts.nix).all'
-          system=${{ steps.get-system.outputs.system }}
-          hosts="$(nix eval --impure --raw --expr "$expr" | jq -rcM --arg system "$system" '{system: [to_entries[] | select(.value.localSystem == $system).key]}')"
+          system="$(nix eval --raw 'nixpkgs#stdenv.system')"
+          expr="builtins.toJSON (import ./nix/hosts.nix).${system}.all"
+          hosts="$(nix eval --impure --raw --expr "$expr" | jq -rcM 'to_entries | map({host: .key, system: .value.localSystem})')"
           echo "::set-output name=matrix::$hosts"
   build:
     runs-on: ubuntu-latest
@@ -69,4 +61,5 @@ jobs:
           name: cpcloud-nix-config
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           extraPullNames: nix-community
-      - run: nix --print-build-logs --keep-going build --no-link '.#packages.${{ needs.get-hosts.outputs.system }}.all.${{ matrix.system }}'
+      - name: build ${{ matrix.system }}.all.${{ matrix.host }}
+        run: nix --print-build-logs --keep-going build --no-link '.#packages.${{ matrix.system }}.all.${{ matrix.host }}'
