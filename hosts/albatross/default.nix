@@ -13,8 +13,8 @@
     ../../hardware/gpu/nvidia/containers/podman.nix
 
     ../../hardware/yubikey.nix
-
     ../../hardware/tpu/coral.nix
+    ../../hardware/aarch64-linux-emulation.nix
 
     ../../headful
 

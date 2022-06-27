@@ -8,6 +8,7 @@
 
     ../../hardware/machines/xps-9310.nix
     ../../hardware/yubikey.nix
+    ../../hardware/aarch64-linux-emulation.nix
 
     ../../headful
 
@@ -19,10 +20,7 @@
     programs.alacritty.settings.font.size = 5.5;
   };
 
-  boot = {
-    binfmt.emulatedSystems = [ "aarch64-linux" ];
-    tmpOnTmpfsSize = "95%";
-  };
+  boot.tmpOnTmpfsSize = "95%";
 
   fileSystems = {
     "/" = {
