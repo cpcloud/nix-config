@@ -48,7 +48,7 @@ in
     key = "token";
   };
 
-  home-manager.users.cloud = { ... }: {
+  home-manager.users.cloud = {
     imports = [
       ./core
       ./dev

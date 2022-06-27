@@ -1,5 +1,4 @@
-hostName:
-{ ... }: {
+hostName: {
   imports = [
     ./gpg.nix
     ((import ./ssh.nix) hostName)

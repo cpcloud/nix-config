@@ -15,7 +15,7 @@
     ../../users/cloud
   ];
 
-  home-manager.users.cloud = { ... }: {
+  home-manager.users.cloud = {
     imports = [ ((import ../../users/cloud/trusted) config.networking.hostName) ];
   };
 
