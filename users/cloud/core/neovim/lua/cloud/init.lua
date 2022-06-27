@@ -178,7 +178,10 @@ cmd("autocmd BufRead,BufNewFile *.ll setlocal filetype=llvm")
 cmd("autocmd BufRead,BufNewFile *.pxi,*.pyx,*.pxd setlocal filetype=cython")
 cmd("autocmd BufRead,BufNewFile berglas-*,*.toml.tpl setlocal filetype=toml")
 cmd(
-  "autocmd BufRead,BufNewFile *.yaml.tmpl,*.yml.tmpl,*.yaml.tpl,*.yml.tpl,*.yaml.j2,*.yml.j2 setlocal filetype=yaml.jinja2"
+  "autocmd"
+    .. " BufRead,BufNewFile"
+    .. " *.yaml.tmpl,*.yml.tmpl,*.yaml.tpl,*.yml.tpl,*.yaml.j2,*.yml.j2"
+    .. " setlocal filetype=yaml.jinja2"
 )
 cmd("autocmd BufRead,BufNewFile .condarc,*condarc setlocal filetype=yaml")
 cmd("autocmd BufRead,BufNewFile *.rkt setlocal filetype=racket")
@@ -208,7 +211,10 @@ map("n", "<leader>dl", ":lua require'dap'.run_last()<CR>", { silent = true })
 
 -- tab/spaces for specific file types
 cmd(
-  "autocmd FileType html,sh,fbs,groovy,yaml,crystal,ruby,racket,markdown,json,hcl,typescript,javascript.jsx,c,cpp,javascript setlocal shiftwidth=2 tabstop=2"
+  "autocmd"
+    .. " FileType"
+    .. " html,sh,fbs,groovy,yaml,crystal,ruby,racket,markdown,json,hcl,typescript,javascript.jsx,c,cpp,javascript "
+    .. " setlocal shiftwidth=2 tabstop=2"
 )
 cmd("autocmd FileType go setlocal shiftwidth=4 tabstop=4")
 
