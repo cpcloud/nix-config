@@ -7,7 +7,7 @@
     buildMachines = [
       rec {
         hostName = "falcon";
-        system = "x86_64-linux";
+        systems = [ "x86_64-linux" "aarch64-linux" ];
         maxJobs = 32;
         speedFactor = maxJobs / config.nix.settings.max-jobs;
         sshKey = config.sops.secrets.falcon_builder.path;
