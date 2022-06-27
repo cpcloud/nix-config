@@ -14,6 +14,8 @@
     denyInterfaces = [ "veth*" ];
   };
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   home-manager.users.cloud = {
     imports = [ ((import ../../users/cloud/trusted) config.networking.hostName) ];
   };
