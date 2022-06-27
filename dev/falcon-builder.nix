@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ config, pkgs, ... }: {
   sops.secrets.falcon_builder = {
     sopsFile = ../secrets/falcon-builder.yaml;
   };
@@ -9,7 +9,10 @@
         hostName = "falcon";
         systems = [ "x86_64-linux" "aarch64-linux" ];
         maxJobs = 32;
-        speedFactor = maxJobs / config.nix.settings.max-jobs;
+        speedFactor = pkgs.getSpeedFactor {
+          inherit maxJobs config;
+          isCloudHost = true;
+        };
         sshKey = config.sops.secrets.falcon_builder.path;
         sshUser = "cloud";
         supportedFeatures = [ "big-parallel" "kvm" ];
