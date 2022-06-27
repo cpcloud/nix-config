@@ -1,4 +1,4 @@
-_: {
+{ pkgs, ... }: {
   programs.gpg = {
     enable = true;
     settings = {
@@ -46,13 +46,16 @@ _: {
       use-agent = "";
     };
 
-    publicKeys = [
-      { source = ../../../keys/hosts/albatross.asc; }
-      { source = ../../../keys/hosts/bluejay.asc; }
-      { source = ../../../keys/hosts/falcon.asc; }
-      { source = ../../../keys/hosts/weebill.asc; }
-      { source = ../../../keys/users/yubikey.asc; }
-    ];
+    publicKeys =
+      let
+        getKeys = topPath: map
+          (path: { source = topPath + "/${path}"; })
+          (builtins.attrNames
+            (pkgs.lib.filterAttrs
+              (_: value: value == "regular")
+              (builtins.readDir topPath)));
+      in
+      getKeys ../../../keys/hosts ++ getKeys ../../../keys/users;
   };
 
   services.gpg-agent = {
@@ -69,6 +72,5 @@ _: {
       verbose
       log-file /var/log/gpg-agent.log
     '';
-
   };
 }
