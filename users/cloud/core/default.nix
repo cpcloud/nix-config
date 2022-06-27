@@ -26,7 +26,6 @@
     ripgrep
     sd
     speedtest-cli
-    taskwarrior-tui
     tldr
     unzip
     usbutils
@@ -60,9 +59,5 @@
     man.enable = true;
     info.enable = true;
     zoxide.enable = true;
-    taskwarrior = {
-      enable = true;
-      colorTheme = "dark-256";
-    };
   };
 }
