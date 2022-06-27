@@ -17,7 +17,6 @@
     file
     hyperfine
     lshw
-    nix-index
     pax-utils # for lddtree
     pigz
     prettyping
@@ -58,5 +57,6 @@
     man.enable = true;
     info.enable = true;
     zoxide.enable = true;
+    nix-index.enable = true;
   };
 }
