@@ -1,4 +1,4 @@
-{ ... }: {
+{
   imports = [
     ../../gpu/nvidia/basic.nix
     ./gce.nix
