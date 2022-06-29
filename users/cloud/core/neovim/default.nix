@@ -139,10 +139,6 @@ in
         # implement yet
         vim-polyglot
 
-        # debugging
-        nvim-dap
-        nvim-dap-ui
-
         # xonsh highlighting
         vim-xonsh
       ];

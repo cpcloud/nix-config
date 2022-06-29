@@ -29,26 +29,6 @@ local on_attach = function(_, bufnr)
   map(bufnr, "n", "<leader>n", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
   map(bufnr, "n", "<leader>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
 
-  map(bufnr, "n", "<leader>B", "<cmd>lua require'dap'.toggle_breakpoint()<CR>", opts)
-  map(bufnr, "n", "<leader>C", "<cmd>lua require'dap'.continue()<CR>", opts)
-  map(bufnr, "n", "<leader>S", "<cmd>lua require'dap'.step_into()<CR>", opts)
-  map(bufnr, "n", "<leader>N", "<cmd>lua require'dap'.step_over()<CR>", opts)
-  map(bufnr, "n", "<leader>O", "<cmd>lua require'dap'.step_out()<CR>", opts)
-  map(
-    bufnr,
-    "n",
-    "<leader>bc",
-    [[lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]],
-    opts
-  )
-  map(
-    bufnr,
-    "n",
-    "<leader>lp",
-    [[lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]],
-    opts
-  )
-
   require("lsp_signature").on_attach()
 end
 
@@ -259,7 +239,5 @@ end
 vim.cmd([[ command! Format execute "lua vim.lsp.buf.formatting()" ]])
 
 vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]])
-
-vim.cmd([[au FileType dap-repl lua require('dap.ext.autocompl').attach()]])
 
 return { on_attach = on_attach, capabilities = capabilities }
