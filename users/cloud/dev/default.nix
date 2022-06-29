@@ -4,11 +4,11 @@
 
     packages = with pkgs; [
       ctags
+      gdb
       nixpkgs-fmt
       shfmt
       tmate
       tokei
-      gdb
     ];
 
     file.gdbinit = {
