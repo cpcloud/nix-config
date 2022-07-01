@@ -48,6 +48,17 @@ in
     key = "token";
   };
 
+  home-manager.users.root = {
+    home.stateVersion = import ../../nix/state-version.nix;
+    home.file.".ssh/config".text =
+      lib.concatMapStringsSep "\n"
+        (hostname: ''
+          Hostname ${hostname}
+            ConnectTimeout 5
+        '')
+        (pkgs.notThisSystem config.networking.hostName);
+  };
+
   home-manager.users.cloud = {
     imports = [
       ./core
