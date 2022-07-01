@@ -7,8 +7,8 @@
       gdb
       nixpkgs-fmt
       shfmt
-      tmate
       tokei
+      upterm
     ];
 
     file.gdbinit = {
