@@ -1,5 +1,5 @@
 hostName:
-{ lib, ... }:
+{ lib, pkgs, ... }:
 let
   yubikeyModels = [
     "5_nano"
@@ -48,38 +48,31 @@ in
           ControlMaster = "no";
         };
       };
-    } // (
-      let
-        notThisSystem = builtins.filter
-          (name: name != hostName)
-          (map (lib.removeSuffix ".nix") (lib.attrNames (builtins.readDir ../../../hosts)));
-      in
-      builtins.listToAttrs (
-        map
-          (name: {
-            inherit name;
-            value = {
-              forwardAgent = true;
-              remoteForwards = [
-                {
-                  # local
-                  host.address = "/run/user/1000/gnupg/S.gpg-agent.extra";
-                  # remote
-                  bind.address = "/run/user/1000/gnupg/S.gpg-agent";
-                }
-                {
-                  host.address = "/run/user/1000/gnupg/S.gpg-agent.ssh";
-                  bind.address = "/run/user/1000/gnupg/S.gpg-agent.ssh";
-                }
-              ];
-              extraOptions = {
-                ConnectTimeout = "15";
-                StreamLocalBindUnlink = "yes";
-              };
+    } // builtins.listToAttrs (
+      map
+        (name: {
+          inherit name;
+          value = {
+            forwardAgent = true;
+            remoteForwards = [
+              {
+                # local
+                host.address = "/run/user/1000/gnupg/S.gpg-agent.extra";
+                # remote
+                bind.address = "/run/user/1000/gnupg/S.gpg-agent";
+              }
+              {
+                host.address = "/run/user/1000/gnupg/S.gpg-agent.ssh";
+                bind.address = "/run/user/1000/gnupg/S.gpg-agent.ssh";
+              }
+            ];
+            extraOptions = {
+              ConnectTimeout = "15";
+              StreamLocalBindUnlink = "yes";
             };
-          })
-          notThisSystem
-      )
+          };
+        })
+        (pkgs.notThisSystem hostName)
     );
   };
 }
