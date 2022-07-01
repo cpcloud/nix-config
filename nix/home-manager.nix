@@ -1,9 +1,9 @@
-{ self, home-manager, nixpkgs, templates, ... }:
+{ self, home-manager, nixpkgs, templates, nix-index-database, ... }:
 let
   inherit (nixpkgs) lib;
   hosts = (import ./hosts.nix).homeManager.all;
 
-  genModules = hostName:
+  genModules = hostName: localSystem:
     { config, ... }: {
       imports = [ (../hosts + "/${hostName}") ];
       nix.registry = {
@@ -15,6 +15,7 @@ let
         "nixpkgs=${config.xdg.dataHome}/nixpkgs"
         "nixpkgs-overlays=${config.xdg.dataHome}/overlays"
       ];
+      home.file.".cache/nix-index/files".source = nix-index-database.${localSystem}.database;
 
       xdg = {
         dataFile = {
@@ -30,7 +31,7 @@ let
   genConfiguration = hostName: { homeDirectory, localSystem, username, ... }:
     home-manager.lib.homeManagerConfiguration {
       inherit homeDirectory username;
-      configuration = genModules hostName;
+      configuration = genModules hostName localSystem;
       pkgs = self.nixpkgs.${localSystem};
       stateVersion = import ./state-version.nix;
       system = localSystem;
