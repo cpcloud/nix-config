@@ -55,7 +55,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, utils, ... }@inputs: {
+  outputs = { self, nixpkgs, utils, nix-index-database, ... }@inputs: {
     deploy = import ./nix/deploy.nix inputs;
     overlays = {
       default = import ./nix/overlay.nix inputs;
@@ -77,6 +77,7 @@
         inherit system;
         overlays = [
           self.overlays.default
+          (_: _: { nix-index-database = nix-index-database.legacyPackages.${system}.database; })
         ];
         config = {
           allowUnfree = true;

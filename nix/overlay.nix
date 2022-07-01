@@ -1,7 +1,6 @@
 { deploy-rs
 , nixpkgs
 , sops-nix
-, nix-index-database
 , ...
 }:
 
@@ -15,5 +14,4 @@ in
 composeManyExtensions (localOverlays ++ [
   deploy-rs.overlay
   sops-nix.overlay
-  (_: _: { nix-index-database = nix-index-database.legacyPackages.database; })
 ])
