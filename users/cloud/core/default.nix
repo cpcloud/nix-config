@@ -40,6 +40,8 @@
 
   xdg.configFile."nixpkgs/config.nix".text = "{ allowUnfree = true; }";
 
+  xdg.cacheHome."nix-index/files".source = pkgs.nix-index-database;
+
   programs = {
     direnv = {
       enable = true;
