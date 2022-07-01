@@ -41,6 +41,13 @@ in
     };
 
     matchBlocks = {
+      "uptermd.upterm.dev" = {
+        extraOptions = {
+          PubkeyAcceptedAlgorithms = "+ssh-rsa";
+          PubkeyAcceptedKeyTypes = "+ssh-rsa";
+          HostKeyAlgorithms = "+ssh-rsa";
+        };
+      };
       "github.com" = {
         identityFile = map genYubikeyPubKeyPath yubikeyModels;
         user = "git";
