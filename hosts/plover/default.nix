@@ -30,6 +30,5 @@
   home-manager.users.cloud.home.packages = with pkgs; [
     libraspberrypi
     raspberrypi-eeprom
-    v4l-utils
   ];
 }
