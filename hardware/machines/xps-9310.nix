@@ -10,7 +10,6 @@
     ../efi.nix
     ../hardware.nix
     ../brightness.nix
-    ../aarch64-linux-emulation.nix
   ];
 
   boot = {
