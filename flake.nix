@@ -77,7 +77,9 @@
         inherit system;
         overlays = [
           self.overlays.default
-          (_: _: { nix-index-database = nix-index-database.legacyPackages.${system}.database; })
+          (_: super: super.lib.optionalAttrs (super.lib.hasAttr system nix-index-database.legacyPackages) {
+            nix-index-database = nix-index-database.legacyPackages.${system}.database;
+          })
         ];
         config = {
           allowUnfree = true;
