@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, lib, ... }: {
   imports = [
     ./git.nix
     ./neovim
@@ -40,7 +40,9 @@
 
   xdg.configFile."nixpkgs/config.nix".text = "{ allowUnfree = true; }";
 
-  home.file."${config.xdg.cacheHome}/nix-index/files".source = pkgs.nix-index-database;
+  home.file = lib.optionalAttrs ((pkgs.nix-index-database or null) != null) {
+    "${config.xdg.cacheHome}/nix-index/files".source = pkgs.nix-index-database;
+  };
 
   programs = {
     direnv = {
