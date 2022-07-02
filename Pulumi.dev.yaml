@@ -20,9 +20,9 @@ config:
       format: RAW
     instances:
     - disk:
-        size_gb: 256
+        size_gb: 1536
         type: pd-ssd
-      machine_type: e2-custom-32-49152
+      machine_type: n2d-custom-64-98304
       name: falcon
       logging:
         enable: true
