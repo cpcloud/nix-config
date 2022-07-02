@@ -54,7 +54,7 @@ in
       lib.concatMapStringsSep "\n"
         (hostname: ''
           Hostname ${hostname}
-            ConnectTimeout 5
+            ConnectTimeout 10
         '')
         (pkgs.notThisSystem config.networking.hostName);
   };
