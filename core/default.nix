@@ -42,7 +42,7 @@ in
   };
 
   environment = {
-    systemPackages = with pkgs; [ btop neovim pinentry-curses ];
+    systemPackages = with pkgs; [ btop neovim ];
     etc."nixos/configuration.nix".source = dummyConfig;
   };
 
