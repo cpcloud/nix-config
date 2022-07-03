@@ -18,7 +18,7 @@
     gcb = "git branch --show-current";
     gc = "git commit";
     gck = "git commit --all --message 'chore: checkpoint'";
-    gcob = "git checkout -b";
+    gcob = "git checkout --no-track -b"; # don't automatically track base ref
     gcp = "git cherry-pick";
     gcpa = "git cherry-pick --abort";
     gcpc = "git cherry-pick --continue";
