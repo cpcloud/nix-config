@@ -185,7 +185,7 @@ cmd(
 )
 cmd("autocmd BufRead,BufNewFile .condarc,*condarc setlocal filetype=yaml")
 cmd("autocmd BufRead,BufNewFile *.rkt setlocal filetype=racket")
-cmd("autocmd BufRead,BufNewFile *.avsc,*.json.tpl,*.ipynb setlocal filetype=json")
+cmd("autocmd BufRead,BufNewFile *.avsc,*.json.tpl,*.ipynb,flake.lock setlocal filetype=json")
 cmd("autocmd BufRead,BufNewFile *.jsx setlocal filetype=javascript.jsx")
 
 -- tab/spaces for specific file types
