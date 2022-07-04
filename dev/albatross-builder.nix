@@ -9,7 +9,11 @@
         hostName = "albatross";
         systems = [ "x86_64-linux" "aarch64-linux" ];
         maxJobs = 32;
-        speedFactor = pkgs.getSpeedFactor { inherit maxJobs config; };
+        speedFactor = pkgs.getSpeedFactor {
+          builderCores = maxJobs;
+          hostCores = config.nix.settings.cores;
+          isCloudHost = true;
+        };
         sshKey = config.sops.secrets.albatross_builder.path;
         sshUser = "cloud";
         supportedFeatures = [ "big-parallel" "kvm" ];
