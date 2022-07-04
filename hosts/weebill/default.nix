@@ -5,6 +5,7 @@
     ../../dev
     ../../dev/docker.nix
     ../../dev/falcon-builder.nix
+    ../../dev/albatross-builder.nix
 
     ../../hardware/machines/xps-9310.nix
     ../../hardware/yubikey.nix

@@ -4,6 +4,7 @@
 
     ../../dev
     ../../dev/docker.nix
+    ../../dev/albatross-builder.nix
 
     ../../hardware/machines/gce/gce.nix
     ../../hardware/aarch64-linux-emulation.nix
