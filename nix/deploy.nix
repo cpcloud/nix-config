@@ -9,11 +9,11 @@ let
 
   genNode = hostname: nixosCfg:
     let
-      inherit (hosts.${hostname}) localSystem;
+      inherit (hosts.${hostname}) localSystem address;
       inherit (deploy-rs.lib.${localSystem}) activate;
     in
     {
-      inherit hostname;
+      hostname = if address != null then address else hostname;
       profiles.system.path = activate.nixos nixosCfg;
     };
 in

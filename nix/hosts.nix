@@ -3,31 +3,37 @@ let
     albatross = {
       localSystem = "x86_64-linux";
       type = "nixos";
+      address = null;
     };
 
     bluejay = {
       localSystem = "x86_64-linux";
       type = "nixos";
+      address = null;
     };
 
     falcon = {
       localSystem = "x86_64-linux";
       type = "nixos";
+      address = null;
     };
 
     plover = {
       localSystem = "aarch64-linux";
       type = "nixos";
+      address = "192.168.1.167";
     };
 
     weebill = {
       localSystem = "x86_64-linux";
       type = "nixos";
+      address = null;
     };
 
     eagle = {
       localSystem = "x86_64-linux";
       type = "nixos";
+      address = null;
     };
   };
 
