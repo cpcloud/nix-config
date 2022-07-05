@@ -1,4 +1,10 @@
 { config, lib, pkgs, ... }: {
+  imports = [
+    ./alacritty.nix
+    ./polybar.nix
+    ./rofi.nix
+  ];
+
   xsession.windowManager.i3 = {
     enable = true;
     config = rec {

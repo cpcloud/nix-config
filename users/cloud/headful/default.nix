@@ -2,18 +2,14 @@
 let
   km = pkgs.writeShellApplication {
     name = "km";
+    runtimeInputs = [ pkgs.xorg.setxkbmap ];
     text = ''
-      ${pkgs.xorg.setxkbmap}/bin/setxkbmap -option ctrl:nocaps -option altwin:swap_lalt_lwin
+      setxkbmap -option ctrl:nocaps -option altwin:swap_lalt_lwin
     '';
   };
 in
 {
-  imports = [
-    ./alacritty.nix
-    ./i3/i3.nix
-    ./i3/polybar.nix
-    ./rofi.nix
-  ];
+  imports = [ ./i3 ];
 
   home.packages = with pkgs; [
     arandr
@@ -32,8 +28,6 @@ in
   xsession = {
     enable = true;
     profileExtra = ''
-      export MOZ_USE_XINPUT2=1
-      export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dsun.java2d.xrender=true"
       xrdb ~/.Xresources
     '';
   };

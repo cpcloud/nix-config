@@ -20,6 +20,7 @@ in
             ''yj -yj < "${themeSettingsFile}" > $out''
         )
       ) // {
+      shell.program = "${pkgs.zsh}/bin/zsh";
       env.TERM = "xterm-256color";
       font = (lib.listToAttrs (
         map
