@@ -22,5 +22,13 @@
 
   networking.hostName = "falcon";
 
+  nix = {
+    nrBuildUsers = 32;
+    settings = {
+      max-jobs = 32;
+      cores = 32;
+    };
+  };
+
   time.timeZone = "America/New_York";
 }
