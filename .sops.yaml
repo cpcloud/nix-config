@@ -4,6 +4,7 @@ keys:
   - &weebill 76e0e477d660fc9a2d3c51be85a9500e177b53d3
   - &yubikey ed835ed426ccbad217134bf2898ea27607d72cce
   - &falcon 349c63c0381298d3a5dd0c6dbc763099cf9d4f6c
+  - &plover e28ac8c0cf7d63ce302140c3298a2e9f11f078bf
 creation_rules:
   - path_regex: secrets/albatross-builder.yaml
     key_groups:
@@ -24,6 +25,7 @@ creation_rules:
           - *albatross
           - *weebill
           - *falcon
+          - *plover
   - path_regex: secrets/tailscale.yaml
     key_groups:
       - pgp:
@@ -31,6 +33,7 @@ creation_rules:
           - *albatross
           - *weebill
           - *falcon
+          - *plover
   - path_regex: secrets/ursalabs-zulip.yaml
     key_groups:
       - pgp:
@@ -50,3 +53,4 @@ creation_rules:
           - *albatross
           - *weebill
           - *falcon
+          - *plover
