@@ -10,7 +10,7 @@ let
 in
 {
   programs.alacritty = {
-    enable = true;
+    enable = pkgs.stdenv.isx86_64;
     settings = lib.strings.fromJSON
       (
         lib.readFile (
