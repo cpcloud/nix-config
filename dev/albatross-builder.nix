@@ -12,7 +12,7 @@
         speedFactor = pkgs.getSpeedFactor {
           builderCores = maxJobs;
           hostCores = config.nix.settings.cores;
-          isCloudHost = true;
+          isCloudHost = false;
         };
         sshKey = config.sops.secrets.albatross_builder.path;
         sshUser = "cloud";
