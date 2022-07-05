@@ -11,10 +11,15 @@ let
         nixpkgs.flake = nixpkgs;
       };
 
-      home.sessionVariables.NIX_PATH = lib.concatStringsSep ":" [
-        "nixpkgs=${config.xdg.dataHome}/nixpkgs"
-        "nixpkgs-overlays=${config.xdg.dataHome}/overlays"
-      ];
+      home.sessionVariables = {
+        NIX_PATH = lib.concatStringsSep ":" [
+          "nixpkgs=${config.xdg.dataHome}/nixpkgs"
+          "nixpkgs-overlays=${config.xdg.dataHome}/overlays"
+        ];
+        MOZ_DBUS_REMOTE = 1;
+        MOZ_USE_XINPUT2 = 1;
+        _JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dsun.java2d.xrender=true";
+      };
 
       xdg = {
         dataFile = {
