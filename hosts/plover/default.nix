@@ -16,6 +16,7 @@
   };
 
   environment.noXlibs = true;
+  services.xserver.enable = false;
 
   networking = {
     hostName = "plover";
