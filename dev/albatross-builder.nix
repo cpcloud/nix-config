@@ -13,6 +13,7 @@
           builderCores = maxJobs;
           hostCores = config.nix.settings.cores;
           isCloudHost = false;
+          usesEmulation = config.system != "x86_64-linux";
         };
         sshKey = config.sops.secrets.albatross_builder.path;
         sshUser = "cloud";
