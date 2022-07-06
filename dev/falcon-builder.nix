@@ -13,6 +13,7 @@
           builderCores = maxJobs;
           hostCores = config.nix.settings.cores;
           isCloudHost = true;
+          usesEmulation = config.system != "x86_64-linux";
         };
         sshKey = config.sops.secrets.falcon_builder.path;
         sshUser = "cloud";
