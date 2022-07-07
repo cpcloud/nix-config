@@ -15,12 +15,8 @@
     initrd.availableKernelModules = [ "usbhid" "usb_storage" "vc4" ];
 
     loader = {
-      raspberryPi = {
-        enable = true;
-        version = 4;
-      };
       grub.enable = false;
-      generic-extlinux-compatible.enable = false;
+      generic-extlinux-compatible.enable = true;
     };
   };
 
