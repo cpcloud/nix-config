@@ -21,7 +21,7 @@ let
     plover = {
       localSystem = "aarch64-linux";
       type = "nixos";
-      address = "192.168.1.167";
+      address = null;
     };
 
     weebill = {
