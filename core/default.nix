@@ -97,7 +97,10 @@ in
     ];
   };
 
-  programs.ssh.startAgent = false;
+  programs.ssh = {
+    startAgent = false;
+    extraConfig = "ConnectTimeout 15";
+  };
 
   systemd = {
     extraConfig = ''
