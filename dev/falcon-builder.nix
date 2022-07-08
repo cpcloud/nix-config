@@ -9,7 +9,8 @@
         hostName = "falcon";
         systems = [ "x86_64-linux" "aarch64-linux" ];
         maxJobs = 32;
-        speedFactor = pkgs.getSpeedFactor {
+        speedFactor = if config.networking.hostName == hostName then 1 else
+        pkgs.getSpeedFactor {
           builderCores = maxJobs;
           hostCores = config.nix.settings.cores;
           isCloudHost = true;
