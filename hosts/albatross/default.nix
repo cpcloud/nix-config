@@ -5,6 +5,8 @@
     ../../dev
     ../../dev/docker.nix
     ../../dev/podman.nix
+
+    ../../dev/albatross-builder.nix
     ../../dev/falcon-builder.nix
 
     ../../hardware/machines/thelio-r2.nix

@@ -4,6 +4,8 @@
 
     ../../dev
     ../../dev/docker.nix
+
+    ../../dev/falcon-builder.nix
     ../../dev/albatross-builder.nix
 
     ../../hardware/machines/gce/gce.nix
