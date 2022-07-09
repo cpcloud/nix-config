@@ -13,7 +13,6 @@ creation_rules:
           - *weebill
           - *falcon
           - *plover
-          - *albatross
   - path_regex: secrets/falcon-builder.yaml
     key_groups:
       - pgp:
@@ -21,7 +20,6 @@ creation_rules:
           - *weebill
           - *albatross
           - *plover
-          - *falcon
   - path_regex: secrets/github-gh-token.yaml
     key_groups:
       - pgp:
