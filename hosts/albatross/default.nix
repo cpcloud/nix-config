@@ -6,8 +6,6 @@
     ../../dev/docker.nix
     ../../dev/podman.nix
 
-    ../../dev/falcon-builder.nix
-
     ../../hardware/machines/thelio-r2.nix
 
     ../../hardware/gpu/nvidia/containers
