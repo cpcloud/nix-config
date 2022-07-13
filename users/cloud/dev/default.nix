@@ -11,9 +11,18 @@
       upterm
     ];
 
-    file.gdbinit = {
-      target = ".gdbinit";
-      source = ./gdbinit;
-    };
+    file.gdbinit =
+      let
+        src = pkgs.fetchFromGitHub {
+          owner = "cyrus-and";
+          repo = "gdb-dashboard";
+          rev = "v0.16.0";
+          sha256 = "sha256-sk638bMM96Nuv+tcNsJANhj6EOaqjN8CRmG8kvFEceY=";
+        };
+      in
+      rec {
+        target = ".gdbinit";
+        source = src + "/${target}";
+      };
   };
 }
