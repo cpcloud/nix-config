@@ -38,6 +38,8 @@
       bind c new-window -c "#{pane_current_path}"
       bind '"' split-window -c "#{pane_current_path}"
       bind % split-window -h -c "#{pane_current_path}"
+
+      set-option -ga update-environment " UPTERM_ADMIN_SOCKET"
     '';
   };
 }
