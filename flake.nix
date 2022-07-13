@@ -6,7 +6,7 @@
       url = "github:serokell/deploy-rs";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        utils.follows = "utils";
+        utils.follows = "flake-utils";
         flake-compat.follows = "flake-compat";
       };
     };
@@ -36,7 +36,7 @@
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "utils";
+      inputs.flake-utils.follows = "flake-utils";
     };
 
     sops-nix = {
@@ -49,20 +49,20 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    utils = {
+    flake-utils = {
       url = "github:numtide/flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, utils, nix-index-database, ... }@inputs: {
+  outputs = { self, nixpkgs, flake-utils, nix-index-database, ... }@inputs: {
     deploy = import ./nix/deploy.nix inputs;
     overlays = {
       default = import ./nix/overlay.nix inputs;
     };
     homeConfigurations = import ./nix/home-manager.nix inputs;
     nixosConfigurations = import ./nix/nixos.nix inputs;
-  } // utils.lib.eachSystem
+  } // flake-utils.lib.eachSystem
     [ "aarch64-linux" "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ]
     (system: {
       checks = import ./nix/checks.nix inputs system;

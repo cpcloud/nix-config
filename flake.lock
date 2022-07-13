@@ -9,7 +9,7 @@
           "nixpkgs"
         ],
         "utils": [
-          "utils"
+          "flake-utils"
         ]
       },
       "locked": {
@@ -39,6 +39,21 @@
       "original": {
         "owner": "edolstra",
         "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1656928814,
+        "narHash": "sha256-RIFfgBuKz6Hp89yRr7+NR5tzIAbn52h8vT6vXkYjZoM=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "7e2a3b3dfd9af950a856d66b0a7d01e3c18aa249",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
         "type": "github"
       }
     },
@@ -128,7 +143,7 @@
     "pre-commit-hooks": {
       "inputs": {
         "flake-utils": [
-          "utils"
+          "flake-utils"
         ],
         "nixpkgs": [
           "nixpkgs"
@@ -152,14 +167,14 @@
       "inputs": {
         "deploy-rs": "deploy-rs",
         "flake-compat": "flake-compat",
+        "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nix-index-database": "nix-index-database",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "pre-commit-hooks": "pre-commit-hooks",
         "sops-nix": "sops-nix",
-        "templates": "templates",
-        "utils": "utils_2"
+        "templates": "templates"
       }
     },
     "sops-nix": {
@@ -205,21 +220,6 @@
         "owner": "numtide",
         "repo": "flake-utils",
         "rev": "1ed9fb1935d260de5fe1c2f7ee0ebaae17ed2fa1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "utils_2": {
-      "locked": {
-        "lastModified": 1656065134,
-        "narHash": "sha256-oc6E6ByIw3oJaIyc67maaFcnjYOz1mMcOtHxbEf9NwQ=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "bee6a7250dd1b01844a2de7e02e4df7d8a0a206c",
         "type": "github"
       },
       "original": {
