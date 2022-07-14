@@ -1,17 +1,4 @@
 config:
-  aws:region: us-east-1
-  dev:aws:
-    enable: false
-    image:
-      bucket: nixos-images
-      family: nixos
-    instances:
-    - disk:
-        size_gb: 64
-        type: gp3
-      machine_type: t3.small
-      name: eagle
-    nix_leaf: amazonImage
   dev:gcp:
     enable: true
     image:
