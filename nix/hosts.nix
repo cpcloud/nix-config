@@ -1,40 +1,18 @@
 let
+  mkHost =
+    { localSystem ? "x86_64-linux"
+    , type ? "nixos"
+    , address ? null
+    }: {
+      inherit localSystem type address;
+    };
+
   hosts = {
-    albatross = {
-      localSystem = "x86_64-linux";
-      type = "nixos";
-      address = null;
-    };
-
-    bluejay = {
-      localSystem = "x86_64-linux";
-      type = "nixos";
-      address = null;
-    };
-
-    falcon = {
-      localSystem = "x86_64-linux";
-      type = "nixos";
-      address = null;
-    };
-
-    plover = {
-      localSystem = "aarch64-linux";
-      type = "nixos";
-      address = null;
-    };
-
-    weebill = {
-      localSystem = "x86_64-linux";
-      type = "nixos";
-      address = null;
-    };
-
-    eagle = {
-      localSystem = "x86_64-linux";
-      type = "nixos";
-      address = null;
-    };
+    albatross = mkHost { };
+    bluejay = mkHost { };
+    falcon = mkHost { };
+    plover = mkHost { };
+    weebill = mkHost { };
   };
 
   inherit (builtins) attrNames concatMap listToAttrs;

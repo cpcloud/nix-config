@@ -9,6 +9,7 @@ creation_rules:
   - path_regex: secrets/albatross-builder.yaml
     key_groups:
       - pgp:
+          - *bluejay
           - *falcon
           - *plover
           - *weebill
@@ -16,6 +17,7 @@ creation_rules:
   - path_regex: secrets/falcon-builder.yaml
     key_groups:
       - pgp:
+          - *bluejay
           - *plover
           - *weebill
           - *yubikey
@@ -23,6 +25,7 @@ creation_rules:
     key_groups:
       - pgp:
           - *albatross
+          - *bluejay
           - *falcon
           - *plover
           - *weebill
@@ -31,6 +34,7 @@ creation_rules:
     key_groups:
       - pgp:
           - *albatross
+          - *bluejay
           - *falcon
           - *plover
           - *weebill
@@ -39,12 +43,14 @@ creation_rules:
     key_groups:
       - pgp:
           - *albatross
+          - *bluejay
           - *weebill
           - *yubikey
   - path_regex: secrets/cachix.yaml
     key_groups:
       - pgp:
           - *albatross
+          - *bluejay
           - *falcon
           - *plover
           - *weebill
