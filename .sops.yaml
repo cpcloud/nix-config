@@ -9,50 +9,43 @@ creation_rules:
   - path_regex: secrets/albatross-builder.yaml
     key_groups:
       - pgp:
-          - *yubikey
-          - *weebill
           - *falcon
           - *plover
+          - *weebill
+          - *yubikey
   - path_regex: secrets/falcon-builder.yaml
     key_groups:
       - pgp:
-          - *yubikey
-          - *weebill
-          - *albatross
           - *plover
+          - *weebill
+          - *yubikey
   - path_regex: secrets/github-gh-token.yaml
     key_groups:
       - pgp:
-          - *yubikey
           - *albatross
-          - *weebill
           - *falcon
           - *plover
+          - *weebill
+          - *yubikey
   - path_regex: secrets/tailscale.yaml
     key_groups:
       - pgp:
-          - *yubikey
           - *albatross
-          - *weebill
           - *falcon
           - *plover
+          - *weebill
+          - *yubikey
   - path_regex: secrets/ursalabs-zulip.yaml
     key_groups:
       - pgp:
-          - *yubikey
           - *albatross
           - *weebill
-  - path_regex: secrets/apache-jira.yaml
-    key_groups:
-      - pgp:
           - *yubikey
-          - *albatross
-          - *weebill
   - path_regex: secrets/cachix.yaml
     key_groups:
       - pgp:
-          - *yubikey
           - *albatross
-          - *weebill
           - *falcon
           - *plover
+          - *weebill
+          - *yubikey
