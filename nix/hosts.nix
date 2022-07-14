@@ -11,7 +11,7 @@ let
     albatross = mkHost { };
     bluejay = mkHost { };
     falcon = mkHost { };
-    plover = mkHost { };
+    plover = mkHost { localSystem = "aarch64-linux"; };
     weebill = mkHost { };
   };
 
