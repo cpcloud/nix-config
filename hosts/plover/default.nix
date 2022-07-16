@@ -2,19 +2,20 @@
   imports = [
     ../../core
 
-    ../../users/cloud
-
     ../../dev
     ../../dev/albatross-builder.nix
     ../../dev/falcon-builder.nix
 
     ../../hardware/machines/rpi4.nix
     ../../hardware/tpu/coral.nix
+    ../../hardware/yubikey.nix
+
+    ../../users/cloud
   ];
 
   console = {
     font = "ter-v28n";
-    packages = with pkgs; [ terminus_font ];
+    packages = [ pkgs.terminus_font ];
   };
 
   environment.noXlibs = true;
