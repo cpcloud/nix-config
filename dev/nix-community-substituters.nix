@@ -10,7 +10,6 @@ let
     "https://stupidb.cachix.org" = "stupidb.cachix.org-1:iJ5Je/opEa7W23qm2CWj2s0XHK2sb8Cb8INKASK0lbY=";
     "https://minesweep.cachix.org" = "minesweep.cachix.org-1:8ldlvDtrH4acflgG2B7t3RunnRpF1VYa10nl4XlbKmc=";
     "https://ibis-substrait.cachix.org" = "ibis-substrait.cachix.org-1:9QMhfByEHEl46s4tqVcRiyiOct2bnmZ23BJk4NTgGGI=";
-    "https://compute-sdk-python.cachix.org" = "compute-sdk-python.cachix.org-1:tWlqcqZkzPjdpewNfwfubw2EYNT7s9+seLBtFnKjOAg=";
   };
 in
 {
